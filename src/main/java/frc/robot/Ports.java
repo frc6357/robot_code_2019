@@ -58,7 +58,7 @@ public class Ports
     public static final int driveGearShiftHigh           = 0;    // PCM 1 output 0
 
     public static final int driveLeftEncoderA            = 2;    // DIO input 2
-    public static final int driveLeftEncoderB            = 3;    // DIO input 1
+    public static final int driveLeftEncoderB            = 3;    // DIO input 3
 
     public static final int driveRightEncoderA           = 0;    // DIO input 0
     public static final int driveRightEncoderB           = 1;    // DIO input 1
@@ -67,11 +67,12 @@ public class Ports
     // Hatch Gripper
     // *************
 
-    // TODO: Verify these assignments.
+    // TODO: Verify whether or not the second pneumatic cylinder to move the gripper
+    //       in and out will be implemented. We've included it here.
     public static final int hatchGripperPCM              = pcm1;
 
-    public static final int hatchGripperOut              = 2;    // PCM 1 output 2
-    public static final int hatchGripperLock             = 3;    // PCM 1 output 3
+    public static final int hatchGripperOut              = 1;    // PCM 1 output 1
+    public static final int hatchGripperLock             = 2;    // PCM 1 output 2
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
 
@@ -83,7 +84,7 @@ public class Ports
     // Elevator components
     //
     public static final int elevatorPCM                  = pcm1;
-    public static final int elevatorUp                   = 2;    // PCM 1 output 2
+    public static final int elevatorUp                   = 3;    // PCM 1 output 3
 
     // TODO: Check elevator position sensor information - switches or ultrasonic?
     public static final int elevatorLimitUp              = 5;    // DIO input 5
@@ -92,32 +93,62 @@ public class Ports
     //
     // Arm components
     //
-    public static final int armRotateMotor              = 11;   // CAN ID 11
+    public static final int armRotateMotor               = 11;   // CAN ID 11
 
     // TODO: Determine if we're using a QEI or variable resistor sensor
     //       to measure the arm angle. We assume QEI here (2 connections)
-    public static final int armEncoderA                 = 6;    // DIO input 6
-    public static final int armEncoderB                 = 7;    // DIO input 7
+    public static final int armEncoderA                  = 7;    // DIO input 7
+    public static final int armEncoderB                  = 8;    // DIO input 8
 
-    // TODO: Verify whether we will have limit switches on the arm. We
-    //       assume so here.
-    public static final int armLimitTop                 = 8;    // DIO input 8
-    public static final int armLimitBottom              = 9;    // DIO input 9
-
-        
-    // ***************
-    // Climb Subsystem
-    // ***************
+    // TODO: Verify whether we connect these to roboRIO or directly to the motor
+    //       controller.
+    public static final int armLimitTop                  = 9;    // DIO input 9
+    public static final int armLimitBottom               = 10;   // DIO input 10
 
     // TODO: Define this information once climb design is clearer.
 
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
+    public static final int intakeIngestMotor            = 20;   // CAN ID 20
+    public static final int intakeArmMotor               = 21;   // CAN ID 21
+
+    // Switch to detect presence of ball immediately after ingest.
+    public static final int intakeIngestDetect           = 11;   // DIO input 11
+
+    public static final int intakeTransferMotorLeft      = 22;   // CAN ID 22
+    public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
+
+    // This is a switch detecting the presence of cargo between the transfer
+    // rollers.
+    public static final int intakeTransferDetect         = 12;   // DIO input 12
+
+    public static final int intakeTrackMotor             = 24;   // CAN ID 24
 
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
+    public static final int octopusMotor                 = 30;   // CAN ID 30
+    public static final int octopusCargoDetect           = 13;   // DIO input 13
+
+    // ***************
+    // Climb Subsystem
+    // ***************
+    public static final int climbPCM                     = pcm1; 
+
+    public static final int climbRailDeploy              = 4;    // PCM 1 channel 4
+    public static final int climbTiltDeploy              = 5;    // PCM 1 channel 5
+
+    public static final int climbMotor                   = 40;   // CAN ID 40
+
+    public static final int climbStopSwitch              = 14;   // DIO input 14
+
+    // ******************
+    // Additional sensors
+    // ******************
+
+    public static final int driveFrontRangefinder        = 0;    // ADC channel 0
+    public static final int driveRearRangefinder         = 1;    // ADC channel 1
 
     //
     // Driver's and operator's OI channel assignments
