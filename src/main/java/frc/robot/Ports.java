@@ -87,8 +87,8 @@ public class Ports
     public static final int elevatorUp                   = 3;    // PCM 1 output 3
 
     // TODO: Check elevator position sensor information - switches or ultrasonic?
-    public static final int elevatorLimitUp              = 5;    // DIO input 5
-    public static final int elevatorLimitDown            = 6;    // DIO input 6
+    public static final int elevatorProximityUp          = 5;    // DIO input 5
+    public static final int elevatorProximityDown        = 6;    // DIO input 6
 
     //
     // Arm components
@@ -112,6 +112,9 @@ public class Ports
     // ********************************************
     public static final int intakeIngestMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
+
+    public static final int intakeArmMotorEncoderA       = 15;   // DIO input 15
+    public static final int intakeArmMotorEncoderB       = 16;   // DIO input 16
 
     // Switch to detect presence of ball immediately after ingest.
     public static final int intakeIngestDetect           = 11;   // DIO input 11
@@ -149,6 +152,11 @@ public class Ports
 
     public static final int driveFrontRangefinder        = 0;    // ADC channel 0
     public static final int driveRearRangefinder         = 1;    // ADC channel 1
+    public static final int driveLineFollowLED0          = 2;    // ADC channel 2
+    public static final int driveLineFollowLED1          = 3;    // ADC channel 3
+    public static final int driveLineFollowLED2          = 4;    // ADC channel 4
+    public static final int driveLineFollowLED3          = 5;    // ADC channel 5
+    public static final int driveLineFollowLED4          = 6;    // ADC channel 6
 
     //
     // Driver's and operator's OI channel assignments
