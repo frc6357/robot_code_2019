@@ -3,7 +3,7 @@
 The Spring Konstant 6357 Git Repo
 -------------------------------
 
-The Spring Konstant is a third year team from Dripping Springs, Texas. Our team is comprised of 40 students. In 2017 and 2018 we went to World Championships in Houston. Our team has been heavily involved in our community, striving to influence the next generation of STEM professionals. We have taken part in many community events, such as science night, Founders Day, and STEM day, and we started our very own FTC team last year, Team 13760, at Sycamore Springs Middle School.
+The Spring Konstant is a third year team from Dripping Springs High School in Dripping Springs, Texas. Our team is comprised of approximately 40 students. In 2017 and 2018 we went to World Championships in Houston. Our team has been heavily involved in our community, striving to influence the next generation of STEM professionals. We have taken part in many community events, such as Elementary School science nights, Founders Day, as well as STEM day, and we started our very own FTC team last year, Team 13760, at Sycamore Springs Middle School.
 
 Installing Tools and Libraries:
 -------------------------------
