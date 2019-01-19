@@ -93,7 +93,7 @@ public class Ports
     //
     // Arm components
     //
-    public static final int armRotateMotor               = 11;   // CAN ID 11
+    public static final int armRotateMotor               = 21;   // CAN ID 21
 
     // TODO: Determine if we're using a QEI or variable resistor sensor
     //       to measure the arm angle. We assume QEI here (2 connections)
@@ -111,7 +111,7 @@ public class Ports
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
     public static final int intakeIngestMotor            = 20;   // CAN ID 20
-    public static final int intakeArmMotor               = 21;   // CAN ID 21
+    public static final int intakeArmMotor               = 25;   // CAN ID 25
 
     // Switch to detect presence of ball immediately after ingest.
     public static final int intakeIngestDetect           = 11;   // DIO input 11
