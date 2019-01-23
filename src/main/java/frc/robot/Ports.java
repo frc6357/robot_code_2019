@@ -63,6 +63,9 @@ public class Ports
     public static final int driveRightEncoderA           = 0;    // DIO input 0
     public static final int driveRightEncoderB           = 1;    // DIO input 1
 
+    public static final int driveEncoderPulsesPerRotation = 256;
+    public static final double driveWheelDiameterInches   = 6.0;
+
     // *************
     // Hatch Gripper
     // *************
