@@ -1,7 +1,5 @@
 package frc.robot.subsystems.base;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
 /**
  * Base class for the Grove Infrared Reflective Sensor v1.2
  */
