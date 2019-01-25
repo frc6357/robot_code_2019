@@ -1,6 +1,7 @@
 package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The BaseTankDrive abstract class provides an interface suitable for 
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.PIDSource;
  * setting the basic motor speeds for each side of the robot, shifting gear
  * and reading encoders.
  */
-public abstract class BaseTankDrive
+public abstract class BaseTankDrive extends Subsystem
 {
     public PIDSource LeftPIDSource;
     public PIDSource RightPIDSource;
@@ -96,4 +97,15 @@ public abstract class BaseTankDrive
      * @return Returns the number of inches the right encoder has measured.
      */
     public abstract double getRightEncoderDistance();
+
+    /**
+     * Each subsystem may, but is not required to, have a default command which is
+     * scheduled whenever the subsystem is idle. If default command is needed use
+     * "setDefaultCommand(new MyDefaultCommand());"
+     */
+    @Override
+    protected void initDefaultCommand()
+    {
+
+    }
 }

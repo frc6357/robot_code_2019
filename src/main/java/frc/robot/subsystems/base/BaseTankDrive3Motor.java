@@ -5,7 +5,7 @@ import frc.robot.Ports;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
 import frc.robot.utils.ScaledEncoder;
@@ -22,17 +22,19 @@ import frc.robot.utils.ScaledEncoder;
  * speed controllers on each side.
  *
  */
-public class BaseTankDrive2Motor extends BaseTankDrive
+public class BaseTankDrive3Motor extends BaseTankDrive
 {
     // Speed Controllers for the drive
     // The front controller is set to master, back is follower
     private final SpeedController baseFrontLeftMaster;
+    private final SpeedController baseCenterLeft;
     private final SpeedController baseBackLeft;
     private final SpeedController baseFrontRightMaster;
+    private final SpeedController baseCenterRight;
     private final SpeedController baseBackRight;
 
     // Gear shifter
-    private final Solenoid baseGearShiftSolenoid;
+    private final DoubleSolenoid baseGearShiftSolenoid;
     private boolean baseHighGear;
 
     // Encoders
@@ -43,27 +45,34 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      * The DriveBaseSystem constructor handles all the actuator object creation, and
      * sets the follow mode for the speed controllers
      */
-    public BaseTankDrive2Motor()
+    public BaseTankDrive3Motor()
     {
         super();
 
-        // NB: We are using 2 motors through a gearbox on each side of the robot. 
+        // NB: We are using 3 motors through a gearbox on each side of the robot. In
+        // this arrangement, the front and rear motors must run in one direction
+        // and the matchign center motor must run in the opposite direction. Take
+        // care to ensure that this is correct!
 
         // Left Drive Controllers
         baseFrontLeftMaster = new WPI_VictorSPX(Ports.driveLeftFrontMotor);
+        baseCenterLeft = new WPI_VictorSPX(Ports.driveLeftCenterMotor);
         baseBackLeft = new WPI_VictorSPX(Ports.driveLeftRearMotor);
 
         // Right Drive Controllers
         baseFrontRightMaster = new WPI_VictorSPX(Ports.driveRightFrontMotor);
+        baseCenterRight = new WPI_VictorSPX(Ports.driveRightCenterMotor);
         baseBackRight = new WPI_VictorSPX(Ports.driveRightRearMotor);
 
-        // Inverts the speed controllers so they do not spin the wrong way.
-        // TODO: Check whether the 2019 gearbox requires both motors to spin
-        // in the same direction or in different directions.
+        // Inverts the speed controllers so they do not spin the wrong way. Remember that the 
+        // center motor spins in the opposite direction from the front and back due to the 
+        // gearbox we are using!
         baseBackRight.setInverted(true);
+        baseCenterRight.setInverted(false);
         baseFrontRightMaster.setInverted(true);
 
         baseBackLeft.setInverted(false);
+        baseCenterLeft.setInverted(true);
         baseFrontLeftMaster.setInverted(false);
 
         // Encoders
@@ -78,14 +87,16 @@ public class BaseTankDrive2Motor extends BaseTankDrive
 
         // This sets the all the speed controllers on the right side to follow the
         // center speed controller
+        ((WPI_VictorSPX) baseCenterRight).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontLeftMaster).getDeviceID());
         ((WPI_VictorSPX) baseBackRight).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontRightMaster).getDeviceID());
 
         // This sets the all the speed controllers on the left side to follow the center
         // speed controller
+        ((WPI_VictorSPX) baseCenterLeft).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontLeftMaster).getDeviceID());
         ((WPI_VictorSPX) baseBackLeft).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontLeftMaster).getDeviceID());
 
         // Gear shifter
-        baseGearShiftSolenoid = new Solenoid(Ports.driveGearShiftPCM, Ports.driveGearShiftHigh);
+        baseGearShiftSolenoid = new DoubleSolenoid(Ports.driveGearShiftPCM, Ports.driveGearShiftHigh, Ports.driveGearShiftLow);
         baseHighGear = false;
 
         // Sets Defaults
@@ -138,7 +149,13 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public void setHighGear(boolean high)
     {
-        baseGearShiftSolenoid.set(high);
+        if (high)
+        {
+            baseGearShiftSolenoid.set(DoubleSolenoid.Value.kForward);
+        } else
+        {
+            baseGearShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
+        }
         baseHighGear = high;
     }
 
