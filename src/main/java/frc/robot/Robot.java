@@ -28,7 +28,8 @@ public class Robot extends TimedRobot
 {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
+  private double driveLeft;
+  private double driveRight;
   public static OI oi;
 
   private int m_DisplayUpdateCounter = 0;
@@ -77,6 +78,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    SmartDashboard.putNumber("Left Commanded Speed", driveLeft);
+    SmartDashboard.putNumber("Right Commanded Speed", driveRight);
+    SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
+    SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
   }
 
   /**
@@ -120,7 +125,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
-    double driveLeft, driveRight;
+    
 
     Scheduler.getInstance().run();
 

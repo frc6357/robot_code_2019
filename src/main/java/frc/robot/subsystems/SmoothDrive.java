@@ -176,7 +176,7 @@ public class SmoothDrive
         double speedNew[] = {0.0, 0.0};
 
         // Calculate left and right speeds in a loop.
-        for(loop = 0; loop < 1; loop++)
+        for(loop = 0; loop <= 1; loop++)
         {
             delta = (speedCurrent[loop] < speedSet[loop]) ? accelMax[loop] : -accelMax[loop];
             speedNew[loop] = speedCurrent[loop] + delta;

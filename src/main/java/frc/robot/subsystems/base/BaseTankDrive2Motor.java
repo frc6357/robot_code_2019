@@ -129,6 +129,30 @@ public class BaseTankDrive2Motor extends BaseTankDrive
         baseFrontRightMaster.set(speed);
     }
 
+        /**
+     * This method is used to query the left side motor speed.
+     *
+     * @return    - the speed set. Valid values are in the range -1 to 1 where
+     *              positive values indicate forwards and negative values indicate
+     *              reverse.
+     */
+    public double getLeftSpeed()
+    {
+        return baseFrontLeftMaster.get();
+    }
+    
+    /**
+     * This method is used to query the right side motor speed.
+     *
+     * @return    - the speed set. Valid values are in the range -1 to 1 where
+     *              positive values indicate forwards and negative values indicate
+     *              reverse.
+     */
+    public double getRightSpeed()
+    {
+        return baseFrontRightMaster.get();
+    }
+
     /**
      * This method is used to change between low and high gear ratios.
      *

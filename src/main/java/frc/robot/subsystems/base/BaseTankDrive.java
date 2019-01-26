@@ -36,6 +36,22 @@ public abstract class BaseTankDrive extends Subsystem
     public abstract void setRightSpeed(double speed);
 
     /**
+     *  Returns the right actual speed
+     *  @return
+     *      - Type: double
+     *      - Returns the actual speed at any point
+     */
+    public abstract double getLeftSpeed();
+
+    /**
+     *  Returns the left actual speed
+     *  @return
+     *      - Type: double
+     *      - Returns the actual speed at any point
+     */
+    public abstract double getRightSpeed();
+
+    /**
      * This method is used to change between low and high gear ratios.
      *
      * @param state
