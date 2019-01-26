@@ -66,6 +66,12 @@ public class Ports
     public static final int driveEncoderPulsesPerRotation = 256;
     public static final double driveWheelDiameterInches   = 6.0;
 
+    // These values are the maximum motors speed change (where the range is [-1, 1])
+    // per 20mS. These give us a 1 second ramp from stopped to maximum speed in 
+    // either direction. Tune these as required.
+    public static final double driveMaxAccelForward       = 0.02;
+    public static final double driveMaxAccelBackwards     = 0.02;
+
     // Additional, temporary definitions to allow us to build this year's
     // code to run on Torsion (with 3 motors per side and a double solenoid for the shifter).
     // TODO: Remove these when the 2019 drivetrain is ready.

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
+import frc.robot.subsystems.SmoothDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,9 +24,8 @@ import frc.robot.subsystems.base.BaseTankDrive3Motor;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
+public class Robot extends TimedRobot
+{
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
   // TODO: This is configured to use the Torsion drive. Replace this with
   // BaseTankDrive2Motor when the 2019 drivetrain is available.
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
+  public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -100,16 +101,9 @@ public class Robot extends TimedRobot {
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+  public void autonomousPeriodic()
+  {
+    teleopDrive.SmoothDrivePeriodic();
   }
 
   @Override
@@ -126,6 +120,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic()
   {
+    double driveLeft, driveRight;
+
+    Scheduler.getInstance().run();
+
+    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive, true); // Retrieves the status of all buttons and joysticks
+    driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive, true);
+
+    teleopDrive.setLeftSpeed(driveLeft);
+    teleopDrive.setRightSpeed(driveRight);
+
+    teleopDrive.SmoothDrivePeriodic();
   }
 
   /**
