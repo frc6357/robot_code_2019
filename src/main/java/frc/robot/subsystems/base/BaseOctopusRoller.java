@@ -3,32 +3,52 @@ package frc.robot.subsystems.base;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.subsystems.base.BaseLimitSensor;
 /**
- * 
+ *  Base class that utilizes the BaseRoller class as well as the BaseLimitSensor class
  */
-//TODO: Needs to be finished and fully implemented
 public class BaseOctopusRoller extends BaseRoller
 {
+    // TODO: Reintialize the files that will be used at a later date in a higher level class
+    /*
     // Motor Controllers
-    //private final SpeedController motorController;
+    private final SpeedController motorController;
     // scaler Value
-    //private final static double scaler = 1;
+    private final static double scaler = 1;
     // Limit Sensors
-    //private final BaseLimitSensor CargoSensor;
+    private final BaseLimitSensor CargoSensor;
+    */
 
-    public BaseOctopusRoller(BaseLimitSensor CargoSensor, SpeedController motorController, int scaler)
+    /**
+     *  Creates a base set of rollers for the octopus that utilizes a limit sensor
+     *  @param CargoSensor
+     *      - Type: BaseLimitSensor
+     *      - Is the sensor that will detect whether the cargo is inside of the octopus
+     *  @param motorController
+     *      - Type: SpeedController
+     *      - Passes the motor controller through that will be utilized by base roller
+     *  @param scaler
+     *      - Type: double
+     *      - Sets a slower speed if neccesary to be able to slow the motors down
+     */
+    public BaseOctopusRoller(BaseLimitSensor CargoSensor, SpeedController motorController, double scaler)
     {
+        
         super(motorController, scaler);
-        //this.motorController = motorController;
-        //this.CargoSensor = CargoSensor;
-
+        /* TODO: Reintialize these at a later date when used by higher class
+        this.motorController = motorController;
+        this.CargoSensor = CargoSensor;
+        */
     }
     
-    /*private boolean isCargoPressed()
+    /**
+     *  Checks whether the cargo sensor is activated
+     *  @return
+     *      - Type: boolean
+     *      - Checks whether the sensor is activated and will return true
+     */
+    /*TODO: Reintialize these at a later date when higher class is created
+    private boolean isCargoPressed()
     {
-        /**
-         *  Takes the boolean value from CargoSensor and then calls the proper method if needed to stop or keep going
-         *  Will need to check if it's set to forwards or backwards
-         
+        
         return CargoSensor.getIsTriggered();
     }
     */
