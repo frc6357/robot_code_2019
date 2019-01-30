@@ -15,21 +15,7 @@ public class BaseGroveIRProximitySensor extends BaseProximitySensor
      */
     public BaseGroveIRProximitySensor(int port)
     {
-        super(port);
-    }
-
-    /**
-     * Get the state of the limit sensor
-     *
-     * @return
-     *      - Type:  boolean
-     *      - True:  is triggered
-     *      - False: is NOT triggered
-     */
-    @Override
-    public boolean getIsTriggered()
-    {
-        //TODO: Add specific "filter" for correct value to be read from Grove IR
-        return this.getIsTriggered();
+         //TODO: Add specific "triggeredState" based on polarity of output
+        super(port, true);
     }
 }
