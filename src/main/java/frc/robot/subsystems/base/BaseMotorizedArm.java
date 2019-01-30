@@ -3,6 +3,7 @@ package frc.robot.subsystems.base;
 import edu.wpi.first.wpilibj.SpeedController;
 
 import frc.robot.subsystems.base.BaseLimitSensor;
+import frc.robot.subsystems.base.DummyLimitSensor;
 
 /**
  * Base motorized arm class
@@ -46,50 +47,6 @@ public class BaseMotorizedArm
 
         this.armLimitTop = armLimitTop;
         this.armLimitBottom = armLimitBottom;
-    }
-
-    /**
-     *  Constructor:
-     *
-     *  @param armRotateMotor
-     *      - Type: SpeedController
-     *      - Speed controller for controlling arm motor
-     *
-     * @param armLimitTop
-     *      - Type: int
-     *      - DIO for upper limit sensor
-     *
-     */
-    public BaseMotorizedArm(SpeedController armRotateMotor, BaseLimitSensor armLimitTop)
-    {
-        armState = ArmStates.STOPPED;
-
-        this.armRotateMotor = armRotateMotor;
-
-        this.armLimitTop = armLimitTop;
-        this.armLimitBottom = new DummyLimitSensor(false);
-    }
-
-    /**
-     *  Constructor:
-     *
-     *  @param armRotateMotor
-     *      - Type: SpeedController
-     *      - Speed controller for controlling arm motor
-     *
-     * @param armLimitBottom
-     *      - Type: int
-     *      - DIO for bottom limit sensor
-     *
-     */
-    public BaseMotorizedArm(SpeedController armRotateMotor, BaseLimitSensor armLimitBottom)
-    {
-        armState = ArmStates.STOPPED;
-
-        this.armRotateMotor = armRotateMotor;
-
-        this.armLimitBottom = armLimitBottom;
-        this.armLimitTop = new DummyLimitSensor(false);
     }
 
     public BaseMotorizedArm(SpeedController armRotateMotor)
