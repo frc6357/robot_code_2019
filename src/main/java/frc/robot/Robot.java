@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
+import frc.robot.subsystems.base.RangefinderMB1013;
 import frc.robot.subsystems.SmoothDrive;
 
 /**
@@ -38,7 +39,7 @@ public class Robot extends TimedRobot
   // BaseTankDrive2Motor when the 2019 drivetrain is available.
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
-
+  public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -163,12 +164,14 @@ public class Robot extends TimedRobot
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
 
+
     if(m_DisplayUpdateCounter % 10 == 0)
     {
         SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+        SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
     }
     m_DisplayUpdateCounter++;
   }
