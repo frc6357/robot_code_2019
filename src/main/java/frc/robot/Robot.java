@@ -172,6 +172,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
         SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
+        SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
     }
     m_DisplayUpdateCounter++;
   }

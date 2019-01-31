@@ -107,7 +107,7 @@ public class RangefinderMB1013 extends BaseRangefinder implements PIDSource
         double range;
 
         // Read the ADC to which the rangefinder is attached.
-        mV = 1000 * adc.getVoltage();
+        mV = 1000.0 * adc.getVoltage();
 
         // If the reading is out of range, tell the caller.
         if((mV < MIN_MILLIVOLTS) || (mV > MAX_MILLIVOLTS))
@@ -121,6 +121,16 @@ public class RangefinderMB1013 extends BaseRangefinder implements PIDSource
         return range;
     }
 
+    /**
+     * Test function which returns the raw ADC reading from the sensor.
+     * 
+     * @return The raw voltage read by the ADC. This is in volts rather than
+     * millivolts.
+     */
+    public double getVoltage()
+    {
+        return adc.getVoltage();
+    }
     /**
      * Methods implementing the PIDSource interface.
      * 
