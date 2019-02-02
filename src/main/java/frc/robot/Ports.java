@@ -193,6 +193,8 @@ public class Ports
     public static final int IODriverGearSelectLow       = 1; // Button A
     public static final int IODriverGearSelectHigh      = 4; // Button Y
 
+    public static final int OIDriverCameraSwitcher      = 2; // Button B
+
     // *********************
     // Operator Controller
     // *********************

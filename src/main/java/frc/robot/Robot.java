@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
@@ -35,6 +37,8 @@ public class Robot extends TimedRobot
   public static OI oi;
   public static UsbCamera camera;
   public static UsbCamera cameraRear;
+  public static boolean cameraPrev = false;
+  public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
 
   // TODO: This is configured to use the Torsion drive. Replace this with
@@ -61,6 +65,7 @@ public class Robot extends TimedRobot
     cameraRear.setResolution(150, 150);
     camera.setResolution(150, 150);
     cameraRear.setFPS(30);
+    Server = new MjpegServer("cameraServer", 1);
   }
 
 
@@ -153,7 +158,8 @@ public class Robot extends TimedRobot
   @Override
   public void testInit()
   {
-    
+        CameraServer camServer = CameraServer.getInstance();
+        camServer.addServer(Server);
   }
 
   /**
@@ -183,6 +189,16 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
     }
     m_DisplayUpdateCounter++;
+    if (OI.buttonCameraShifter.get() && !cameraPrev)
+    {
+        //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
+        Server.setSource(cameraRear);
+    }
+    else if (!OI.buttonCameraShifter.get() && cameraPrev)
+    {
+        Server.setSource(camera);
+    }
+    cameraPrev = OI.buttonCameraShifter.get();
   }
 }
 
