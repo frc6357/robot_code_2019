@@ -26,19 +26,6 @@ public class Ports
     // RoboRIO has a total of 25 DIO pins, 10 on the base, 15 on the MXP. Pullup/down varies on some pins!
     // MXP is not available if we attach the IMU, limiting us to 10 DIOs.
     //
-    // Pneumatics:
-    //
-    // The assumption is that all pneumatics will use single solenoid operation with springs
-    // fitted to cylinders to pull the shaft back to the resting position when the PCM channel 
-    // is not activated. Naming here indicates the operation when the relevant PCM channel is
-    // activated with the resting case being the opposite. For example, "driveGearShiftHigh" is
-    // activated to select high gear in the drive system. When not activated, low gear is selected.
-    // Does this make sense? Some would say so.
-    //
-    // Free RoboRIO and PCM ports:
-    //
-    // TODO: Fill this in when we see what's left over for last minute use.
-    //
     
     // ***************************
     // Pneumatic Control Module(s)
@@ -83,12 +70,14 @@ public class Ports
     // Hatch Gripper// 
     // *************
 
-    // TODO: Verify whether or not the second pneumatic cylinder to move the gripper
-    //       in and out will be implemented. We've included it here.
     public static final int hatchGripperPCM              = pcm1;
 
-    public static final int hatchGripperOut              = 1;    // PCM 1 output 1
-    public static final int hatchGripperLock             = 2;    // PCM 1 output 2
+    // The hatch gripper and deploy mechanism uses double solenoids so we need
+    // two PCM channels per piston.
+    public static final int hatchGripperOut              = 2;    // PCM 1 output 2
+    public static final int hatchGripperIn               = 4;    // PCM 1 output 4
+    public static final int hatchGripperLock             = 3;    // PCM 1 output 3
+    public static final int hatchGripperUnlock           = 5;    // PCM 1 output 5
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
 
@@ -100,7 +89,7 @@ public class Ports
     // Elevator components
     //
     public static final int elevatorPCM                  = pcm1;
-    public static final int elevatorUp                   = 3;    // PCM 1 output 3
+    public static final int elevatorUp                   = 6;    // PCM 1 output 6
 
     // TODO: Check elevator position sensor information - switches or ultrasonic?
     public static final int elevatorProximityUp          = 5;    // DIO input 5
@@ -155,12 +144,9 @@ public class Ports
     // ***************
     public static final int climbPCM                     = pcm1; 
 
-    public static final int climbRailDeploy              = 4;    // PCM 1 channel 4
-    public static final int climbTiltDeploy              = 5;    // PCM 1 channel 5
+    public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
     public static final int climbMotor                   = 40;   // CAN ID 40
-
-    public static final int climbStopSwitch              = 14;   // DIO input 14
 
     // ******************
     // Additional sensors
