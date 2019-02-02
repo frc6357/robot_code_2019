@@ -58,8 +58,6 @@ public class BaseTankDrive2Motor extends BaseTankDrive
         baseBackRight = new WPI_VictorSPX(Ports.driveRightRearMotor);
 
         // Inverts the speed controllers so they do not spin the wrong way.
-        // TODO: Check whether the 2019 gearbox requires both motors to spin
-        // in the same direction or in different directions.
         baseBackRight.setInverted(true);
         baseFrontRightMaster.setInverted(true);
 

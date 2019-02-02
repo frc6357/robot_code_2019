@@ -35,6 +35,8 @@ import frc.robot.subsystems.base.BaseLimitSensor;
         this.hatchDeploySolenoid = hatchDeploySolenoid;
         this.hatchLatchSolenoid  = hatchLatchSolenoid;
         this.hatchDetector       = hatchDetector;
+
+        hatchDisable();
     }
 
     /**
@@ -78,5 +80,14 @@ import frc.robot.subsystems.base.BaseLimitSensor;
     public boolean hatchIsPresent()
     {
         return hatchDetector.getIsTriggered();
+    }
+
+    /**
+     * Disables (turns off) both channels of both solenoids used in the mechanism.
+     */
+    public void hatchDisable()
+    {
+        hatchLatchSolenoid.set(DoubleSolenoid.Value.kOff);
+        hatchDeploySolenoid.set(DoubleSolenoid.Value.kOff);
     }
  }

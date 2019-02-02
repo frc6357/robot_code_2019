@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTableInstance;
+//import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
@@ -56,10 +56,8 @@ public class Robot extends TimedRobot
 
     // Initialize the operator interface.
     oi = new OI();
-
-    // TODO: Set up any smartdashboard chooser options here.
     
-    camera=CameraServer.getInstance().startAutomaticCapture("Testing", 0);
+    camera=CameraServer.getInstance().startAutomaticCapture("Driver Front Camera", 0);
     //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
     //cameraRear.setResolution(640, 480);
     camera.setResolution(240, 240);
