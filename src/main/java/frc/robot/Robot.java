@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
@@ -53,6 +53,7 @@ public class Robot extends TimedRobot
     oi = new OI();
 
     // TODO: Set up any smartdashboard chooser options here.
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
 
