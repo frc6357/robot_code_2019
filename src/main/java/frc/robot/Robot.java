@@ -36,7 +36,6 @@ public class Robot extends TimedRobot
   private double driveRight;
   public static OI oi;
   public static UsbCamera camera;
-  public static UsbCamera cameraRear;
   public static boolean cameraPrev = false;
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
@@ -61,11 +60,11 @@ public class Robot extends TimedRobot
     // TODO: Set up any smartdashboard chooser options here.
     
     camera=CameraServer.getInstance().startAutomaticCapture("Testing", 0);
-    cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
-    cameraRear.setResolution(150, 150);
-    camera.setResolution(150, 150);
-    cameraRear.setFPS(30);
-    Server = new MjpegServer("cameraServer", 1);
+    //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
+    //cameraRear.setResolution(640, 480);
+    camera.setResolution(240, 240);
+    camera.setFPS(15);
+    //Server = new MjpegServer("cameraServer", 1);
   }
 
 
@@ -158,8 +157,8 @@ public class Robot extends TimedRobot
   @Override
   public void testInit()
   {
-        CameraServer camServer = CameraServer.getInstance();
-        camServer.addServer(Server);
+        //CameraServer camServer = CameraServer.getInstance();
+        //camServer.addServer(Server);
   }
 
   /**
@@ -192,11 +191,13 @@ public class Robot extends TimedRobot
     if (OI.buttonCameraShifter.get() && !cameraPrev)
     {
         //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
-        Server.setSource(cameraRear);
+        //Server.setSource(cameraRear);
+        System.out.println("This should be rear camera");
     }
     else if (!OI.buttonCameraShifter.get() && cameraPrev)
     {
-        Server.setSource(camera);
+        //Server.setSource(camera);
+        System.out.println("This should be front camera");
     }
     cameraPrev = OI.buttonCameraShifter.get();
   }
