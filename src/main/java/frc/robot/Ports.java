@@ -184,21 +184,33 @@ public class Ports
     // ********************
     // Drivers Controller
     // ********************
-    public static final int OIDriverJoystick            = 0;
+    public static final int OIDriverJoystick             = 0;
 
-    public static final int OIDriverLeftDrive           = 1; // Left Joystick Y
-    public static final int OIDriverRightDrive          = 5; // Right Joystick Y
-    public static final int OIDriverSlow                = 5; // Left bumper
+    public static final int OIDriverLeftDrive            = 1;    // Left Joystick Y
+    public static final int OIDriverRightDrive           = 5;    // Right Joystick Y
+    public static final int OIDriverSlow                 = 5;    // Left bumper
 
-    public static final int IODriverGearSelectLow       = 1; // Button A
-    public static final int IODriverGearSelectHigh      = 4; // Button Y
+    public static final int IODriverGearSelectLow        = 1;    // Button A
+    public static final int IODriverGearSelectHigh       = 4;    // Button Y
 
     public static final int OIDriverCameraSwitcher      = 2; // Button B
 
     // *********************
     // Operator Controller
     // *********************
-    public static final int OIOperatorJoystick          = 1;
+    public static final int OIOperatorJoystick           = 0;        
 
+    public static final int OIOperatorJoystickLC         = 9;    // Left Joytsick
+    public static final int OIOperatorJoystickRC         = 10;   // Right Joystick
+    public static final int OIOperatorLeftBumperC        = 5;    // Left Bumper
+    public static final int OIOperatorRightBumperC       = 6;    // Right Bumper
+
+    public static final int OIOperatorHeight_1           = 1;    // A Button
+    public static final int OIOperatorHeight_2           = 2;    // B Button
+    public static final int OIOperatorHeight_3           = 4;    // Y Button
+
+    public static final int OIOperatorRelease            = 3;    // Right Trigger
+
+    public static final int OIOperatorRaiseIntake        = 2;    // Left Trigger
     // TODO: Define what the operator controls are to be.
 }
