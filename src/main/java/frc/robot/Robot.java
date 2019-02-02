@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
@@ -32,7 +33,8 @@ public class Robot extends TimedRobot
   private double driveLeft;
   private double driveRight;
   public static OI oi;
-
+  public static UsbCamera camera;
+  public static UsbCamera cameraRear;
   private int m_DisplayUpdateCounter = 0;
 
   // TODO: This is configured to use the Torsion drive. Replace this with
@@ -53,7 +55,12 @@ public class Robot extends TimedRobot
     oi = new OI();
 
     // TODO: Set up any smartdashboard chooser options here.
-    CameraServer.getInstance().startAutomaticCapture();
+    
+    camera=CameraServer.getInstance().startAutomaticCapture("Testing", 0);
+    cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
+    cameraRear.setResolution(150, 150);
+    camera.setResolution(150, 150);
+    cameraRear.setFPS(30);
   }
 
 
@@ -146,7 +153,7 @@ public class Robot extends TimedRobot
   @Override
   public void testInit()
   {
-
+    
   }
 
   /**
