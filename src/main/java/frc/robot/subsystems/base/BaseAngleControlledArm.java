@@ -5,13 +5,15 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.utils.ScaledEncoder;
 
 /**
+ * Base class for an angled controlled arm
  *
+ * THE PERIODIC FUNCTION MUST BE IMPLEMENTED
  */
-public class BaseAngledControlledArm extends BaseMotorizedArm {
+public class BaseAngleControlledArm extends BaseMotorizedArm {
 
     private final ScaledEncoder armEncoder;
 
-    private final double STOP_SPEED_DEADBAND = 2.0;
+    private final double STOP_ANGLE_DEADBAND = 2.0;
 
     private double angleSetPoint;
     private double armSpeed;
@@ -27,7 +29,7 @@ public class BaseAngledControlledArm extends BaseMotorizedArm {
      *
      * @param armSpeed       - Type: double - Constant speed for arm to move at
      */
-    public BaseAngledControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, double armSpeed) {
+    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, double armSpeed) {
         super(armRotateMotor);
 
         this.armEncoder = armEncoder;
@@ -56,7 +58,7 @@ public class BaseAngledControlledArm extends BaseMotorizedArm {
      *      - Type: int
      *      - DIO for bottom limit sensor
      */
-    public BaseAngledControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, BaseLimitSensor armLimitTop, BaseLimitSensor armLimitBottom, double armSpeed)
+    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, BaseLimitSensor armLimitTop, BaseLimitSensor armLimitBottom, double armSpeed)
     {
         super(armRotateMotor, armLimitBottom, armLimitTop);
 
@@ -68,15 +70,14 @@ public class BaseAngledControlledArm extends BaseMotorizedArm {
     }
 
     /**
-     *  Function to be called / placed in periodic
+     * THIS FUNCTION MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
      */
-    @Override
     public void periodic()
     {
-        setStateFromSpeed();
+        handleIsTriggered();
 
-        if (armEncoder.getAngleDegrees() < (angleSetPoint + STOP_SPEED_DEADBAND)
-        && armEncoder.getAngleDegrees() > (angleSetPoint - STOP_SPEED_DEADBAND))
+        if (armEncoder.getAngleDegrees() < (angleSetPoint + STOP_ANGLE_DEADBAND)
+        && armEncoder.getAngleDegrees() > (angleSetPoint - STOP_ANGLE_DEADBAND))
         {
             stop();
         }

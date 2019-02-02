@@ -1,5 +1,7 @@
 package frc.robot.subsystems.base;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.SpeedController;
 
 import frc.robot.subsystems.base.BaseLimitSensor;
@@ -7,6 +9,8 @@ import frc.robot.subsystems.base.DummyLimitSensor;
 
 /**
  * Base motorized arm class
+ *
+ * PERIODIC MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
  */
 public class BaseMotorizedArm
 {
@@ -49,6 +53,13 @@ public class BaseMotorizedArm
         this.armLimitBottom = armLimitBottom;
     }
 
+    /**
+     * Constructor
+     *
+     *  @param armRotateMotor
+     *      - Type: SpeedController
+     *      - Speed controller for controlling arm motor
+     */
     public BaseMotorizedArm(SpeedController armRotateMotor)
     {
         armState = ArmStates.STOPPED;
@@ -60,32 +71,11 @@ public class BaseMotorizedArm
     }
 
     /**
-     *  Function to be called / placed in periodic
+     * THIS FUNCTION MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
      */
     public void periodic()
     {
-        setStateFromSpeed();
-    }
-
-    /**
-     * Sets ArmStates armState based on the value passed to the speed controller
-     */
-    public void setStateFromSpeed()
-    {
-        if (armRotateMotor.get() > 0)
-        {
-            armState = ArmStates.MOVING_UP;
-        }
-
-        if (armRotateMotor.get() < 0)
-        {
-            armState = ArmStates.MOVING_DOWN;
-        }
-
-        if (armRotateMotor.get() == 0)
-        {
-            armState = ArmStates.STOPPED;
-        }
+        handleIsTriggered();
     }
 
     /**
@@ -97,28 +87,48 @@ public class BaseMotorizedArm
      */
     public void setSpeed(double speed)
     {
-        if (armState == ArmStates.MOVING_UP)
+        if (speed > 0)
         {
-            if (armLimitTop.getIsTriggered())
+            if (armLimitTop.getIsTriggered() && armState != ArmStates.STOPPED)
             {
                 stop();
+                armState = ArmStates.STOPPED;
             }
             else
             {
                 armRotateMotor.set(speed);
+                armState = ArmStates.MOVING_UP;
             }
         }
-
-        if (armState == ArmStates.MOVING_DOWN)
+        else if (speed < 0)
         {
-            if (armLimitBottom.getIsTriggered())
+            if (armLimitBottom.getIsTriggered() && armState != ArmStates.STOPPED)
             {
                 stop();
+                armState = ArmStates.STOPPED;
             }
             else
             {
                 armRotateMotor.set(speed);
+                armState = ArmStates.MOVING_DOWN;
             }
+        }
+        else
+        {
+            stop();
+        }
+    }
+
+    /**
+     * Stops the arm when either limit is reached
+     */
+    public void handleIsTriggered()
+    {
+        if ((armLimitBottom.getIsTriggered() || armLimitTop.getIsTriggered())
+            && armState != ArmStates.STOPPED)
+        {
+            stop();
+            armState = ArmStates.STOPPED;
         }
     }
 
