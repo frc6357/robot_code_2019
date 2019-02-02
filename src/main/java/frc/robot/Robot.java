@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
@@ -32,7 +35,9 @@ public class Robot extends TimedRobot
   private double driveLeft;
   private double driveRight;
   public static OI oi;
-
+  public static UsbCamera camera;
+  public static boolean cameraPrev = false;
+  public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
 
   // TODO: This is configured to use the Torsion drive. Replace this with
@@ -53,6 +58,13 @@ public class Robot extends TimedRobot
     oi = new OI();
 
     // TODO: Set up any smartdashboard chooser options here.
+    
+    camera=CameraServer.getInstance().startAutomaticCapture("Testing", 0);
+    //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
+    //cameraRear.setResolution(640, 480);
+    camera.setResolution(240, 240);
+    camera.setFPS(15);
+    //Server = new MjpegServer("cameraServer", 1);
   }
 
 
@@ -145,7 +157,8 @@ public class Robot extends TimedRobot
   @Override
   public void testInit()
   {
-
+        //CameraServer camServer = CameraServer.getInstance();
+        //camServer.addServer(Server);
   }
 
   /**
@@ -175,6 +188,18 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
     }
     m_DisplayUpdateCounter++;
+    if (OI.buttonCameraShifter.get() && !cameraPrev)
+    {
+        //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
+        //Server.setSource(cameraRear);
+        System.out.println("This should be rear camera");
+    }
+    else if (!OI.buttonCameraShifter.get() && cameraPrev)
+    {
+        //Server.setSource(camera);
+        System.out.println("This should be front camera");
+    }
+    cameraPrev = OI.buttonCameraShifter.get();
   }
 }
 

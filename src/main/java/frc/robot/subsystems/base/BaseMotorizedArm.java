@@ -118,7 +118,8 @@ public class BaseMotorizedArm
             else
             {
                 armRotateMotor.set(speed);
-            }        }
+            }
+        }
     }
 
     /**
@@ -127,5 +128,25 @@ public class BaseMotorizedArm
     public void stop()
     {
         armRotateMotor.set(0);
+    }
+
+    /**
+     * Gets the state of the bottom limit sensor
+     *
+     * @return Type: boolean - True: triggered, False: not triggered
+     */
+    public boolean getBottomLimitTriggered()
+    {
+        return armLimitBottom.getIsTriggered();
+    }
+
+    /**
+     * Gets the state of the top limit sensor
+     *
+     * @return Type: boolean - True: triggered, False: not triggered
+     */
+    public boolean getTopLimitTriggered()
+    {
+        return armLimitTop.getIsTriggered();
     }
 }

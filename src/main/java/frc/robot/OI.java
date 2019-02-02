@@ -50,6 +50,7 @@ public class OI
     private Button buttonLowGear;
     private Button buttonHighGear;
 
+    public static Button buttonCameraShifter;
     // TODO: Add members for all operator functions (buttons, axes, etc)
     
     public OI()
@@ -64,6 +65,7 @@ public class OI
         buttonLowGear.whenPressed(new GearShiftCommand(false));
         buttonHighGear.whenPressed(new GearShiftCommand(true));
 
+        buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
         // TODO: Add support for all additional operator and driver controls.
     }
 
