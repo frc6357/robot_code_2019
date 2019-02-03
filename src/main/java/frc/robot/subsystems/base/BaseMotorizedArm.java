@@ -1,7 +1,5 @@
 package frc.robot.subsystems.base;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.SpeedController;
 
 import frc.robot.subsystems.base.BaseLimitSensor;
