@@ -115,23 +115,43 @@ public class Ports
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
-    public static final int intakeIngestMotor            = 20;   // CAN ID 20
+    public static final int intakeRollerMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
 
-    public static final int intakeArmMotorEncoderA       = 15;   // DIO input 15
-    public static final int intakeArmMotorEncoderB       = 16;   // DIO input 16
+    public static final int intakeArmEncoderA            = 15;   // DIO input 15
+    public static final int intakeArmEncoderB            = 16;   // DIO input 16
 
-    // Switch to detect presence of ball immediately after ingest.
+    // IR proximity detector to detect presence of ball immediately after ingest.
     public static final int intakeIngestDetect           = 11;   // DIO input 11
 
+    // TODO: The mechanism to move the cargo from the initial intake to the
+    // "octopus" must be finalized! The following definitions are likely
+    // incorrect.
     public static final int intakeTransferMotorLeft      = 22;   // CAN ID 22
     public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
 
-    // This is a switch detecting the presence of cargo between the transfer
+    // This is an IR proximity sensor detecting the presence of cargo between the transfer
     // rollers.
     public static final int intakeTransferDetect         = 12;   // DIO input 12
 
-    public static final int intakeTrackMotor             = 24;   // CAN ID 24
+    // The speed of the intake and transfer roller motors when enabled.
+    public static final double intakeTransferMotorSpeed  = 0.25;
+    public static final double intakeIngestMotorSpeed    = 0.5;
+    public static final double intakeArmMotorSpeed       = 0.25;
+
+    // The resolution and sense of the encoder attached to the intake arm.
+    // TODO: Set intake arm encoder resolution and sense correctly!
+    public static final int intakeArmEncoderPulsesPerRev = 256;
+    public static final boolean intakeArmEncoderReverse  = false;
+
+    // The angle (in degrees from the stowed position) to move the intake arm to
+    // when deployed.
+    //  TODO: Tune intake arm angle to the correct value.
+    public static final double intakeArmDeployedAngle    = 90.0;
+
+    // The triggered states of the ingest and transfer proximity sensors.
+    public static final boolean intakeIngestDetectState   = true;
+    public static final boolean intakeTransferDetectState = true;
 
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")

@@ -20,6 +20,7 @@ import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
 import frc.robot.subsystems.base.RangefinderMB1013;
 import frc.robot.subsystems.SmoothDrive;
+import frc.robot.subsystems.SK19CargoIntake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,6 +46,8 @@ public class Robot extends TimedRobot
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
+  public static SK19CargoIntake Intake = new SK19CargoIntake();
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -74,7 +77,6 @@ public class Robot extends TimedRobot
     {
         BaseDrive.setLeftSpeed(0);
         BaseDrive.setRightSpeed(0);
-
         // TODO: Do anything else needed to safe the robot when it is disabled.
     }
 
