@@ -49,7 +49,6 @@ public class OI
 
     private Button buttonLowGear;
     private Button buttonHighGear;
-    private Button buttonLeftClimb;
 
     public static Button buttonCameraShifter;
     // TODO: Add members for all operator functions (buttons, axes, etc)
@@ -63,13 +62,8 @@ public class OI
         buttonLowGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectLow);
         buttonHighGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectHigh);
 
-        buttonLeftClimb = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickLC);        
-
         buttonLowGear.whenPressed(new GearShiftCommand(false));
         buttonHighGear.whenPressed(new GearShiftCommand(true));
-        buttonLeftClimb.whenPressed(new ClimbCommand(true));
-
-
 
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
         // TODO: Add support for all additional operator and driver controls.
@@ -116,5 +110,27 @@ public class OI
             multiplier = -1.0;
         }
         return (multiplier * joystickOperator.getRawAxis(port));
+    }
+
+    /**
+     * This method wires up the operator interface controls depending upon the mode that the 
+     * robot is operating in. Valid combinations of the two parameters are:
+     * 
+     *                           ----------------------------------
+     *                     bTest |    false         |     true    |
+     * bManualOverride           |------------------|--------------
+     *                    true   |     Manual       |     Test    |
+     *                           | game operation   |     Mode    |
+     *     --------------------------------------------------------
+     *                    false  |     Normal       |     Test    |
+     *                           | game operation   |     Mode    |
+     *                           ----------------------------------
+     * 
+     * @param bTest Sets operator controls for test mode.
+     * @param bManualOverride Sets normal or manual override mode. Ignored if bTest is true.
+     */
+    public void setMode(boolean bTest, boolean bManualOverride)
+    {
+
     }
 }
