@@ -199,24 +199,30 @@ public class Ports
     public static final int IODriverGearSelectLow        = 1;    // Button A
     public static final int IODriverGearSelectHigh       = 4;    // Button Y
 
-    public static final int OIDriverCameraSwitcher      = 2; // Button B
+    public static final int OIDriverCameraSwitcher      = 2;     // Button B
 
     // *********************
     // Operator Controller
     // *********************
     public static final int OIOperatorJoystick           = 0;        
 
-    public static final int OIOperatorJoystickLC         = 9;    // Left Joytsick
-    public static final int OIOperatorJoystickRC         = 10;   // Right Joystick
-    public static final int OIOperatorLeftBumperC        = 5;    // Left Bumper
-    public static final int OIOperatorRightBumperC       = 6;    // Right Bumper
+    public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
+    public static final int OIOperatorJoystickR          = 10;   // Right Joystick
+    public static final int OIOperatorLeftBumper         = 5;    // Left Bumper
+    public static final int OIOperatorRightBumper        = 6;    // Right Bumper
 
-    public static final int OIOperatorHeight_1           = 1;    // A Button
-    public static final int OIOperatorHeight_2           = 2;    // B Button
-    public static final int OIOperatorHeight_3           = 4;    // Y Button
+    public static final int OIOperatorButtonA            = 1;    // A Button
+    public static final int OIOperatorButtonB            = 2;    // B Button
+    public static final int OIOperatorButtonY            = 4;    // Y Button
+    public static final int OIOperatorButtonX            = 3;    // X Button
 
-    public static final int OIOperatorRelease            = 3;    // Right Trigger
+    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
 
-    public static final int OIOperatorRaiseIntake        = 2;    // Left Trigger
+    public static final int OIOperatorJoystickLY          = 2;    // Up D-Pad, Joystick axis 2
+
+    public static final int OIOperatorSelect             = 7;    // Select Button
+    public static final int OIOperatorStart              = 8;    // Start Button
+   
+
     // TODO: Define what the operator controls are to be.
 }
