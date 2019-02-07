@@ -104,6 +104,9 @@ public class Ports
     //       to measure the arm angle. We assume QEI here (2 connections)
     public static final int armEncoderA                  = 7;    // DIO input 7
     public static final int armEncoderB                  = 8;    // DIO input 8
+    // TODO: Set the actual direction as well as accurate pulses per rev
+    public static final int armEncoderPulsesPerRev       = 256;
+    public static final boolean armEncoderReverse        = false;
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
     //       controller.
