@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Ports;
 import frc.robot.subsystems.base.BaseAngleControlledArm;
 import frc.robot.subsystems.base.BaseProximitySensor;
@@ -18,7 +19,7 @@ import frc.robot.utils.ScaledEncoder;
  * detector to allow us to grab and hold the cargo until the octopus is in place to
  * receive it.
  */
-public class SK19CargoIntake
+public class SK19CargoIntake extends Subsystem
 {
     SpeedController        RollerMotor;
     SpeedController        ArmMotor;
@@ -149,5 +150,10 @@ public class SK19CargoIntake
     public void periodic()
     {
         RollerArm.periodic();
+    }
+
+    public void initDefaultCommand()
+    {
+
     }
 }

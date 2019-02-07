@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.base.BaseMotorizedArm;
 //import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
@@ -47,7 +48,7 @@ public class Robot extends TimedRobot
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
-
+  
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.

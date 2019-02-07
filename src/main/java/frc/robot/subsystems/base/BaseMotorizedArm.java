@@ -1,7 +1,7 @@
 package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.SpeedController;
-
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.subsystems.base.BaseLimitSensor;
 import frc.robot.subsystems.base.DummyLimitSensor;
 
