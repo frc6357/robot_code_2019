@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -12,10 +13,11 @@ public class ModeSelect extends Command
 
     /**
      * 
-     * @param Override sets the arm to up or down based on a boolean variable
+     * @param Override sets manual override mode if true, else sets normal control mode.
      */
     public ModeSelect(boolean Override)
     {
+        Robot.oi.setMode(false, Override);
     }
   
 

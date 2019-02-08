@@ -1,23 +1,26 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
- * A class supporting the toggle of the Elevators position relative to the rocket
+ * A class supporting the climb command. For safety, this class requires 2 buttons to
+ * be pressed before the command will actually activate climb. The constructor takes a
+ * button object which must be checked in the constructor. If this second button is
+ * pressed then the climb command is activated. If not, we ignore the command and 
+ * report finished immediately.
  */
-public class ElevatorMove extends Command
+public class ClimbStartWithCheck extends Command
 {
-    private boolean SelectUp;
-
-    // TODO: Code the ElevatorMove command
-    
     /**
      * 
-     * @param Up sets the Elevator to up or down based on a boolean variable
+     * @param Override sets manual override mode if true, else sets normal control mode.
      */
-    public ElevatorMove(boolean Up)
+    public ClimbStartWithCheck(Button CheckBtn)
     {
+        // TODO: Code the ClimbStartWithCheck command.
     }
   
 

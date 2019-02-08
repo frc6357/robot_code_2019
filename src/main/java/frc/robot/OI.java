@@ -10,6 +10,7 @@ import frc.robot.utils.FilteredJoystick;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator interface to the commands and command groups that allow control
@@ -44,19 +45,32 @@ public class OI
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private FilteredJoystick joystickOperator;
-    private FilteredJoystick joystickDriver;
+    private static FilteredJoystick joystickDriver;
 
-    private Button buttonLowGear;
-    private Button buttonHighGear;
+    private static Button buttonCameraShifter;
+    private static Button buttonLowGear;
+    private static Button buttonHighGear;
 
-    public static Button buttonCameraShifter;
-    // TODO: Add members for all operator functions (buttons, axes, etc)
+    private static FilteredJoystick joystickOperator;
+
+    private static Button buttonOperatorA;
+    private static Button buttonOperatorB;
+    private static Button buttonOperatorX;
+    private static Button buttonOperatorY;
+    private static Button buttonOperatorLeftStick;
+    private static Button buttonOperatorRightStick;
+    private static Button buttonOperatorLeftBumper;
+    private static Button buttonOperatorRightBumper;
+    private static Button buttonOperatorBack;
+    private static Button buttonOperatorStart;
     
+    public enum Mode { NONE, TEST, NORMAL, MANUAL };
+
+    private static Mode oiMode = Mode.NONE;
+
     public OI()
     {
-        // Instantiate the joystick devices.
-        joystickOperator = new FilteredJoystick(Ports.OIOperatorJoystick);
+        // Instantiate the driver joystick devices.
         joystickDriver = new FilteredJoystick(Ports.OIDriverJoystick);
 
         buttonLowGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectLow);
@@ -65,8 +79,22 @@ public class OI
         buttonLowGear.whenPressed(new GearShiftCommand(false));
         buttonHighGear.whenPressed(new GearShiftCommand(true));
 
+        // TODO: Revisit this if we end up having multiple cameras.
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
-        // TODO: Add support for all additional operator and driver controls.
+
+        // Instantiate the operator joystick devices.
+        joystickOperator = new FilteredJoystick(Ports.OIOperatorJoystick);
+
+        buttonOperatorA           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonA);
+        buttonOperatorB           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonB);
+        buttonOperatorX           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonX);
+        buttonOperatorY           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonY);
+        buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
+        buttonOperatorLeftBumper  = new JoystickButton(joystickOperator, Ports.OIOperatorLeftBumper);
+        buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
+        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
+        buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
     }
 
     /**
@@ -131,6 +159,118 @@ public class OI
      */
     public void setMode(boolean bTest, boolean bManualOverride)
     {
+        // Test mode command bindings.
+        if(bTest)
+        {
+            setMode(Mode.TEST);
+        }
+        else
+        {
+            // Manual override command bindings
+            if(bManualOverride)
+            {
+                setMode(Mode.MANUAL);
+            }
+            else
+            // Normal operation (teleop and "autonomous") command bindings
+            {
+                setMode(Mode.NORMAL);
+            }
+        }
+    }
 
+    /**
+     * This method wires up the operator interface controls depending upon the mode that the 
+     * robot is to operate in.
+     * 
+     * @param mode The desired operator mode - TEST, NORMAL or MANUAL. See the Robot User Manual for
+     *             details of the control mappings in each mode.
+     */
+    public void setMode(Mode mode)
+    {
+        oiMode = mode;
+
+        switch(mode)
+        {
+            case NONE:
+            {
+                SmartDashboard.putString("Operator Mode", "NONE");
+                SmartDashboard.putBoolean("Operator Override", false);
+            }
+            break;
+
+            case TEST:
+            {
+                SmartDashboard.putString("Operator Mode", "TEST");
+                SmartDashboard.putBoolean("Operator Override", false);
+
+                // TODO: Rework this to match the actual test mode control mapping
+                //       when this is defined. For not, it's just a copy of the override
+                //       mode mapping with the Back button action disabled.
+
+                buttonOperatorA.whenPressed(new ElevatorMove(false));
+                buttonOperatorY.whenPressed(new ElevatorMove(true));
+
+                buttonOperatorB.whenActive(new IntakeMoveArm(false, true));
+                buttonOperatorB.whenInactive(new IntakeMoveArm(false, false));
+                buttonOperatorRightBumper.whenActive(new IntakeMoveArm(true, true));
+                buttonOperatorRightBumper.whenInactive(new IntakeMoveArm(true, false));
+
+                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
+
+                buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch());
+                buttonOperatorStart.whenPressed(new TestToggleDeployHatch());
+
+                buttonOperatorLeftStick.whenPressed(new TestClimbStart());
+                buttonOperatorRightStick.whenPressed(new TestToggleTransportRoller());
+
+                buttonOperatorBack.whenPressed(new TestToggleClimbTilt());
+            }
+            break;
+
+            case NORMAL:
+            {
+                SmartDashboard.putString("Operator Mode", "NORMAL");
+                SmartDashboard.putBoolean("Operator Override", false);
+
+                // TODO: Set up control actions for normal mode.
+                buttonOperatorBack.whenPressed(new ModeSelect(true));
+            }
+            break;
+
+            case MANUAL:
+            {
+                SmartDashboard.putString("Operator Mode", "MANUAL");
+                SmartDashboard.putBoolean("Operator Override", true);
+
+                buttonOperatorA.whenPressed(new ElevatorMove(false));
+                buttonOperatorY.whenPressed(new ElevatorMove(true));
+
+                buttonOperatorB.whenActive(new IntakeMoveArm(false, true));
+                buttonOperatorB.whenInactive(new IntakeMoveArm(false, false));
+                buttonOperatorRightBumper.whenActive(new IntakeMoveArm(true, true));
+                buttonOperatorRightBumper.whenInactive(new IntakeMoveArm(true, false));
+
+                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
+
+                buttonOperatorLeftBumper.whenPressed(new GrabHatch());
+                buttonOperatorStart.whenPressed(new ReleaseHatch());
+
+                buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(buttonOperatorRightStick));
+                buttonOperatorRightStick.whenPressed(new ClimbStartWithCheck(buttonOperatorLeftStick));
+
+                buttonOperatorBack.whenPressed(new ModeSelect(false));
+            }
+            break;
+        }
+    }
+    /**
+     * Query the current operating mode of the robot.
+     * 
+     * @return The current mode, Mode.NONE, Mode.NORMAL, Mode.MANUAL or Mode.TEST
+     */
+    public Mode getMode()
+    {
+        return oiMode;
     }
 }

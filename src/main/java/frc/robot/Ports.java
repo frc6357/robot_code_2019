@@ -221,11 +221,8 @@ public class Ports
 
     public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
 
-    public static final int OIOperatorJoystickLY          = 2;    // Up D-Pad, Joystick axis 2
+    public static final int OIOperatorJoystickLY         = 2;    // Up D-Pad, Joystick axis 2
 
-    public static final int OIOperatorSelect             = 7;    // Select Button
+    public static final int OIOperatorBack               = 7;    // Back/Select Button
     public static final int OIOperatorStart              = 8;    // Start Button
-   
-
-    // TODO: Define what the operator controls are to be.
 }

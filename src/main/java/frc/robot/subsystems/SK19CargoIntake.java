@@ -35,11 +35,6 @@ public class SK19CargoIntake extends Subsystem
 
     /**
      * Constructor for the cargo intake mechanism.
-     * 
-     * @param Roller - the motor speed controller attached to the intake rollers
-     * @param Arm    - the angle controlled arm used to position the intake rollers.
-     * @param CargoPresent - the proximity detector used to determine when we have 
-     *                 successfully grabbed a piece of cargo.
      */
     public SK19CargoIntake()
     {

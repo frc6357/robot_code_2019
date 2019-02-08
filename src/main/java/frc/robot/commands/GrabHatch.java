@@ -4,19 +4,13 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the Elevators position relative to the rocket
+ * A class supporting the command sequence used to grab a hatch.
  */
-public class ElevatorMove extends Command
+public class GrabHatch extends Command
 {
-    private boolean SelectUp;
-
-    // TODO: Code the ElevatorMove command
+    // TODO: Code the GrabHatch command!
     
-    /**
-     * 
-     * @param Up sets the Elevator to up or down based on a boolean variable
-     */
-    public ElevatorMove(boolean Up)
+    public GrabHatch()
     {
     }
   

@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import frc.robot.subsystems.base.BaseMotorizedArm;
 //import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 // TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
@@ -48,7 +47,7 @@ public class Robot extends TimedRobot
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
-  
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -114,6 +113,8 @@ public class Robot extends TimedRobot
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+
+    oi.setMode(OI.Mode.NORMAL);
   }
 
   /**
@@ -122,7 +123,8 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic()
   {
-    teleopDrive.SmoothDrivePeriodic();
+    // This year, we handle autonomous and teleop exactly the same way.
+    teleopPeriodic();
   }
 
   @Override
@@ -139,8 +141,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
-    
-
     Scheduler.getInstance().run();
 
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive, true); // Retrieves the status of all buttons and joysticks
@@ -160,6 +160,7 @@ public class Robot extends TimedRobot
   {
         //CameraServer camServer = CameraServer.getInstance();
         //camServer.addServer(Server);
+        oi.setMode(OI.Mode.TEST);
   }
 
   /**
@@ -178,7 +179,6 @@ public class Robot extends TimedRobot
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
 
-
     if(m_DisplayUpdateCounter % 10 == 0)
     {
         SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
@@ -189,18 +189,19 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
     }
     m_DisplayUpdateCounter++;
-    if (OI.buttonCameraShifter.get() && !cameraPrev)
-    {
-        //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
-        //Server.setSource(cameraRear);
-        System.out.println("This should be rear camera");
-    }
-    else if (!OI.buttonCameraShifter.get() && cameraPrev)
-    {
-        //Server.setSource(camera);
-        System.out.println("This should be front camera");
-    }
-    cameraPrev = OI.buttonCameraShifter.get();
+    
+    //if (OI.buttonCameraShifter.get() && !cameraPrev)
+    //{
+    //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
+    //    //Server.setSource(cameraRear);
+    //    System.out.println("This should be rear camera");
+    //}
+    //else if (!OI.buttonCameraShifter.get() && cameraPrev)
+    //{
+    //    //Server.setSource(camera);
+    //    System.out.println("This should be front camera");
+    //}
+    //cameraPrev = OI.buttonCameraShifter.get();
   }
 }
 
