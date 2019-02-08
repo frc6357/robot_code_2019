@@ -125,12 +125,19 @@ public class EncoderAMT203V
         }
     }
 
+    // DW: Did you mean to make this private?
     private int read()
     {
         boolean havePosition = false;
 
         while(!havePosition)
         {
+            // DW: Using a method here seems overkill when all you're doing is
+            // writing a byte into an array. Maybe just set the value inline without
+            // all the creation/destruction of buffers via setSendPacket/clearSendPacket?
+            // It's better to create the byte arrays once on initialization and just 
+            // reuse them - "new" is an expensive operation.
+
             // Set the packet to read position command
             setSendPacket(RD_POS_COMMAND);
 
@@ -141,11 +148,21 @@ public class EncoderAMT203V
             // Read the next value of the CLK throwing away value recieved on write
             encoder.read(false, receivedPacket, receivedPacket.length);
 
+            // DW: The value in receivedPacket[0] will be undefined after the last
+            // line. You can't then check it in the next line. Theres a possibility (albeit
+            // low) that it just happens to contain RD_POS_COMMAND.
+
             // While the received packet is not a success message
             while(receivedPacket[0] != RD_POS_COMMAND)
             {
                 // Clear recieve packet array
                 clearReceivePacket();
+
+                // DW: Based on our discussion, I dont think you want to do this here.
+                //     You can read the next byte using encoder.read(true, receivedPacket, 1);
+                //     Once you see the RD_POS_COMMAND, you can then do a read(true, receivedPacket, 2);
+                //     to read both the position bytes. This will need a little state machine,
+                //     though, but should be a lot more efficient than the current loop.
 
                 // Set the packet to send to wait command
                 setSendPacket(RESPONSE_WAIT);
@@ -173,12 +190,28 @@ public class EncoderAMT203V
             positionPacket[1] = receivedPacket[0];
 
             havePosition = true;
+
+            // DW: You don't want to do this if you'll be reading the encoder every
+            // 20mS! For debug it's fine but perhaps a better idea would be to send the
+            // position back to the driver station via SmartDashboard? Actually, it would
+            // be better to have the higher level class do this only when it is needed.
             System.out.println("Encoder has position");
         }
 
+        // DW: You may find this gives unexpected results though this depends upon
+        // how Java handles conversion of bytes to ints. If it does all the logic on
+        // the byte type first then converts the result to int, this will fail because
+        // shifting a byte left by 8 effectively clears all the bits! To guard against
+        // this, cast both the bytes to int before doing the logic operations:
+        //
+        // return ((int)positionPacket[1] | (((int)positionPacket[0] & 0xFF) << 8)));
         return (int) (positionPacket[1] | ((positionPacket[0] & 0xFF) << 8));
     }
 
+    // DW: I reckon these functions are unnecessary and merely slow down the 
+    //     operation. Statically allocation the receive buffer (3 bytes) and the
+    //     send buffer (1 byte) and just reuse. Don't create/destroy since this
+    //     is pretty enormously expensive in CPU cycles.
     private void setSendPacket(byte packet)
     {
         sendPacket[0] = packet;
