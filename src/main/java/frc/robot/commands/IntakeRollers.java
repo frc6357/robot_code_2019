@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the Elevators position relative to the rocket
+ * A class supporting the testing of the intake roller motor.
  */
 public class IntakeRollers extends Command
 {   
