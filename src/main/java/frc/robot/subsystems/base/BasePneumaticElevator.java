@@ -54,6 +54,17 @@ public class BasePneumaticElevator
         elevatorSolenoid.set(false);
     }
 
+    public void setPosition(boolean bUp)
+    {
+        if (bUp == true && elevatorUpperLimit.getIsTriggered() != true)
+        {
+            elevatorSolenoid.set(false);
+        }
+        else if (bUp == false && elevatorLowerLimit.getIsTriggered () != true)
+        {
+            elevatorSolenoid.set(false);
+        }
+    }
     /**
      *  Gets the value from the lower limit sensor
      *

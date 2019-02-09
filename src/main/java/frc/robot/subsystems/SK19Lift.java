@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -48,6 +46,11 @@ public class SK19Lift
         {0.0, 45.0, 90.0},
         {5.0, 50.0, 95.0}
     };
+        private final SK19LiftLookup[][] lookupTable = {
+            {new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPositionHatch1), new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPostionCargo1)},
+            {new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionHatch2), new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionCargo2)},
+            {new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionHatch3), new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionCargo3)}
+        };
     /**
      *  Creates the Arm and elevator base classes and seamlessly melds them together so that no matter
      *  the position that we wish to be at it is a one button click and it automatically goes to the required
@@ -57,7 +60,6 @@ public class SK19Lift
     {
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
         // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
-        // TODO: Use the filtered speed from the filtered joystick for the arm to be moving at
         this.ArmSpeed = 1.0;
         this.ArmMotor                    = new WPI_TalonSRX(Ports.armRotateMotor);
         this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM);
@@ -82,41 +84,29 @@ public class SK19Lift
 
     //TODO: The following methods need to be finished, there may be required a 4th, 5th and 6th position
     // Need to talk to hatch team to see if positions are in proper spot
-    public void setArmPosition()
-    {
-
-    }
-
-    public void setArmPosition1()
-    {
-        Double PulledDouble;
+    public void setArmPosition(int posIndex)
+    {   
+        double setAngle;
+        boolean setPosition;
         if (this.HatchSensor.getIsTriggered())
         {   
-            boolean setElevatorPositionBool = LookupTable[0][0] == 2.0 ? true: false;
-            PulledDouble = LookupTable[1][0];
-            RobotArmAngled.moveToAngle(PulledDouble);
-            if (setElevatorPositionBool == false)
-                RobotElevator.setToDown();
+            RobotArmAngled.moveToAngle(lookupTable[0][0].armAngle);
+            RobotElevator.setPosition(lookupTable[0][0].ElevatorUp);
         }
         else if (this.BallSensor.getIsTriggered())
         {
-            boolean setElevatorPositionBool = LookupTable[0][0] == 2.0 ? true: false;
-            PulledDouble = LookupTable[2][0];
-            RobotArmAngled.moveToAngle(PulledDouble);
-            if (setElevatorPositionBool == false)
-            RobotElevator.setToDown();
+        
         }
+        RobotArmAngled.moveToAngle(setAngle);
+        RobotElevator.setPosition(setPosition);
     }
 
-    public void setArmPosition2()
+    public void testSetArmPositionMotorSpeed(double speed)
     {
-        RobotArmAngled.moveToAngle(0.0);
-        RobotElevator.setToUp();
+        // TODO: Implement code here for direct arm drive
     }
 
-    public void setArmPosition3()
+    public void testSetElevatorPosition(boolean ElevUp)
     {
-        RobotArmAngled.moveToAngle(90.0);
-        RobotElevator.setToUp();
+        // TODO: Set the state directly for test mode for elevator
     }
-}
