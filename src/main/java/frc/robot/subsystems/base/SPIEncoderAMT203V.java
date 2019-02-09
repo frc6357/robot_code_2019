@@ -42,16 +42,16 @@ public class SPIEncoderAMT203V
         encoder = new SPI(port);
         pulsesPerRev = pulsesPerRotation;
 
-        encoder.setClockRate(1000000);
-        encoder.setClockActiveLow();
-        encoder.setSampleDataOnLeadingEdge();
-        encoder.setChipSelectActiveLow();
-        encoder.setMSBFirst();
+        // encoder.setClockRate(1000000);
+        // encoder.setClockActiveLow();
+        // encoder.setSampleDataOnLeadingEdge();
+        // encoder.setChipSelectActiveLow();
+        // encoder.setMSBFirst();
     }
 
     public void reset()
     {
-        setZeroPoint();
+        // setZeroPoint();
     }
 
     public int getAngleDegrees()
@@ -113,41 +113,41 @@ public class SPIEncoderAMT203V
      */
     private boolean doTransaction(byte command, int numToRead, byte[] response, int timeout)
     {
-        int pollAttempts = 0;
-        int readIndex    = 0;
-        byte[] sendByte  = new byte[1];
+    //     int pollAttempts = 0;
+    //     int readIndex    = 0;
+    //     byte[] sendByte  = new byte[1];
 
-        // Send the command byte.
-        sendByte[0] = command;
-        encoder.write(sendByte, 1);
+    //     // Send the command byte.
+    //     sendByte[0] = command;
+    //     encoder.write(sendByte, 1);
 
-        // Flush the garbage byte read during command transmission.
-        encoder.read(false, response, 1);
+    //     // Flush the garbage byte read during command transmission.
+    //     encoder.read(false, response, 1);
 
-        // While we read WAIT responses, keep polling.
-        response[0] = RESPONSE_WAIT;
-        while(response[0] == RESPONSE_WAIT)
-        {
-            // Have we tried too many times already?
-            pollAttempts++;
-            if(pollAttempts > timeout)
-            {
-                return false;
-            }
+    //     // While we read WAIT responses, keep polling.
+    //     response[0] = RESPONSE_WAIT;
+    //     while(response[0] == RESPONSE_WAIT)
+    //     {
+    //         // Have we tried too many times already?
+    //         pollAttempts++;
+    //         if(pollAttempts > timeout)
+    //         {
+    //             return false;
+    //         }
 
-            // Read from the encoder again.
-            encoder.read(true, response, 1);
-        }
+    //         // Read from the encoder again.
+    //         encoder.read(true, response, 1);
+    //     }
 
-        // While we still have values to read, read bytes.
-        readIndex++;
-        while(readIndex < numToRead);
-        {
-            encoder.read(true, sendByte, 1);
-            response[readIndex] = sendByte[0];
-            readIndex++;
-        }
+    //     // While we still have values to read, read bytes.
+    //     readIndex++;
+    //     while(readIndex < numToRead);
+    //     {
+    //         encoder.read(true, sendByte, 1);
+    //         response[readIndex] = sendByte[0];
+    //         readIndex++;
+    //     }
 
-        return true;
-    }
+         return true;
+     }
 }
