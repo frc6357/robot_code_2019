@@ -4,7 +4,9 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the arms position relative to the rocket
+ * A class which implements a command that does absolutely nothing. This
+ * may sound silly but it's useful when switching modes and making some
+ * buttons inactive.
  */
 public class NullCommand extends Command
 {
