@@ -7,15 +7,13 @@ import frc.robot.subsystems.base.BaseLimitSensor;
  */
 public class BaseOctopusRoller extends BaseRoller
 {
-    // TODO: Reintialize the files that will be used at a later date in a higher level class
-    /*
     // Motor Controllers
     private final SpeedController motorController;
     // scaler Value
     private final static double scaler = 1;
-    // Limit Sensors
+    ///Limit Sensors
     private final BaseLimitSensor CargoSensor;
-    */
+    
 
     /**
      *  Creates a base set of rollers for the octopus that utilizes a limit sensor
@@ -33,10 +31,8 @@ public class BaseOctopusRoller extends BaseRoller
     {
         
         super(motorController, scaler);
-        /* TODO: Reintialize these at a later date when used by higher class
         this.motorController = motorController;
         this.CargoSensor = CargoSensor;
-        */
     }
     
     /**
@@ -45,12 +41,10 @@ public class BaseOctopusRoller extends BaseRoller
      *      - Type: boolean
      *      - Checks whether the sensor is activated and will return true
      */
-    /*TODO: Reintialize these at a later date when higher class is created
     private boolean isCargoPressed()
     {
-        
         return CargoSensor.getIsTriggered();
     }
-    */
+    
 }
 

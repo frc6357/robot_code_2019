@@ -21,6 +21,7 @@ import frc.robot.subsystems.base.BaseOctopusRoller;
 public class SK19Lift extends Subsystem
 {
     SpeedController                     ArmMotor;
+    SpeedController                     octopusMotor;
     BaseAngleControlledArm              RobotArmAngled;
     BasePneumaticElevator               RobotElevator;
     BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
@@ -38,6 +39,7 @@ public class SK19Lift extends Subsystem
 
     double                              ArmSpeed;
     int                                 lastPosition;
+    double                              octopusScaler;
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
@@ -59,7 +61,9 @@ public class SK19Lift extends Subsystem
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
         // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
         this.ArmSpeed = 1.0;
+        this.octopusScaler = 0.6;
         this.ArmMotor                    = new WPI_TalonSRX(Ports.armRotateMotor);
+        this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
         this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM);
         this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperOut, Ports.hatchGripperIn);
         this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperLock, Ports.hatchGripperUnlock);
@@ -78,6 +82,7 @@ public class SK19Lift extends Subsystem
         this.RobotArmAngled              = new BaseAngleControlledArm(this.ArmMotor, ArmEncoder, this.ArmUpLimitSensor, this.ArmDownLimitSensor, this.ArmSpeed);
         this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);     
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
+        this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
     }
 
     //TODO: The following methods need to be finished, there may be required a 4th, 5th and 6th position
@@ -124,15 +129,30 @@ public class SK19Lift extends Subsystem
 
     public void initDefaultCommand()
     {
-        
+
     }
-    public void testHatchGripper(boolean gripperLock)
+    public void HatchGripper(boolean gripperLock)
     {
-
+        if (gripperLock)
+        {
+            RobotHatch.latchHatch();
+        }
+        else
+        {
+            RobotHatch.unlatchHatch();
+        }
     }
 
-    public void testHatchPusher(boolean pusherExtend)
+    public void HatchPusher(boolean pusherExtend)
     {
-
+        if (pusherExtend)
+        {
+            RobotHatch.extendHatchPiston();
+        }
+        else
+        {
+            RobotHatch.retractHatchPiston();
+        }
     }
+
 }

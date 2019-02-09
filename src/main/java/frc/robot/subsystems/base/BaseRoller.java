@@ -25,7 +25,7 @@ public class BaseRoller
     public BaseRoller(SpeedController motorController)
     {
         this.motorController = motorController;
-        setSpeed(1);
+        setSpeed(0);
     }
 
     /**
@@ -44,7 +44,8 @@ public class BaseRoller
     public BaseRoller(SpeedController motorController, double speed)
     {
         this.motorController = motorController;
-        setSpeed(speed);
+        this.speed = speed;
+        setSpeed(0);
     }
 
     /**
