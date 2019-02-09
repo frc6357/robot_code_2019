@@ -59,13 +59,6 @@ public class Ports
     // either direction. Tune these as required.
     public static final double driveMaxAccelForward       = 0.02;
     public static final double driveMaxAccelBackwards     = 0.02;
-
-    // Additional, temporary definitions to allow us to build this year's
-    // code to run on Torsion (with 3 motors per side and a double solenoid for the shifter).
-    // TODO: Remove these when the 2019 drivetrain is ready.
-    public static final int driveLeftCenterMotor          = 15;
-    public static final int driveRightCenterMotor         = 14;
-    public static final int driveGearShiftLow             = 5;
     
     // *************
     // Hatch Gripper
