@@ -38,10 +38,16 @@ public class SK19Lift
     BaseProximitySensor                 BallSensor;
 
     double                              ArmSpeed;
-    private final ArrayList<Boolean>    BoolArrayList;
-    private final ArrayList<Double>    IntHatchArrayList;
-    private final ArrayList<Double>    IntBallArrayList;
-    private final ArrayList<ArrayList>  LookupTable;
+
+    /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
+    *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
+    *   TODO: The actual values for the hatch and the cargo placement will need to be verified at a later point.
+    */
+    private final double[][] LookupTable = {
+        {0.0, 1.0, 1.0},
+        {0.0, 45.0, 90.0},
+        {5.0, 50.0, 95.0}
+    };
     /**
      *  Creates the Arm and elevator base classes and seamlessly melds them together so that no matter
      *  the position that we wish to be at it is a one button click and it automatically goes to the required
@@ -57,24 +63,7 @@ public class SK19Lift
         this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM);
         this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperOut, Ports.hatchGripperIn);
         this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperLock, Ports.hatchGripperUnlock);
-        // TODO: This may be converted to a static intiation for a static Array not an array list. This is a Work in Progress and will need to be fixed, come back to first thing on Saturday
-        // To get the answer but it should be converted to double numbers and then use an if statement to get the required boolean out of it.
-        BoolArrayList = new ArrayList<Boolean>();
-        BoolArrayList.add(false);
-        BoolArrayList.add(false);
-        BoolArrayList.add(true);
-        IntBallArrayList = new ArrayList<Double>();
-        IntBallArrayList.add(5.0);
-        IntBallArrayList.add(50.0);
-        IntBallArrayList.add(95.0);
-        IntHatchArrayList = new ArrayList<Double>();
-        IntHatchArrayList.add(0.0);
-        IntHatchArrayList.add(45.0);
-        IntHatchArrayList.add(90.0);
-        LookupTable = new ArrayList<ArrayList>();
-        LookupTable.add(BoolArrayList);
-        LookupTable.add(IntBallArrayList);
-        LookupTable.add(IntHatchArrayList);
+      
 
         // This is the decleration for all of the required sensors
         this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderReverse, Ports.intakeArmEncoderPulsesPerRev, 1.0);
@@ -100,20 +89,21 @@ public class SK19Lift
 
     public void setArmPosition1()
     {
-        final ArrayList<Double> PulledDoubleArray;
         Double PulledDouble;
         if (this.HatchSensor.getIsTriggered())
         {   
-            PulledDoubleArray = LookupTable.get(2);
-            PulledDouble = (PulledDoubleArray.get(0));
+            boolean setElevatorPositionBool = LookupTable[0][0] == 2.0 ? true: false;
+            PulledDouble = LookupTable[1][0];
             RobotArmAngled.moveToAngle(PulledDouble);
-            RobotElevator.setToDown();
+            if (setElevatorPositionBool == false)
+                RobotElevator.setToDown();
         }
         else if (this.BallSensor.getIsTriggered())
         {
-            PulledDoubleArray = LookupTable.get(1);
-            PulledDouble = PulledDoubleArray.get(0);
+            boolean setElevatorPositionBool = LookupTable[0][0] == 2.0 ? true: false;
+            PulledDouble = LookupTable[2][0];
             RobotArmAngled.moveToAngle(PulledDouble);
+            if (setElevatorPositionBool == false)
             RobotElevator.setToDown();
         }
     }
