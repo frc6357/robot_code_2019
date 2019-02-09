@@ -19,6 +19,7 @@ import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.base.RangefinderMB1013;
 import frc.robot.subsystems.SmoothDrive;
 import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Lift;
 
 /**
  * The VM is configured to automatically run this class, and to call the
