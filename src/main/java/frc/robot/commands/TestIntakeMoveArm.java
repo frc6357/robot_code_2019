@@ -1,27 +1,35 @@
 package frc.robot.commands;
 
+import frc.robot.Ports;
 import frc.robot.Robot;
-import frc.robot.subsystems.SK19CargoIntake;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * A class supporting starting and stopping the intake mechanism arm position motor.
  */
 
- // Must remember motor speed and only set it if its different
 public class TestIntakeMoveArm extends Command
 {
     /**
      * 
-     * @param out   Sets the direction in which the intake arm motor should move if Start is true.
-     *              If the Out parameter is true, the arm moves towards the deployed position, if
+     * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.
+     *              If the moveOut parameter is true, the arm moves towards the deployed position, if
      *              false, it moves towards the stowed position.
-     * @param start Determines whether the motor should be run or stopped. If true, the motor runs
-     *              in the direction specified by the out parameter
+     * @param startMotor Determines whether the motor should be run or stopped. If true, the motor runs
+     *              in the direction specified by the moveOutut parameter
      */
-    public TestIntakeMoveArm(boolean out, boolean start)
+    public TestIntakeMoveArm(boolean moveOut, boolean startMotor)
     {
         requires(Robot.Intake);
+
+        double newSpeed = 0.0;
+
+        if(startMotor)
+        {
+            newSpeed = moveOut ? Ports.intakeArmMotorSpeed : -Ports.intakeArmMotorSpeed;
+        }
+
+        Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
   
 
