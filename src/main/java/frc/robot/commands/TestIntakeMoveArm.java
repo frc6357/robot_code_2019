@@ -1,28 +1,27 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.SK19CargoIntake;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the Elevators position relative to the rocket
+ * A class supporting starting and stopping the intake mechanism arm position motor.
  */
 
  // Must remember motor speed and only set it if its different
-public class IntakeMoveArm extends Command
+public class TestIntakeMoveArm extends Command
 {
-    private boolean SelectOut;
-    
-    // TODO: Code the IntakeMoveArm command.
-    
     /**
      * 
-     * @param Speed sets the Rollers on deploy mecahnism to forward or back based on a boolean variable
+     * @param out   Sets the direction in which the intake arm motor should move if Start is true.
+     *              If the Out parameter is true, the arm moves towards the deployed position, if
+     *              false, it moves towards the stowed position.
+     * @param start Determines whether the motor should be run or stopped. If true, the motor runs
+     *              in the direction specified by the out parameter
      */
-    public IntakeMoveArm(boolean Out, boolean Start)
+    public TestIntakeMoveArm(boolean out, boolean start)
     {
         requires(Robot.Intake);
-        SelectOut = Out;
-
     }
   
 

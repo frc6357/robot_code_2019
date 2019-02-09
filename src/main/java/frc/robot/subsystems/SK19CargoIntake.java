@@ -147,6 +147,27 @@ public class SK19CargoIntake extends Subsystem
         RollerArm.periodic();
     }
 
+    /**
+     * This function sets the speed of the roller motor. It must only be used in test mode.
+     * 
+     * @param speed The speed of the roller motor.
+     */
+    public void testSetRollerSpeed(double speed)
+    {
+        RollerSpeed = speed;
+        RollerMotor.set(speed);
+    }
+
+    /**
+     * This function sets the speed of the arm motor. It must only be used in test mode.
+     * 
+     * @param speed The speed of the arm motor.
+     */
+    public void testSetArmMotorSpeed(double speed)
+    {
+        ArmMotor.set(speed);
+    }
+
     public void initDefaultCommand()
     {
 

@@ -211,10 +211,10 @@ public class OI
                 buttonOperatorA.whenPressed(new ElevatorMove(false));
                 buttonOperatorY.whenPressed(new ElevatorMove(true));
 
-                buttonOperatorB.whenActive(new IntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new IntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new IntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new IntakeMoveArm(true, false));
+                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
+                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
+                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
+                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
 
                 buttonOperatorX.whenPressed(new IntakeRollers(false, true));
 
@@ -246,10 +246,10 @@ public class OI
                 buttonOperatorA.whenPressed(new ElevatorMove(false));
                 buttonOperatorY.whenPressed(new ElevatorMove(true));
 
-                buttonOperatorB.whenActive(new IntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new IntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new IntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new IntakeMoveArm(true, false));
+                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
+                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
+                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
+                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
 
                 buttonOperatorX.whenPressed(new IntakeRollers(false, true));
 
