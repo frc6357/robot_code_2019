@@ -108,7 +108,7 @@ public class Ports
 
     public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
     public static final boolean ElevatorPosition2        = true;  // Elevator Position for level 2
-    public static final boolean ElevatorPosition3         = true;  // Elevator Position for level 3
+    public static final boolean ElevatorPosition3        = true;  // Elevator Position for level 3
     public static final double ArmPositionHatch1         = 0.0;   // Hatch Position for level 1
     public static final double ArmPositionHatch2         = 0.0;   // Hatch Position for level 2
     public static final double ArmPositionHatch3         = 45.0;  // Hatch Position for level 3

@@ -41,6 +41,7 @@ public class Robot extends TimedRobot
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
+  public static SK19Lift Lift = new SK19Lift();
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard

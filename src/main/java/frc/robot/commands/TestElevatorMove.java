@@ -4,18 +4,20 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the Elevators position relative to the rocket
+ * A class supporting the setting of the Elevators position
  */
 public class TestElevatorMove extends Command
-{
-    // TODO: Code the TestElevatorMove command
-    
+{   
     /**
      * 
      * @param Up sets the Elevator to up or down based on a boolean variable
      */
-    public TestElevatorMove(boolean Up)
+    public TestElevatorMove(boolean up)
     {
+        requires(Robot.Lift);
+
+        Robot.Lift.testSetElevatorPosition(up);
+
     }
   
 

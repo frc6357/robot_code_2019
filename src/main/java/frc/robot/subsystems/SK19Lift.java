@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Ports;
@@ -17,7 +18,7 @@ import frc.robot.subsystems.base.BaseOctopusRoller;
  *  The SK19Lift subsystem is responsible for both the elevator and arm systems that 
  *  are responsible for moving the cargo and hatch to a set series of points.
  */
-public class SK19Lift
+public class SK19Lift extends Subsystem
 {
     SpeedController                     ArmMotor;
     BaseAngleControlledArm              RobotArmAngled;
@@ -108,5 +109,10 @@ public class SK19Lift
     public void testSetElevatorPosition(boolean ElevUp)
     {
         RobotElevator.setPosition(ElevUp);
+    }
+
+    public void initDefaultCommand()
+    {
+        
     }
 }
