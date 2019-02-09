@@ -208,8 +208,8 @@ public class OI
                 //       when this is defined. For not, it's just a copy of the override
                 //       mode mapping with the Back button action disabled.
 
-                buttonOperatorA.whenPressed(new ElevatorMove(false));
-                buttonOperatorY.whenPressed(new ElevatorMove(true));
+                buttonOperatorA.whenPressed(new TestElevatorMove(false));
+                buttonOperatorY.whenPressed(new TestElevatorMove(true));
 
                 buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
                 buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
@@ -243,8 +243,8 @@ public class OI
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
 
-                buttonOperatorA.whenPressed(new ElevatorMove(false));
-                buttonOperatorY.whenPressed(new ElevatorMove(true));
+                buttonOperatorA.whenPressed(new TestElevatorMove(false));
+                buttonOperatorY.whenPressed(new TestElevatorMove(true));
 
                 buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
                 buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));

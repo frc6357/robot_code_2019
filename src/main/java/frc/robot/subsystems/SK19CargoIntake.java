@@ -30,8 +30,8 @@ public class SK19CargoIntake extends Subsystem
     SpeedController        TransferMotorRight;
     ScaledEncoder          ArmEncoder;
 
-    double                  TransferMotorSpeed = 0.0;
-    double                  RollerSpeed        = 0.0;
+    double                 TransferMotorSpeed = 0.0;
+    double                 RollerSpeed        = 0.0;
 
     /**
      * Constructor for the cargo intake mechanism.

@@ -6,15 +6,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * A class supporting the toggle of the Elevators position relative to the rocket
  */
-public class ElevatorMove extends Command
+public class TestElevatorMove extends Command
 {
-    // TODO: Code the ElevatorMove command
+    // TODO: Code the TestElevatorMove command
     
     /**
      * 
      * @param Up sets the Elevator to up or down based on a boolean variable
      */
-    public ElevatorMove(boolean Up)
+    public TestElevatorMove(boolean Up)
     {
     }
   

@@ -14,12 +14,14 @@ public class IntakeRollers extends Command
     
     /**
      * 
-     * @param Speed sets the Rollers on deploy mecahnism to forward or back based on a boolean variable
-     */
-    public IntakeRollers(boolean On, boolean toggle)
+     * @param on determines whether or not to stop/start based on the value returned by toggle
+     * @param toggle checks if the motor is on/off and changes the state its currently in based on its previous state. i.e (on to off/ off to on)
+     *    
+     *   */
+    public IntakeRollers(boolean on, boolean toggle)
     {
         requires(Robot.Intake);
-        SelectOn = On;
+        SelectOn = on;
 
     }
   
@@ -32,7 +34,8 @@ public class IntakeRollers extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
