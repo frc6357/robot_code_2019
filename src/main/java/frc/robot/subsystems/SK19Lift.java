@@ -86,8 +86,8 @@ public class SK19Lift
     // Need to talk to hatch team to see if positions are in proper spot
     public void setArmPosition(int posIndex)
     {   
-        double setAngle;
-        boolean setPosition;
+        double setAngle = 0.0;
+        boolean setPosition = false;
         if (this.HatchSensor.getIsTriggered())
         {   
             RobotArmAngled.moveToAngle(lookupTable[0][0].armAngle);
@@ -110,3 +110,4 @@ public class SK19Lift
     {
         // TODO: Set the state directly for test mode for elevator
     }
+}
