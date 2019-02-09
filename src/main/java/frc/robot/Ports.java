@@ -3,6 +3,8 @@
  */
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
+
 /**
  *
  * This class defines the connections of all actuators and controllers to the
@@ -93,13 +95,8 @@ public class Ports
     //
     public static final int armRotateMotor               = 21;   // CAN ID 21
 
-    // TODO: We're using an SSI-based absolute encoder on the arm so change
-    //       these to indicate SSI port and CS number instead of DIOs.
-    public static final int armEncoderA                  = 7;    // DIO input 7
-    public static final int armEncoderB                  = 8;    // DIO input 8
-    // TODO: Set the actual direction as well as accurate pulses per rev
-    public static final int armEncoderPulsesPerRev       = 256;
-    public static final boolean armEncoderReverse        = false;
+    public static final SPI.Port armEncoderSPI           = SPI.Port.kOnboardCS0; 
+    public static final int armEncoderPulsesPerRev       = 1024;
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
     //       controller.
@@ -129,8 +126,11 @@ public class Ports
 
     // TODO: We're using an SSI-based absolute encoder on the arm so change
     //       these to indicate SSI port and CS number instead of DIOs.
-    public static final int intakeArmEncoderA            = 15;   // DIO input 15
-    public static final int intakeArmEncoderB            = 16;   // DIO input 16
+    public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1; 
+    public static final int intakeEncoderPulsesPerRev    = 1024;
+
+    // The resolution of the encoder attached to the intake arm.
+    public static final int intakeArmEncoderPulsesPerRev = 1024;
 
     // IR proximity detector to detect presence of ball immediately after ingest.
     public static final int intakeIngestDetect           = 11;   // DIO input 11
@@ -149,11 +149,6 @@ public class Ports
     public static final double intakeTransferMotorSpeed  = 0.25;
     public static final double intakeIngestMotorSpeed    = 0.5;
     public static final double intakeArmMotorSpeed       = 0.25;
-
-    // The resolution and sense of the encoder attached to the intake arm.
-    // TODO: Set intake arm encoder resolution and sense correctly!
-    public static final int intakeArmEncoderPulsesPerRev = 256;
-    public static final boolean intakeArmEncoderReverse  = false;
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
@@ -174,6 +169,10 @@ public class Ports
     // The triggered state of the cargo detect sensor.
     // TODO: Set this state according to the way the sensor is wired.
     public static final boolean octopusCargoDetectState  = true;
+
+    // The fixed speed at which the octopus motor will run when turned on.
+    // TODO: Set this speed appropriately.
+    public static final double octopusMotorSpeed         = 0.25; 
 
     // ***************
     // Climb Subsystem

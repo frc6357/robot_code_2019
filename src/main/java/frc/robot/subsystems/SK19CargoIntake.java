@@ -5,9 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Ports;
-import frc.robot.subsystems.base.BaseAngleControlledArm;
-import frc.robot.subsystems.base.BaseProximitySensor;
-import frc.robot.utils.ScaledEncoder;
+import frc.robot.subsystems.base.*;
 
 /**
  * The SK19CargoIntake subsystem is responsible for all the hardware on the robot
@@ -28,7 +26,7 @@ public class SK19CargoIntake extends Subsystem
     BaseProximitySensor    CargoPresentAtTransfer;
     SpeedController        TransferMotorLeft;
     SpeedController        TransferMotorRight;
-    ScaledEncoder          ArmEncoder;
+    SPIEncoderAMT203V      ArmEncoder;
 
     double                 TransferMotorSpeed = 0.0;
     double                 RollerSpeed        = 0.0;
@@ -52,7 +50,7 @@ public class SK19CargoIntake extends Subsystem
         ((WPI_TalonSRX) TransferMotorRight).set(ControlMode.Follower, ((WPI_TalonSRX) TransferMotorLeft).getDeviceID());
 
         // TODO: If we use the absolute encoder, this will need to be reworked.
-        this.ArmEncoder             = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB, Ports.intakeArmEncoderReverse, Ports.intakeArmEncoderPulsesPerRev, 1.0);
+        this.ArmEncoder             = new SPIEncoderAMT203V(Ports.intakeEncoderSPI, Ports.intakeEncoderPulsesPerRev);
     
         this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, this.ArmEncoder, Ports.intakeArmMotorSpeed);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectState);

@@ -2,7 +2,7 @@ package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
-import frc.robot.utils.ScaledEncoder;
+import frc.robot.subsystems.base.SPIEncoderAMT203V;
 
 /**
  * Base class for an angled controlled arm
@@ -11,7 +11,7 @@ import frc.robot.utils.ScaledEncoder;
  */
 public class BaseAngleControlledArm extends BaseMotorizedArm {
 
-    private final ScaledEncoder armEncoder;
+    private final SPIEncoderAMT203V armEncoder;
 
     private final double STOP_ANGLE_DEADBAND = 2.0;
 
@@ -24,12 +24,11 @@ public class BaseAngleControlledArm extends BaseMotorizedArm {
      * @param armRotateMotor - Type: SpeedController - Speed controller for
      *                       controlling arm motor
      *
-     * @param armEncoder     - Type: Encoder - Encoder for tracking angle / speed /
-     *                       distance
+     * @param armEncoder     - Type: SPIEncoderAMT203V - Encoder for tracking angle 
      *
      * @param armSpeed       - Type: double - Constant speed for arm to move at
      */
-    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, double armSpeed) {
+    public BaseAngleControlledArm(SpeedController armRotateMotor, SPIEncoderAMT203V armEncoder, double armSpeed) {
         super(armRotateMotor);
 
         this.armEncoder = armEncoder;
@@ -58,7 +57,7 @@ public class BaseAngleControlledArm extends BaseMotorizedArm {
      *      - Type: int
      *      - DIO for bottom limit sensor
      */
-    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, BaseLimitSensor armLimitTop, BaseLimitSensor armLimitBottom, double armSpeed)
+    public BaseAngleControlledArm(SpeedController armRotateMotor, SPIEncoderAMT203V armEncoder, BaseLimitSensor armLimitTop, BaseLimitSensor armLimitBottom, double armSpeed)
     {
         super(armRotateMotor, armLimitBottom, armLimitTop);
 

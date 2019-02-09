@@ -6,13 +6,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Ports;
-import frc.robot.subsystems.base.BaseAngleControlledArm;
-import frc.robot.subsystems.base.BasePneumaticElevator;
-import frc.robot.subsystems.base.BaseProximitySensor;
 import frc.robot.utils.ScaledEncoder;
-import frc.robot.subsystems.base.BaseGroveIRProximitySensor;
-import frc.robot.subsystems.base.BaseHatchMechanism;
-import frc.robot.subsystems.base.BaseOctopusRoller;
+import frc.robot.subsystems.base.*;
 
 /**
  *  The SK19Lift subsystem is responsible for both the elevator and arm systems that 
@@ -26,7 +21,7 @@ public class SK19Lift extends Subsystem
     BasePneumaticElevator               RobotElevator;
     BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
     BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
-    ScaledEncoder                       ArmEncoder;
+    SPIEncoderAMT203V                   ArmEncoder;
     BaseProximitySensor                 ArmDownLimitSensor;
     BaseProximitySensor                 ArmUpLimitSensor;
     Solenoid                            ElevatorSolenoid;
@@ -70,7 +65,7 @@ public class SK19Lift extends Subsystem
       
 
         // This is the decleration for all of the required sensors
-        this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderReverse, Ports.intakeArmEncoderPulsesPerRev, 1.0);
+        this.ArmEncoder                  = new SPIEncoderAMT203V(Ports.armEncoderSPI, Ports.intakeArmEncoderPulsesPerRev);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop);
         this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
