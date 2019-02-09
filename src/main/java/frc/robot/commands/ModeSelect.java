@@ -1,16 +1,13 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the toggle of the arms position relative to the rocket
+ * A class sets the normal or override operator control mode
  */
 public class ModeSelect extends Command
 {
-    private boolean SelectMode;
-
     /**
      * 
      * @param Override sets manual override mode if true, else sets normal control mode.
