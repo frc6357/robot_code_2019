@@ -37,12 +37,14 @@ public class SK19Lift extends Subsystem
     BaseProximitySensor                 BallSensor;
 
     double                              ArmSpeed;
+    int                                 lastPosition;
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
     *   TODO: The actual values for the hatch and the cargo placement will need to be verified at a later point.
     */
         private final SK19LiftLookup[][] lookupTable = {
+            {new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0), new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0)},
             {new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPositionHatch1), new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPostionCargo1)},
             {new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionHatch2), new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionCargo2)},
             {new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionHatch3), new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionCargo3)}
@@ -84,18 +86,27 @@ public class SK19Lift extends Subsystem
     {   
         double setAngle = 0.0;
         boolean setPosition = false;
-        int lastPosition;
-        if (this.HatchSensor.getIsTriggered())
+        boolean hatchSensor = this.HatchSensor.getIsTriggered();
+        boolean ballSensor = this.BallSensor.getIsTriggered();
+        
+        if (hatchSensor && !ballSensor)
         {   
             setAngle = lookupTable[posIndex][0].armAngle;
             setPosition = lookupTable[posIndex][0].ElevatorUp;
             lastPosition = posIndex;
         }
-        else if (this.BallSensor.getIsTriggered())
+        else if (ballSensor && !hatchSensor)
         {
             setAngle = lookupTable[posIndex][1].armAngle;
             setPosition = lookupTable[posIndex][1].ElevatorUp;
             lastPosition = posIndex;
+        }
+        else
+        {
+            int doubleClickedIndex = lastPosition == posIndex ? 1: 0;
+            setAngle = lookupTable[posIndex][doubleClickedIndex].armAngle;
+            setPosition = lookupTable[posIndex][doubleClickedIndex].ElevatorUp;
+            posIndex = 0;
         }
         RobotArmAngled.moveToAngle(setAngle);
         RobotElevator.setPosition(setPosition);
@@ -114,5 +125,14 @@ public class SK19Lift extends Subsystem
     public void initDefaultCommand()
     {
         
+    }
+    public void testHatchGripper(boolean gripperLock)
+    {
+
+    }
+
+    public void testHatchPusher(boolean pusherExtend)
+    {
+
     }
 }
