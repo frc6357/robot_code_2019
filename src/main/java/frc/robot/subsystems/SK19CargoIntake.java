@@ -168,6 +168,11 @@ public class SK19CargoIntake extends Subsystem
         ArmMotor.set(speed);
     }
 
+    public double testGetRollerSpeed()
+    {
+        return RollerSpeed;
+    }
+
     public void initDefaultCommand()
     {
 

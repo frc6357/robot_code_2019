@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import frc.robot.Ports;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -7,11 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * A class supporting the toggle of the Elevators position relative to the rocket
  */
 public class IntakeRollers extends Command
-{
-    private boolean SelectOn;
-
-    // TODO: Code the IntakeRollers command.
-    
+{   
     /**
      * 
      * @param on determines whether or not to stop/start based on the value returned by toggle
@@ -21,8 +18,20 @@ public class IntakeRollers extends Command
     public IntakeRollers(boolean on, boolean toggle)
     {
         requires(Robot.Intake);
-        SelectOn = on;
 
+        double speed = 0.0;
+
+        if(toggle == false)
+        {
+            speed = on ? Ports.intakeIngestMotorSpeed : 0.0;
+        }
+        else
+        {
+            double currentSpeed = Robot.Intake.testGetRollerSpeed();
+            speed = (currentSpeed == 0.0) ? Ports.intakeIngestMotorSpeed : 0.0;
+        }
+        
+        Robot.Intake.testSetRollerSpeed(speed);
     }
   
 
@@ -35,7 +44,6 @@ public class IntakeRollers extends Command
     protected void execute()
     {
         
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
