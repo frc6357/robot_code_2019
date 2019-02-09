@@ -31,8 +31,6 @@ import frc.robot.subsystems.SK19CargoIntake;
  */
 public class Robot extends TimedRobot
 {
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private double driveLeft;
   private double driveRight;
   public static OI oi;
@@ -47,6 +45,11 @@ public class Robot extends TimedRobot
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
+
+  // This is the number of periodic callbacks to skip between each update
+  // of the smart dashboard data. With a value of 10, we update the smart dashboard
+  // 5 times per second (based on a 20mS periodic callback).
+  private static final int DASHBOARD_UPDATE_INTERVAL = 10;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -91,10 +94,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
-    SmartDashboard.putNumber("Left Commanded Speed", driveLeft);
-    SmartDashboard.putNumber("Right Commanded Speed", driveRight);
-    SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
-    SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
+    UpdateSmartDashboard(oi.getMode());
   }
 
   /**
@@ -110,10 +110,6 @@ public class Robot extends TimedRobot
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-
     oi.setMode(OI.Mode.NORMAL);
   }
 
@@ -178,17 +174,6 @@ public class Robot extends TimedRobot
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
-
-    if(m_DisplayUpdateCounter % 10 == 0)
-    {
-        SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
-        SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
-        SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
-        SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
-        SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
-        SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
-    }
-    m_DisplayUpdateCounter++;
     
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
@@ -202,6 +187,47 @@ public class Robot extends TimedRobot
     //    System.out.println("This should be front camera");
     //}
     //cameraPrev = OI.buttonCameraShifter.get();
+  }
+
+  void UpdateSmartDashboard(OI.Mode mode)
+  {
+    m_DisplayUpdateCounter++;
+
+    if((m_DisplayUpdateCounter % DASHBOARD_UPDATE_INTERVAL) != 0)
+      return;
+
+    switch(mode)
+    {
+      case NONE: break;
+
+      case TEST:
+      {
+        // TODO: Send back additional test mode information for the smart dashboard.
+        SmartDashboard.putNumber("Left Commanded Speed", driveLeft);
+        SmartDashboard.putNumber("Right Commanded Speed", driveRight);
+        SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
+        SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
+        SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
+        SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
+        SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
+        SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+        SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
+        SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
+      }
+      break;
+
+      case MANUAL:
+      {
+        // TODO: Send back top level info to the smart dashboard in override mode.
+      }
+      break;
+
+      case NORMAL:
+      {
+        // TODO: Send back top level info to the smart dashboard in normal mode.
+      }
+      break;
+    }
   }
 }
 
