@@ -41,11 +41,6 @@ public class SK19Lift
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
     *   TODO: The actual values for the hatch and the cargo placement will need to be verified at a later point.
     */
-    private final double[][] LookupTable = {
-        {0.0, 1.0, 1.0},
-        {0.0, 45.0, 90.0},
-        {5.0, 50.0, 95.0}
-    };
         private final SK19LiftLookup[][] lookupTable = {
             {new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPositionHatch1), new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPostionCargo1)},
             {new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionHatch2), new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionCargo2)},
@@ -88,14 +83,18 @@ public class SK19Lift
     {   
         double setAngle = 0.0;
         boolean setPosition = false;
+        int lastPosition;
         if (this.HatchSensor.getIsTriggered())
         {   
-            RobotArmAngled.moveToAngle(lookupTable[0][0].armAngle);
-            RobotElevator.setPosition(lookupTable[0][0].ElevatorUp);
+            setAngle = lookupTable[posIndex][0].armAngle;
+            setPosition = lookupTable[posIndex][0].ElevatorUp;
+            lastPosition = posIndex;
         }
         else if (this.BallSensor.getIsTriggered())
         {
-        
+            setAngle = lookupTable[posIndex][1].armAngle;
+            setPosition = lookupTable[posIndex][1].ElevatorUp;
+            lastPosition = posIndex;
         }
         RobotArmAngled.moveToAngle(setAngle);
         RobotElevator.setPosition(setPosition);
@@ -103,11 +102,11 @@ public class SK19Lift
 
     public void testSetArmPositionMotorSpeed(double speed)
     {
-        // TODO: Implement code here for direct arm drive
+        RobotArmAngled.setSpeed(speed);
     }
 
     public void testSetElevatorPosition(boolean ElevUp)
     {
-        // TODO: Set the state directly for test mode for elevator
+        RobotElevator.setPosition(ElevUp);
     }
 }
