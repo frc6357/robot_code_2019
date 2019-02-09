@@ -24,7 +24,8 @@ public class Ports
     //
     // Each PCM provides 8 channels where 2 are needed per double-solenoid, 1 for single.
     // RoboRIO has a total of 25 DIO pins, 10 on the base, 15 on the MXP. Pullup/down varies on some pins!
-    // MXP is not available if we attach the IMU, limiting us to 10 DIOs.
+    //
+    // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
     
     // ***************************
@@ -67,7 +68,7 @@ public class Ports
     public static final int driveGearShiftLow             = 5;
     
     // *************
-    // Hatch Gripper// 
+    // Hatch Gripper
     // *************
 
     public static final int hatchGripperPCM              = pcm1;
@@ -91,7 +92,6 @@ public class Ports
     public static final int elevatorPCM                  = pcm1;
     public static final int elevatorUp                   = 6;    // PCM 1 output 6
 
-    // TODO: Check elevator position sensor information - switches or ultrasonic?
     public static final int elevatorProximityUp          = 5;    // DIO input 5
     public static final int elevatorProximityDown        = 6;    // DIO input 6
 
@@ -100,8 +100,8 @@ public class Ports
     //
     public static final int armRotateMotor               = 21;   // CAN ID 21
 
-    // TODO: Determine if we're using a QEI or variable resistor sensor
-    //       to measure the arm angle. We assume QEI here (2 connections)
+    // TODO: We're using an SSI-based absolute encoder on the arm so change
+    //       these to indicate SSI port and CS number instead of DIOs.
     public static final int armEncoderA                  = 7;    // DIO input 7
     public static final int armEncoderB                  = 8;    // DIO input 8
     // TODO: Set the actual direction as well as accurate pulses per rev
@@ -121,6 +121,8 @@ public class Ports
     public static final int intakeRollerMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
 
+    // TODO: We're using an SSI-based absolute encoder on the arm so change
+    //       these to indicate SSI port and CS number instead of DIOs.
     public static final int intakeArmEncoderA            = 15;   // DIO input 15
     public static final int intakeArmEncoderB            = 16;   // DIO input 16
 
@@ -153,6 +155,7 @@ public class Ports
     public static final double intakeArmDeployedAngle    = 90.0;
 
     // The triggered states of the ingest and transfer proximity sensors.
+    // TODO: Set these states according to the way the sensor is wired.
     public static final boolean intakeIngestDetectState   = true;
     public static final boolean intakeTransferDetectState = true;
 
@@ -161,6 +164,10 @@ public class Ports
     // **************************************
     public static final int octopusMotor                 = 30;   // CAN ID 30
     public static final int octopusCargoDetect           = 13;   // DIO input 13
+
+    // The triggered state of the cargo detect sensor.
+    // TODO: Set this state according to the way the sensor is wired.
+    public static final boolean octopusCargoDetectState  = true;
 
     // ***************
     // Climb Subsystem
@@ -175,13 +182,9 @@ public class Ports
     // Additional sensors
     // ******************
 
+    // TODO: Will these be fitted? 
     public static final int driveFrontRangefinder        = 0;    // ADC channel 0
     public static final int driveRearRangefinder         = 1;    // ADC channel 1
-    public static final int driveLineFollowLED0          = 2;    // ADC channel 2
-    public static final int driveLineFollowLED1          = 3;    // ADC channel 3
-    public static final int driveLineFollowLED2          = 4;    // ADC channel 4
-    public static final int driveLineFollowLED3          = 5;    // ADC channel 5
-    public static final int driveLineFollowLED4          = 6;    // ADC channel 6
 
     //
     // Driver's and operator's OI channel assignments

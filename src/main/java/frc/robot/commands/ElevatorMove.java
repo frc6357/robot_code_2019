@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ElevatorMove extends Command
 {
-    private boolean SelectUp;
-
     // TODO: Code the ElevatorMove command
     
     /**
