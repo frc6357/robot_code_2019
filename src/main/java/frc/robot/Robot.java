@@ -9,15 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
-// TODO: Change this to BaseTankDrive2Motor for 2019 drivetrain.
-import frc.robot.subsystems.base.BaseTankDrive3Motor;
+import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.base.RangefinderMB1013;
 import frc.robot.subsystems.SmoothDrive;
 import frc.robot.subsystems.SK19CargoIntake;
@@ -39,9 +37,7 @@ public class Robot extends TimedRobot
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
 
-  // TODO: This is configured to use the Torsion drive. Replace this with
-  // BaseTankDrive2Motor when the 2019 drivetrain is available.
-  public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
+  public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
