@@ -13,13 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-//import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
-import frc.robot.subsystems.base.RangefinderMB1013;
 import frc.robot.subsystems.SmoothDrive;
-import frc.robot.subsystems.SK19CargoIntake;
-import frc.robot.subsystems.SK19Lift;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,10 +36,7 @@ public class Robot extends TimedRobot
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
-  public static RangefinderMB1013 forwardRange = new RangefinderMB1013(Ports.driveFrontRangefinder);
-  public static SK19CargoIntake Intake = new SK19CargoIntake();
-  public static SK19Lift Lift = new SK19Lift();
-
+ 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
   // 5 times per second (based on a 20mS periodic callback).
@@ -209,8 +202,8 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
-        SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
-        SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
+        //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
+        //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
       }
       break;
 

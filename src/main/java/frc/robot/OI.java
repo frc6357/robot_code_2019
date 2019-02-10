@@ -207,24 +207,6 @@ public class OI
                 // TODO: Rework this to match the actual test mode control mapping
                 //       when this is defined. For not, it's just a copy of the override
                 //       mode mapping with the Back button action disabled.
-
-                buttonOperatorA.whenPressed(new TestElevatorMove(false));
-                buttonOperatorY.whenPressed(new TestElevatorMove(true));
-
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-
-                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
-
-                buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch());
-                buttonOperatorStart.whenPressed(new TestToggleDeployHatch());
-
-                buttonOperatorLeftStick.whenPressed(new TestClimbStart());
-                buttonOperatorRightStick.whenPressed(new TestToggleTransportRoller());
-
-                buttonOperatorBack.whenPressed(new TestToggleClimbTilt());
             }
             break;
 
@@ -242,22 +224,6 @@ public class OI
             {
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
-
-                buttonOperatorA.whenPressed(new TestElevatorMove(false));
-                buttonOperatorY.whenPressed(new TestElevatorMove(true));
-
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-
-                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
-
-                buttonOperatorLeftBumper.whenPressed(new GrabHatch());
-                buttonOperatorStart.whenPressed(new ReleaseHatch());
-
-                buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(buttonOperatorRightStick));
-                buttonOperatorRightStick.whenPressed(new ClimbStartWithCheck(buttonOperatorLeftStick));
 
                 buttonOperatorBack.whenPressed(new ModeSelect(false));
             }
