@@ -80,8 +80,13 @@ public class SK19Lift extends Subsystem
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
     }
 
-    //TODO: The following methods need to be finished, there may be required a 4th, 5th and 6th position
-    // Need to talk to hatch team to see if positions are in proper spot
+    /**
+     *  This takes the passed integer position and checks if there is a hatch or a piece of cargo, and if there is goes to the appropriate position, if there is no hatch or cargo
+     *  then it goes to the lowest position of the set points, and if pressed again will go to the highest position of the two positions
+     *  @param posIndex
+     *      - Type: int
+     *      - This is the passed index that controls what position the arm is going to move to
+     */
     public void setArmPosition(int posIndex)
     {   
         double setAngle = 0.0;
@@ -112,11 +117,23 @@ public class SK19Lift extends Subsystem
         RobotElevator.setPosition(setPosition);
     }
 
+    /**
+     *  This method that takes a double value and sets the arm motor controller to a specific speed to be moving at.
+     *  @param speed
+     *      - Type: double
+     *      - This double value if positive up to 1.0 sets the motor to run forwards at that speed. If the value is negative then the motor will turn backwards at that set speed.
+     */
     public void testSetArmPositionMotorSpeed(double speed)
     {
         RobotArmAngled.setSpeed(speed);
     }
 
+    /**
+     *  This sets the elevator position to either up or false based on the boolean parameter
+     *  @param ElevUp
+     *      - Type: boolean
+     *      - If this is true it sets the elevator to the highest position and if false it sets it to the lowest position
+     */
     public void testSetElevatorPosition(boolean ElevUp)
     {
         RobotElevator.setPosition(ElevUp);
@@ -126,6 +143,13 @@ public class SK19Lift extends Subsystem
     {
 
     }
+
+    /**
+     *  This method takes a boolean value about whether to extend the and lock the hatch gripper, or to unlockand retract the hatch gripper
+     *  @param gripperLock
+     *      - Type: Boolean
+     *      - If this value is true the piston will extend and lock a hatch in place, if the value is false the piston will retract and will unlock the locking mechanism.
+     */
     public void HatchGripper(boolean gripperLock)
     {
         if (gripperLock)
@@ -138,6 +162,12 @@ public class SK19Lift extends Subsystem
         }
     }
 
+    /**
+     *  This method takes a boolean value and decides whether to extend the pushing mechanism on the hatch mechanism to push off a hatch, or to retract it and keep the hatch on
+     *  @param pusherExtend
+     *      - Type: boolean
+     *      - This value decides whether the piston that pushes off the hatch is extended or not, if the value is true the piston will extend, and if it's false the piston will retract.
+     */
     public void HatchPusher(boolean pusherExtend)
     {
         if (pusherExtend)
@@ -147,6 +177,28 @@ public class SK19Lift extends Subsystem
         else
         {
             RobotHatch.retractHatchPiston();
+        }
+    }
+
+    /**
+     *  This method takes a double value and runs a comparison on it to see if it's greater than, less than or equal to zero
+     *  @param cargoSpeed
+     *      - Type double:
+     *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value 
+     */
+    public void cargoSystem(double cargoSpeed)
+    {
+        if (cargoSpeed > 0)
+        {
+            OctopusRoller.setForwards();
+        }
+        else if (cargoSpeed < 0)
+        {
+            OctopusRoller.setBackwards();
+        }
+        else
+        {
+            OctopusRoller.setStop();
         }
     }
 
