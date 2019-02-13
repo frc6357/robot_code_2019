@@ -56,16 +56,16 @@ public class BaseTankDrive3Motor extends BaseTankDrive
 
         // Left Drive Controllers
         baseFrontLeftMaster = new WPI_VictorSPX(Ports.driveLeftFrontMotor);
-        baseCenterLeft = new WPI_VictorSPX(Ports.driveLeftCenterMotor);
+        baseCenterLeft = new WPI_VictorSPX(15);
         baseBackLeft = new WPI_VictorSPX(Ports.driveLeftRearMotor);
 
         // Right Drive Controllers
         baseFrontRightMaster = new WPI_VictorSPX(Ports.driveRightFrontMotor);
-        baseCenterRight = new WPI_VictorSPX(Ports.driveRightCenterMotor);
+        baseCenterRight = new WPI_VictorSPX(14);
         baseBackRight = new WPI_VictorSPX(Ports.driveRightRearMotor);
 
-        // Inverts the speed controllers so they do not spin the wrong way. Remember that the 
-        // center motor spins in the opposite direction from the front and back due to the 
+        // Inverts the speed controllers so they do not spin the wrong way. Remember that the
+        // center motor spins in the opposite direction from the front and back due to the
         // gearbox we are using!
         baseBackRight.setInverted(true);
         baseCenterRight.setInverted(false);
@@ -76,14 +76,11 @@ public class BaseTankDrive3Motor extends BaseTankDrive
         baseFrontLeftMaster.setInverted(false);
 
         // Encoders
-        leftEncoder  = new ScaledEncoder(Ports.driveLeftEncoderA,
-                                         Ports.driveLeftEncoderB,
-                                         Ports.driveEncoderPulsesPerRotation,
-                                         Ports.driveWheelDiameterInches);
-        rightEncoder = new ScaledEncoder(Ports.driveRightEncoderA,
-                                         Ports.driveRightEncoderB,
-                                         Ports.driveEncoderPulsesPerRotation,
-                                         Ports.driveWheelDiameterInches);
+        leftEncoder  = new ScaledEncoder(Ports.driveLeftEncoderA, Ports.driveLeftEncoderB,
+        Ports.driveEncoderPulsesPerRotation, Ports.driveWheelDiameterInches);
+
+        rightEncoder = new ScaledEncoder(Ports.driveRightEncoderA, Ports.driveRightEncoderB,
+        Ports.driveEncoderPulsesPerRotation, Ports.driveWheelDiameterInches);
 
         // This sets the all the speed controllers on the right side to follow the
         // center speed controller
@@ -96,7 +93,7 @@ public class BaseTankDrive3Motor extends BaseTankDrive
         ((WPI_VictorSPX) baseBackLeft).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontLeftMaster).getDeviceID());
 
         // Gear shifter
-        baseGearShiftSolenoid = new DoubleSolenoid(Ports.driveGearShiftPCM, Ports.driveGearShiftHigh, Ports.driveGearShiftLow);
+        baseGearShiftSolenoid = new DoubleSolenoid(Ports.driveGearShiftPCM, 3, 5);
         baseHighGear = false;
 
         // Sets Defaults
@@ -151,7 +148,7 @@ public class BaseTankDrive3Motor extends BaseTankDrive
     {
         return baseFrontLeftMaster.get();
     }
-    
+
     /**
      * This method is used to query the right side motor speed.
      *
