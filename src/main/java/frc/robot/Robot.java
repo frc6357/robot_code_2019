@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.base.BaseGroveIRProximitySensor;
+import frc.robot.subsystems.base.BaseLimitSensor;
+import frc.robot.subsystems.base.BaseProximitySensor;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SmoothDrive;
@@ -34,9 +37,10 @@ public class Robot extends TimedRobot
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
 
-  public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
+  public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
- 
+  public static BaseLimitSensor testSensor = new BaseGroveIRProximitySensor(9);
+
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
   // 5 times per second (based on a 20mS periodic callback).
@@ -53,7 +57,7 @@ public class Robot extends TimedRobot
 
     // Initialize the operator interface.
     oi = new OI();
-    
+
     camera=CameraServer.getInstance().startAutomaticCapture("Driver Front Camera", 0);
     //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
     //cameraRear.setResolution(640, 480);
@@ -165,7 +169,7 @@ public class Robot extends TimedRobot
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
-    
+
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
     //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
@@ -202,6 +206,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+        SmartDashboard.putBoolean("Test Grove IR Sensor", testSensor.getIsTriggered());
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
         //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
       }
