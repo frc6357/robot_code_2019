@@ -7,6 +7,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.utils.FilteredJoystick;
+import frc.robot.utils.filters.*;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -46,6 +47,7 @@ public class OI
     // button.whenReleased(new ExampleCommand());
 
     private static FilteredJoystick joystickDriver;
+    private static ExponentialFilter driveJoystickFilter;
 
     private static Button buttonCameraShifter;
     private static Button buttonLowGear;
@@ -72,6 +74,12 @@ public class OI
     {
         // Instantiate the driver joystick devices.
         joystickDriver = new FilteredJoystick(Ports.OIDriverJoystick);
+
+        // Add an exponential filter to the driver joystick to damp the response around the zero
+        // point. The coefficient here must be negative
+        driveJoystickFilter = new ExponentialFilter(Ports.driveJoystickCoefficient);
+        joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
+        joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 
         buttonLowGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectLow);
         buttonHighGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectHigh);
@@ -107,15 +115,9 @@ public class OI
      * @return returnType The value of the joystick axis. Note that this may be a filtered value if we subclass the joystick to allow
      *         control of deadbands or response curves.
      */
-    public double getDriverJoystickValue(int port, boolean invert)
+    public double getDriverJoystickValue(int port)
     {
-        double multiplier = 1.0;
-
-        if (invert)
-        {
-            multiplier = -1.0;
-        }
-        return multiplier * joystickDriver.getRawAxis(port);
+        return joystickDriver.getFilteredAxis(port);
     }
 
     /**

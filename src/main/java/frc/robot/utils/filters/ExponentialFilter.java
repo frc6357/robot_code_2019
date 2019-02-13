@@ -1,14 +1,11 @@
 package frc.robot.utils.filters;
 
 /*
- * Creates an exponential curve on the filter
- * 0 correlates to 0, and 1 correlates to 1
- * There are several potential options:
- * y=(e^x-1)/(e-1)
- * y=e^(1-1/x^2)
- * y=x^3
- * y=e^(1-1/x)
- * Some function of tanh
+ * Creates a cubic curve on the filter
+ * 0.0 correlates to 0.0, and 1.0 correlates to "coeff" and
+ * -1.0 correlates to "-coeff". The transfer function is
+ * 
+ * output = coefficient * (input^3)
  */
 public class ExponentialFilter extends Filter
 {
@@ -18,15 +15,16 @@ public class ExponentialFilter extends Filter
      * Default constructor, gives a coefficient of coef
      * 
      * @param coef
-     *            the coefficient of the cubic function, must be greater than zero
+     *            The coefficient of the cubic function. This can be positive or negative, allowing
+     *            the joystick value to be inverted at the same time as the filter is applied.
      */
     public ExponentialFilter(double coef)
     {
-        coefficient = Math.abs(coef);
+        coefficient = coef;
     }
 
     /**
-     * Filters the input into a more exponential form Currently uses x^3, but more formulas are available
+     * Filters the input using a scaled cubic transfer function.
      * 
      * @param rawAxis
      *            the data to be read in, from -1 to 1

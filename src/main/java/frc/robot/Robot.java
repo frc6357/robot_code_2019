@@ -130,8 +130,8 @@ public class Robot extends TimedRobot
   {
     Scheduler.getInstance().run();
 
-    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive, true); // Retrieves the status of all buttons and joysticks
-    driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive, true);
+    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
+    driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
     teleopDrive.setLeftSpeed(driveLeft);
     teleopDrive.setRightSpeed(driveRight);
@@ -160,8 +160,8 @@ public class Robot extends TimedRobot
 
     Scheduler.getInstance().run();
 
-    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive, true); // Retrieves the status of all buttons and joysticks
-    driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive, true);
+    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
+    driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
