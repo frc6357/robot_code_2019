@@ -103,6 +103,7 @@ public class OI
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+
     }
 
     /**
@@ -209,6 +210,10 @@ public class OI
                 // TODO: Rework this to match the actual test mode control mapping
                 //       when this is defined. For not, it's just a copy of the override
                 //       mode mapping with the Back button action disabled.
+                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
+                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
+                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
+                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
             }
             break;
 
