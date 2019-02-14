@@ -179,6 +179,7 @@ public class Robot extends TimedRobot
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
 
+    UpdateSmartDashboard(OI.Mode.TEST);
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
     //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
@@ -215,7 +216,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
-        // SmartDashboard.putNumber("Intake Arm SPI Encoders", intakeArmEncoder.get());
+         SmartDashboard.putNumber("Intake Arm SPI Encoders", intakeArmEncoder.get());
         SmartDashboard.putBoolean("Test Grove Sensor", testSensor.getIsTriggered());
 
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
