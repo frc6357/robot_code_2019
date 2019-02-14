@@ -166,7 +166,8 @@ public class Robot extends TimedRobot
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
-    
+
+    UpdateSmartDashboard(OI.Mode.TEST);
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
     //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
