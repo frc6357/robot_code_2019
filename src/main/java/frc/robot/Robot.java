@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -68,7 +69,7 @@ public class Robot extends TimedRobot
     //Server = new MjpegServer("cameraServer", 1);
 
     // TODO: Need to implement to call absolute encoder
-    //EncoderAMT203V intakeArmEncoder = new EncoderAMT203V(port);
+    EncoderAMT203V intakeArmEncoder = new EncoderAMT203V(SPI.Port.kOnboardCS0);
   }
 
 
