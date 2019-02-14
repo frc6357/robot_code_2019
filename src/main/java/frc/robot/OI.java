@@ -205,6 +205,7 @@ public class OI
             {
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
+                SmartDashboard.putNumber("Intake Arm SPI Encoders", Robot.intakeArmEncoder.get());
 
                 // TODO: Rework this to match the actual test mode control mapping
                 //       when this is defined. For not, it's just a copy of the override

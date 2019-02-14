@@ -39,7 +39,7 @@ public class Robot extends TimedRobot
   public static boolean cameraPrev = false;
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
-  public SPIEncoderAMT203V intakeArmEncoder;
+  public static SPIEncoderAMT203V intakeArmEncoder;
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
@@ -180,6 +180,7 @@ public class Robot extends TimedRobot
     BaseDrive.setRightSpeed(driveRight);
 
     UpdateSmartDashboard(OI.Mode.TEST);
+    System.out.println("Intake Arm SPI Encoders" + intakeArmEncoder.get());
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
     //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
