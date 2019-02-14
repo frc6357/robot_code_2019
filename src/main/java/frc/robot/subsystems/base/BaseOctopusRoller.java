@@ -41,7 +41,7 @@ public class BaseOctopusRoller extends BaseRoller
      *      - Type: boolean
      *      - Checks whether the sensor is activated and will return true
      */
-    private boolean isCargoPressed()
+    public boolean isCargoPressed()
     {
         return CargoSensor.getIsTriggered();
     }
