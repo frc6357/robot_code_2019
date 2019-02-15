@@ -11,7 +11,7 @@ import frc.robot.utils.ScaledEncoder;
 /**
  * The SK19CargoIntake subsystem is responsible for all the hardware on the robot
  * related to picking up cargo from the floor and transfering it into the "octopus".
- * 
+ *
  * TODO: The mechanism and detectors used to transfer the cargo from the back of the
  * robot, immediately after the rollers, to the octopus mechanism is not yet fully
  * defined. This should include a set of transfer rollers and a second proximity
@@ -42,7 +42,9 @@ public class SK19CargoIntake extends Subsystem
         this.TransferMotorLeft      = new WPI_TalonSRX(Ports.intakeTransferMotorLeft);
         this.TransferMotorRight     = new WPI_TalonSRX(Ports.intakeTransferMotorRight);
         this.ArmMotor               = new WPI_TalonSRX(Ports.intakeArmMotor);
-        this.ArmEncoder             = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB, Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
+
+        // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
+        this.ArmEncoder             = new ScaledEncoder(9, 8, Ports.intakeEncoderPulsesPerRev, 0.25);
 
         // TODO: Verify that the transfer motors do need to run in opposite directions.
         TransferMotorLeft.setInverted(false);
@@ -51,9 +53,6 @@ public class SK19CargoIntake extends Subsystem
         // Set the right transfer motor to follow control input from the left.
         ((WPI_TalonSRX) TransferMotorRight).set(ControlMode.Follower, ((WPI_TalonSRX) TransferMotorLeft).getDeviceID());
 
-        // TODO: If we use the absolute encoder, this will need to be reworked.
-        //this.ArmEncoder             = new SPIEncoderAMT203V(Ports.intakeEncoderSPI, Ports.intakeEncoderPulsesPerRev);
-    
         //this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, Ports.intakeArmMotorSpeed);
         this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, this.ArmEncoder, Ports.intakeArmMotorSpeed);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectState);
@@ -106,7 +105,7 @@ public class SK19CargoIntake extends Subsystem
     /**
      * Determines whether there is a cargo piece within the robot right behind
      * the intake rollers.
-     * 
+     *
      * @return Returns true if a cargo piece is within the intake, false otherwise.
      */
     public boolean isCargoInIntake()
@@ -115,9 +114,9 @@ public class SK19CargoIntake extends Subsystem
     }
 
     /**
-     * Determines whether there is a cargo piece within the robot between the transfer 
+     * Determines whether there is a cargo piece within the robot between the transfer
      * rollers.
-     * 
+     *
      * @return Returns true if a cargo piece is between the transfer rollers, false otherwise.
      */
     public boolean isCargoInTransfer()
@@ -139,7 +138,7 @@ public class SK19CargoIntake extends Subsystem
 
     /**
      * Called periodically by the top level class, this method carries out any required
-     * housekeeping operations. In this case, that means only passing the call on to the 
+     * housekeeping operations. In this case, that means only passing the call on to the
      * rotating arm so that it can drive its position controller and handle the limit
      * switches.
      */
@@ -150,7 +149,7 @@ public class SK19CargoIntake extends Subsystem
 
     /**
      * This function sets the speed of the roller motor. It must only be used in test mode.
-     * 
+     *
      * @param speed The speed of the roller motor.
      */
     public void testSetRollerSpeed(double speed)
@@ -161,7 +160,7 @@ public class SK19CargoIntake extends Subsystem
 
     /**
      * This function sets the speed of the arm motor. It must only be used in test mode.
-     * 
+     *
      * @param speed The speed of the arm motor.
      */
     public void testSetArmMotorSpeed(double speed)
