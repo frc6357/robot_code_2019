@@ -39,11 +39,12 @@ public class Robot extends TimedRobot
   public static boolean cameraPrev = false;
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
-  public Encoder intakeArmEncoder;
+
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static BaseLimitSensor testSensor = new BaseGroveIRProximitySensor(9);
+  public static Encoder intakeArmEncoder = new Encoder(9, 8);
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
@@ -70,7 +71,6 @@ public class Robot extends TimedRobot
     //Server = new MjpegServer("cameraServer", 1);
 
     // TODO: Need to implement to call absolute encoder
-    intakeArmEncoder = new Encoder(9, 8);
   }
 
 
