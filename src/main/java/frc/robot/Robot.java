@@ -19,7 +19,7 @@ import frc.robot.subsystems.base.BaseProximitySensor;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.base.BaseTankDrive3Motor;
-//import frc.robot.subsystems.base.SPIEncoderAMT203V;
+import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.SmoothDrive;
 
 
@@ -39,7 +39,7 @@ public class Robot extends TimedRobot
   public static boolean cameraPrev = false;
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
-  //public static SPIEncoderAMT203V intakeArmEncoder;
+  public Encoder intakeArmEncoder;
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot
     //Server = new MjpegServer("cameraServer", 1);
 
     // TODO: Need to implement to call absolute encoder
-    //intakeArmEncoder = new SPIEncoderAMT203V(Ports.intakeEncoderSPI, 1024);
+    intakeArmEncoder = new Encoder(9, 8);
   }
 
 
@@ -217,7 +217,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
-        //SmartDashboard.putNumber("Intake Arm SPI Encoders", intakeArmEncoder.get());
+        SmartDashboard.putNumber("Intake Arm Encoders", intakeArmEncoder.get());
         SmartDashboard.putBoolean("Test Grove Sensor", testSensor.getIsTriggered());
 
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());

@@ -21,7 +21,7 @@ public class SPIEncoderAMT203V
     // the EEPROM.
     private final static byte COMMAND_SET_ZERO_POINT = (byte) 0x70;
 
-    // The maximum number of wait polls before we decide that the encoder isn't 
+    // The maximum number of wait polls before we decide that the encoder isn't
     // going to work.
     private final static int POS_READ_MAX_POLLS = 50;
 
@@ -99,16 +99,16 @@ public class SPIEncoderAMT203V
 
     /**
      * Perform a command transaction to the encoder. This sends a command byte
-     * and waits for any response before reading it and returning it to the 
+     * and waits for any response before reading it and returning it to the
      * caller.
-     * 
+     *
      * @param command    The command byte to send.
-     * @param numToRead  The number of bytes of response data expected (following the 
+     * @param numToRead  The number of bytes of response data expected (following the
      *                   echo of the original command byte).
-     * @param response   Storage for the returned bytes. This must be at least 1 byte long 
+     * @param response   Storage for the returned bytes. This must be at least 1 byte long
      *                   because we use it during polling prior to reading the actual response.
      * @param timeout    Number of polling attempts to wait before declaring a timeout error.
-     * 
+     *
      * @return Returns true on success or false if we timed out before receiving a response.
      */
     private boolean doTransaction(byte command, int numToRead, byte[] response, int timeout)
@@ -147,7 +147,6 @@ public class SPIEncoderAMT203V
             response[readIndex] = sendByte[0];
             readIndex++;
         }
-
-         return true;
-     }
+        return true;
+    }
 }
