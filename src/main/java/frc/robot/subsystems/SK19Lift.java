@@ -35,6 +35,8 @@ public class SK19Lift extends Subsystem
     double                              ArmSpeed;
     int                                 lastPosition;
     double                              octopusScaler;
+    int                                 cargoIndexSearch = 0;
+    int                                 hatchIndexSearch = 1;
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
@@ -96,14 +98,14 @@ public class SK19Lift extends Subsystem
         
         if (hatchSensor && !ballSensor)
         {   
-            setAngle = lookupTable[posIndex][0].armAngle;
-            setPosition = lookupTable[posIndex][0].ElevatorUp;
+            setAngle = lookupTable[posIndex][cargoIndexSearch].armAngle;
+            setPosition = lookupTable[posIndex][cargoIndexSearch].ElevatorUp;
             lastPosition = posIndex;
         }
         else if (ballSensor && !hatchSensor)
         {
-            setAngle = lookupTable[posIndex][1].armAngle;
-            setPosition = lookupTable[posIndex][1].ElevatorUp;
+            setAngle = lookupTable[posIndex][hatchIndexSearch].armAngle;
+            setPosition = lookupTable[posIndex][hatchIndexSearch].ElevatorUp;
             lastPosition = posIndex;
         }
         else
