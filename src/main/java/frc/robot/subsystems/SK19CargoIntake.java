@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Ports;
 import frc.robot.subsystems.base.*;
+import frc.robot.utils.ScaledEncoder;
 
 /**
  * The SK19CargoIntake subsystem is responsible for all the hardware on the robot
@@ -26,7 +27,7 @@ public class SK19CargoIntake extends Subsystem
     BaseProximitySensor    CargoPresentAtTransfer;
     SpeedController        TransferMotorLeft;
     SpeedController        TransferMotorRight;
-    //SPIEncoderAMT203V      ArmEncoder;
+    ScaledEncoder          ArmEncoder;
 
     double                 TransferMotorSpeed = 0.0;
     double                 RollerSpeed        = 0.0;
@@ -41,6 +42,7 @@ public class SK19CargoIntake extends Subsystem
         this.TransferMotorLeft      = new WPI_TalonSRX(Ports.intakeTransferMotorLeft);
         this.TransferMotorRight     = new WPI_TalonSRX(Ports.intakeTransferMotorRight);
         this.ArmMotor               = new WPI_TalonSRX(Ports.intakeArmMotor);
+        this.ArmEncoder             = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB, Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
 
         // TODO: Verify that the transfer motors do need to run in opposite directions.
         TransferMotorLeft.setInverted(false);
@@ -52,8 +54,8 @@ public class SK19CargoIntake extends Subsystem
         // TODO: If we use the absolute encoder, this will need to be reworked.
         //this.ArmEncoder             = new SPIEncoderAMT203V(Ports.intakeEncoderSPI, Ports.intakeEncoderPulsesPerRev);
     
-        this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, Ports.intakeArmMotorSpeed);
-        //this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, this.ArmEncoder, Ports.intakeArmMotorSpeed);
+        //this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, Ports.intakeArmMotorSpeed);
+        this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, this.ArmEncoder, Ports.intakeArmMotorSpeed);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectState);
         this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectState);
 

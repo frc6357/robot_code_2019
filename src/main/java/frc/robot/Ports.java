@@ -132,6 +132,9 @@ public class Ports
     //       these to indicate SSI port and CS number instead of DIOs.
     public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1; 
     public static final int intakeEncoderPulsesPerRev    = 1024;
+    public static final int intakeArmEncoderA            = 14;  // DIO input 14
+    public static final int intakeArmEncoderB            = 15;  // DIO input 15
+    public static final double intakeArmEncoderDiameter  = 0.25;
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;

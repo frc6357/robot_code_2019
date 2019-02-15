@@ -1,6 +1,7 @@
 package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import frc.robot.utils.ScaledEncoder;
 
 //import frc.robot.subsystems.base.SPIEncoderAMT203V;
 
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class BaseAngleControlledArm extends BaseMotorizedArm {
 
-    //private final SPIEncoderAMT203V armEncoder;
+    private ScaledEncoder armEncoder;
 
     private final double STOP_ANGLE_DEADBAND = 2.0;
 
@@ -33,7 +34,7 @@ public class BaseAngleControlledArm extends BaseMotorizedArm {
      *
      * @param armSpeed       - Type: double - Constant speed for arm to move at
      */
-    /*public BaseAngleControlledArm(SpeedController armRotateMotor, SPIEncoderAMT203V armEncoder, double armSpeed) {
+    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, double armSpeed) {
         super(armRotateMotor);
 
         this.armEncoder = armEncoder;
@@ -42,7 +43,7 @@ public class BaseAngleControlledArm extends BaseMotorizedArm {
         armEncoder.reset();
         angleSetPoint = 0;
     }
-    */
+    
     /**
      *  Constructor:
      *
