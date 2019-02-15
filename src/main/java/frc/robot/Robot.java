@@ -43,7 +43,6 @@ public class Robot extends TimedRobot
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive3Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
-  public static BaseLimitSensor testSensor = new BaseGroveIRProximitySensor(9);
   public static Encoder intakeArmEncoder = new Encoder(9, 8);
 
   // This is the number of periodic callbacks to skip between each update
@@ -218,7 +217,6 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
         SmartDashboard.putNumber("Intake Arm Encoders", intakeArmEncoder.get());
-        SmartDashboard.putBoolean("Test Grove Sensor", testSensor.getIsTriggered());
 
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
         //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
