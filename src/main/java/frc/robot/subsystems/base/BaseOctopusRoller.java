@@ -7,8 +7,6 @@ import frc.robot.subsystems.base.BaseLimitSensor;
  */
 public class BaseOctopusRoller extends BaseRoller
 {
-    // Motor Controllers
-    private final SpeedController motorController;
     // scaler Value
     private final static double scaler = 1;
     ///Limit Sensors
@@ -29,9 +27,7 @@ public class BaseOctopusRoller extends BaseRoller
      */
     public BaseOctopusRoller(BaseLimitSensor CargoSensor, SpeedController motorController, double scaler)
     {
-        
         super(motorController, scaler);
-        this.motorController = motorController;
         this.CargoSensor = CargoSensor;
     }
     

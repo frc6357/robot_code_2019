@@ -9,7 +9,8 @@ public class BaseRoller
 {
     // Speed Controller
     private SpeedController motorController;
-    private double speed = 1;
+    private double speed = 1.0;
+    private double currentSpeed = 0.0;
     private int directionReader;
 
     /**
@@ -53,7 +54,11 @@ public class BaseRoller
      */
     public void setForwards()
     {
-        motorController.set(speed);
+        if(currentSpeed != speed)
+        {
+            currentSpeed = speed;
+            motorController.set(currentSpeed);
+        }
         directionReader = 1;
     }
 
@@ -62,7 +67,11 @@ public class BaseRoller
      */
     public void setBackwards()
     {
-        motorController.set(-1*speed);
+        if(currentSpeed != -speed)
+        {
+            currentSpeed = -speed;
+            motorController.set(currentSpeed);
+        }
         directionReader = -1;
     }
 
@@ -71,7 +80,11 @@ public class BaseRoller
      */
     public void setStop()
     {
-        motorController.set(0);
+        if(currentSpeed != 0.0)
+        {
+            currentSpeed = 0.0;
+            motorController.set(0.0);
+        }
         directionReader = 0;
     }
 

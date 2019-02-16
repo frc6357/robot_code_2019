@@ -13,6 +13,7 @@ public class BaseMotorizedArm
 {
     // Rotate Speed Controller
     private final SpeedController armRotateMotor;
+    private double currentSpeed = 0.0;
 
     // Limit Sensors
     private final BaseLimitSensor armLimitTop;
@@ -93,7 +94,11 @@ public class BaseMotorizedArm
             }
             else
             {
-                armRotateMotor.set(speed);
+                if(speed != currentSpeed)
+                {
+                    currentSpeed = speed;
+                    armRotateMotor.set(speed);
+                }
                 armState = ArmStates.MOVING_UP;
             }
         }
@@ -106,7 +111,11 @@ public class BaseMotorizedArm
             }
             else
             {
-                armRotateMotor.set(speed);
+                if(speed != currentSpeed)
+                {
+                    currentSpeed = speed;
+                    armRotateMotor.set(speed);
+                }
                 armState = ArmStates.MOVING_DOWN;
             }
         }
@@ -134,7 +143,8 @@ public class BaseMotorizedArm
      */
     public void stop()
     {
-        armRotateMotor.set(0);
+        currentSpeed = 0.0;
+        armRotateMotor.set(0.0);
     }
 
     /**

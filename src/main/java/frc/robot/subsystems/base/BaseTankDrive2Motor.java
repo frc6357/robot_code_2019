@@ -39,6 +39,10 @@ public class BaseTankDrive2Motor extends BaseTankDrive
     public final ScaledEncoder rightEncoder;
     public final ScaledEncoder leftEncoder;
 
+    // Motor speeds
+    private double leftSpeed  = 0.0;
+    private double rightSpeed = 0.0;
+
     /**
      * The DriveBaseSystem constructor handles all the actuator object creation, and
      * sets the follow mode for the speed controllers
@@ -111,7 +115,11 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public void setLeftSpeed(double speed)
     {
-        baseFrontLeftMaster.set(speed);
+        if(speed != leftSpeed)
+        {
+            leftSpeed = speed;
+            baseFrontLeftMaster.set(speed);
+        }
     }
 
     /**
@@ -124,7 +132,11 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public void setRightSpeed(double speed)
     {
-        baseFrontRightMaster.set(speed);
+        if(speed != rightSpeed)
+        {
+            rightSpeed = speed;
+            baseFrontRightMaster.set(speed);
+        }
     }
 
         /**
@@ -136,7 +148,7 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public double getLeftSpeed()
     {
-        return baseFrontLeftMaster.get();
+        return leftSpeed;
     }
     
     /**
@@ -148,7 +160,7 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public double getRightSpeed()
     {
-        return baseFrontRightMaster.get();
+        return rightSpeed;
     }
 
     /**
