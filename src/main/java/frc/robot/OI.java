@@ -66,9 +66,11 @@ public class OI
     private static Button buttonOperatorBack;
     private static Button buttonOperatorStart;
     
-    public enum Mode { NONE, TEST, NORMAL, MANUAL };
+    public static enum Mode { NONE, TEST, NORMAL, MANUAL };
 
     private static Mode oiMode = Mode.NONE;
+
+    private static ModeSelect modeToggle = new ModeSelect();
 
     public OI()
     {
@@ -196,14 +198,11 @@ public class OI
         switch(mode)
         {
             case NONE:
-            {
                 SmartDashboard.putString("Operator Mode", "NONE");
                 SmartDashboard.putBoolean("Operator Override", false);
-            }
-            break;
+                break;
 
             case TEST:
-            {
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
 
@@ -214,27 +213,22 @@ public class OI
                 buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
                 buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
                 buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-            }
-            break;
+                break;
 
             case NORMAL:
-            {
                 SmartDashboard.putString("Operator Mode", "NORMAL");
                 SmartDashboard.putBoolean("Operator Override", false);
 
                 // TODO: Set up control actions for normal mode.
-                buttonOperatorBack.whenPressed(new ModeSelect(true));
-            }
-            break;
+                buttonOperatorBack.whenPressed(modeToggle);
+                break;
 
             case MANUAL:
-            {
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
-
-                buttonOperatorBack.whenPressed(new ModeSelect(false));
-            }
-            break;
+                buttonOperatorBack.whenPressed(modeToggle);
+                //buttonOperatorBack.whenPressed(modeSelectNormal);
+                break;
         }
     }
     /**

@@ -222,7 +222,7 @@ public class Ports
     // *********************
     // Operator Controller
     // *********************
-    public static final int OIOperatorJoystick           = 0;        
+    public static final int OIOperatorJoystick           = 1;        
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick

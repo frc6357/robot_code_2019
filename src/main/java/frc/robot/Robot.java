@@ -102,7 +102,8 @@ public class Robot extends TimedRobot
    * SendableChooser make sure to add them to the chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     oi.setMode(OI.Mode.NORMAL);
   }
 
@@ -122,6 +123,7 @@ public class Robot extends TimedRobot
     // Do anything needed here when autonomous mode exits.
     // NB: In the 2019 game we will NOT be using autonomous code so this function
     // must NOT do anything to change the state of the robot!
+    oi.setMode(OI.Mode.NORMAL);
   }
 
   /**
