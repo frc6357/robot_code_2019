@@ -1,37 +1,36 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.Ports;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * A class supporting switching the drivetrain between low and high gear.
  */
-public class GearShiftCommand extends Command
+public class SlowModeCommand extends Command
 {
-    private boolean SelectHigh;
+    private double coeff          = Ports.driveJoystickCoefficient;
 
     /**
      * 
      * @param high sets the gearing to either high or low based on a boolean variable
      */
-    public GearShiftCommand(boolean high)
+    public SlowModeCommand(boolean bSlow)
     {
-        requires(Robot.BaseDrive);
-        SelectHigh = high;
+        this.coeff = Ports.driveJoystickCoefficient / (bSlow ? 2 : 1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        Robot.oi.setDriverJoystickCoefficient(coeff);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        if(SelectHigh != Robot.BaseDrive.getIsHighGear())
-        {
-            Robot.BaseDrive.setHighGear(SelectHigh);
-        }
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -91,6 +91,10 @@ public class OI
 
         buttonShifter.whenPressed(shiftLow);
         buttonShifter.whenReleased(shiftHigh);
+
+        buttonSlowMode.whenPressed(new SlowModeCommand(true));
+        buttonSlowMode.whenReleased(new SlowModeCommand(false));
+
         // TODO: Revisit this if we end up having multiple cameras.
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
 
@@ -107,7 +111,16 @@ public class OI
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+    }
 
+    /**
+     * Set the transfer function coefficient used by the driver (speed) joystick.
+     * 
+     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0. 
+     */
+    public void setDriverJoystickCoefficient(double coeff)
+    {
+        driveJoystickFilter.setCoef(coeff);
     }
 
     /**
