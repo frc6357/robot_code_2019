@@ -2,6 +2,7 @@ package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.utils.ScaledEncoder;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 //import frc.robot.subsystems.base.SPIEncoderAMT203V;
 
@@ -10,98 +11,47 @@ import frc.robot.utils.ScaledEncoder;
  *
  * THE PERIODIC FUNCTION MUST BE IMPLEMENTED
  */
-public class BaseAngleControlledArm extends BaseMotorizedArm {
+public class BaseAngleControlledArm extends PIDSubsystem {
 
     private ScaledEncoder armEncoder;
+    private BaseMotorizedArm arm;
 
-    private final double STOP_ANGLE_DEADBAND = 2.0;
-
-    private double angleSetPoint;
-    private double armSpeed;
-
-    //This constructor is only being used for testing purposes
-    public BaseAngleControlledArm(SpeedController armRotateMotor, double armSpeed)
-    {
-        super(armRotateMotor);
-    }
     /**
      * Constructor:
      *
      * @param armRotateMotor - Type: SpeedController - Speed controller for
-     *                       controlling arm motor
+     *                                                 controlling arm motor
      *
-     * @param armEncoder     - Type: SPIEncoderAMT203V - Encoder for tracking angle 
+     * @param armEncoder     - Type: SPIEncoderAMT203V - Encoder for tracking angle
      *
      * @param armSpeed       - Type: double - Constant speed for arm to move at
+     *
+     * @param kP             - Type: double - Porportional value of PID controller
+     *
+     * @param kI        `    - Type: double - Integral value of PID controller
+     *
+     * @param kD             - Type: double - Derivative value of PID controller
+     *
+     * @param tolerance      - Type: double - Set the percentage error which is considered
+     *                                        tolerable for use with OnTarget.
+     *
+     * @param rampBand       - Type: double - The acceptable range for a motor change in one loop
+     *
      */
-    public BaseAngleControlledArm(SpeedController armRotateMotor, ScaledEncoder armEncoder, double armSpeed) {
-        super(armRotateMotor);
+    public BaseAngleControlledArm(BaseMotorizedArm arm, ScaledEncoder armEncoder, double kP,
+                                    double kI, double kD, double tolerance) {
+
+        super(kP, kI, kD);
+        setAbsoluteTolerance(tolerance);
 
         this.armEncoder = armEncoder;
-        this.armSpeed = armSpeed;
+        this.arm = arm;
 
         armEncoder.reset();
-        angleSetPoint = 0;
+
+        enable();
     }
-    
-    /**
-     *  Constructor:
-     *
-     *  @param armRotateMotor
-     *      - Type: SpeedController
-     *      - Speed controller for controlling arm motor
-     *
-     *  @param armEncoder
-     *      - Type: Encoder
-     *      - Encoder for tracking angle / speed / distance
-     *
-     * @param armLimitTop
-     *      - Type: int
-     *      - DIO for upper limit sensor
-     *
-     * @param armLimitBottom
-     *      - Type: int
-     *      - DIO for bottom limit sensor
-     */
-    /*public BaseAngleControlledArm(SpeedController armRotateMotor, SPIEncoderAMT203V armEncoder, BaseLimitSensor armLimitTop, BaseLimitSensor armLimitBottom, double armSpeed)
-    {
-        super(armRotateMotor, armLimitBottom, armLimitTop);
 
-        this.armEncoder = armEncoder;
-        this.armSpeed = armSpeed;
-
-        armEncoder.reset();
-        angleSetPoint = 0;
-    }
-    */
-    /**
-     * THIS FUNCTION MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
-     */
-    /*
-    public void periodic()
-    {
-        handleIsTriggered();
-
-        if (armEncoder.getAngleDegrees() < (angleSetPoint + STOP_ANGLE_DEADBAND)
-        && armEncoder.getAngleDegrees() > (angleSetPoint - STOP_ANGLE_DEADBAND))
-        {
-            stop();
-        }
-        else if (armEncoder.getAngleDegrees() < angleSetPoint)
-        {
-            setSpeed(armSpeed);
-        }
-        else if (armEncoder.getAngleDegrees() > angleSetPoint)
-        {
-            setSpeed(armSpeed * -1);
-        }
-
-        if (getBottomLimitTriggered())
-        {
-            armEncoder.reset();
-        }
-    }
-    */
     /**
      * Sets the set point angle to go to
      *
@@ -109,6 +59,31 @@ public class BaseAngleControlledArm extends BaseMotorizedArm {
      */
     public void moveToAngle(double angle)
     {
-        angleSetPoint = angle;
+        setSetpoint(angle);
     }
+
+    public double getArmPosition()
+    {
+        return getPosition();
+    }
+
+    public double getArmSetpoint()
+    {
+        return getSetpoint();
+    }
+
+    @Override
+    protected double returnPIDInput()
+    {
+        return armEncoder.getAngleDegrees();
+    }
+
+    @Override
+    protected void usePIDOutput(double output)
+    {
+        arm.setSpeed(output);
+    }
+
+    @Override
+    protected void initDefaultCommand() {}
 }
