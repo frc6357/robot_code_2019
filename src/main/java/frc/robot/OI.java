@@ -203,7 +203,6 @@ public class OI
                 break;
 
             case TEST:
-            {
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
 
@@ -214,8 +213,7 @@ public class OI
                 buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
                 buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
                 buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-            }
-            break;
+                break;
 
             case NORMAL:
                 SmartDashboard.putString("Operator Mode", "NORMAL");
