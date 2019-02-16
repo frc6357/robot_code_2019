@@ -72,8 +72,8 @@ public class OI
 
     private static ModeSelect modeToggle = new ModeSelect();
 
-    private static GearShiftCommand ShiftLow = new GearShiftCommand(false);
-    private static GearShiftCommand ShiftHigh = new GearShiftCommand(true);
+    private static GearShiftCommand shiftLow = new GearShiftCommand(false);
+    private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
     public OI()
     {
@@ -89,7 +89,8 @@ public class OI
         buttonShifter = new JoystickButton(joystickDriver, Ports.IODriverGearShift);
         buttonSlowMode = new JoystickButton(joystickDriver, Ports.OIDriverSlow);
 
-       
+        buttonShifter.whenPressed(shiftLow);
+        buttonShifter.whenReleased(shiftHigh);
         // TODO: Revisit this if we end up having multiple cameras.
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
 

@@ -1,6 +1,9 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+
+import static org.junit.Assume.assumeTrue;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -28,7 +31,10 @@ public class GearShiftCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        Robot.BaseDrive.setHighGear(SelectHigh);
+        if(SelectHigh != Robot.BaseDrive.getIsHighGear())
+        {
+            Robot.BaseDrive.setHighGear(SelectHigh);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
