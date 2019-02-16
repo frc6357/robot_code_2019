@@ -21,15 +21,6 @@ public class TestIntakeMoveArm extends Command
     public TestIntakeMoveArm(boolean moveOut, boolean startMotor)
     {
         requires(Robot.Intake);
-
-        double newSpeed = 0.0;
-
-        if(startMotor)
-        {
-            newSpeed = moveOut ? Ports.intakeArmMotorSpeed : -Ports.intakeArmMotorSpeed;
-        }
-
-        Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
   
 
@@ -41,7 +32,14 @@ public class TestIntakeMoveArm extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        double newSpeed = 0.0;
+
+        if(startMotor)
+        {
+            newSpeed = moveOut ? Ports.intakeArmMotorSpeed : -Ports.intakeArmMotorSpeed;
+        }
+
+        Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

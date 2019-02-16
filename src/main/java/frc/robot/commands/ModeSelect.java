@@ -13,8 +13,7 @@ public class ModeSelect extends Command
      * @param Override sets manual override mode if true, else sets normal control mode.
      */
     public ModeSelect(boolean Override)
-    {
-        Robot.oi.setMode(false, Override);
+    {   
     }
   
 
@@ -26,7 +25,7 @@ public class ModeSelect extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        Robot.oi.setMode(false, Override);
     }
 
     // Make this return true when this Command no longer needs to run execute()

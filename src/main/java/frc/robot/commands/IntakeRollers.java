@@ -18,20 +18,6 @@ public class IntakeRollers extends Command
     public IntakeRollers(boolean on, boolean toggle)
     {
         requires(Robot.Intake);
-
-        double speed = 0.0;
-
-        if(toggle == false)
-        {
-            speed = on ? Ports.intakeIngestMotorSpeed : 0.0;
-        }
-        else
-        {
-            double currentSpeed = Robot.Intake.testGetRollerSpeed();
-            speed = (currentSpeed == 0.0) ? Ports.intakeIngestMotorSpeed : 0.0;
-        }
-        
-        Robot.Intake.testSetRollerSpeed(speed);
     }
   
 
@@ -43,7 +29,19 @@ public class IntakeRollers extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        double speed = 0.0;
         
+        if(toggle == false)
+        {
+            speed = on ? Ports.intakeIngestMotorSpeed : 0.0;
+        }
+        else
+        {
+            double currentSpeed = Robot.Intake.testGetRollerSpeed();
+            speed = (currentSpeed == 0.0) ? Ports.intakeIngestMotorSpeed : 0.0;
+        }
+        
+        Robot.Intake.testSetRollerSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
