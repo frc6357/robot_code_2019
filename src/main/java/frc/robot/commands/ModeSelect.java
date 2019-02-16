@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,25 +9,36 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ModeSelect extends Command
 {
+
     /**
      * 
      * @param Override sets manual override mode if true, else sets normal control mode.
      */
-    public ModeSelect(boolean Override)
+    public ModeSelect()
     {
-        Robot.oi.setMode(false, Override);
+        
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        OI.Mode RobotState = Robot.oi.getMode();
+        if (RobotState == OI.Mode.NORMAL)
+        {
+            Robot.oi.setMode(OI.Mode.MANUAL);
+        }
+        else if(RobotState == OI.Mode.MANUAL)
+        {
+            Robot.oi.setMode(OI.Mode.NORMAL);
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
