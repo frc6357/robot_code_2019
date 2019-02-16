@@ -172,7 +172,7 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      */
     public void setHighGear(boolean high)
     {
-        baseGearShiftSolenoid.set(high);
+        baseGearShiftSolenoid.set(!high);
         baseHighGear = high;
     }
 
