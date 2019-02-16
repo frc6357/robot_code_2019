@@ -29,7 +29,7 @@ public class Ports
     //
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
-    
+
     // ***************************
     // Pneumatic Control Module(s)
     // ***************************
@@ -43,7 +43,7 @@ public class Ports
 
     public static final int driveRightFrontMotor         = 16;   // CAN ID 16
     public static final int driveRightRearMotor          = 12;   // CAN ID 12
-    
+
     public static final int driveGearShiftPCM            = pcm1;
     public static final int driveGearShiftHigh           = 0;    // PCM 1 output 0
 
@@ -57,7 +57,7 @@ public class Ports
     public static final double driveWheelDiameterInches   = 6.0;
 
     // These values are the maximum motors speed change (where the range is [-1, 1])
-    // per 20mS. These give us a 0.33 second ramp from stopped to maximum speed in 
+    // per 20mS. These give us a 0.33 second ramp from stopped to maximum speed in
     // either direction. Tune these as required.
     public static final double driveMaxAccelForward       = 0.06;
     public static final double driveMaxAccelBackwards     = 0.06;
@@ -65,7 +65,7 @@ public class Ports
     // Set this to determine the maximum speed of the robot. 0.5 means that
     // full joystick will drive the motors at 50% of their maximum rate.
     public static final double driveJoystickCoefficient   = -0.5;
-    
+
     // *************
     // Hatch Gripper
     // *************
@@ -99,7 +99,7 @@ public class Ports
     //
     public static final int armRotateMotor               = 21;   // CAN ID 21
 
-    public static final SPI.Port armEncoderSPI           = SPI.Port.kOnboardCS0; 
+    public static final SPI.Port armEncoderSPI           = SPI.Port.kOnboardCS0;
     public static final int armEncoderPulsesPerRev       = 1024;
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
@@ -130,11 +130,16 @@ public class Ports
 
     // TODO: We're using an SSI-based absolute encoder on the arm so change
     //       these to indicate SSI port and CS number instead of DIOs.
-    public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1; 
+    public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1;
     public static final int intakeEncoderPulsesPerRev    = 1024;
     public static final int intakeArmEncoderA            = 14;  // DIO input 14
     public static final int intakeArmEncoderB            = 15;  // DIO input 15
     public static final double intakeArmEncoderDiameter  = 0.25;
+
+    public static final double intakeArmPValue           = 2;
+    public static final double intakeArmIValue           = 0;
+    public static final double intakeArmDValue           = 0;
+    public static final double intakeArmToleranceValue   = 0;
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
@@ -179,12 +184,12 @@ public class Ports
 
     // The fixed speed at which the octopus motor will run when turned on.
     // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25; 
+    public static final double octopusMotorSpeed         = 0.25;
 
     // ***************
     // Climb Subsystem
     // ***************
-    public static final int climbPCM                     = pcm1; 
+    public static final int climbPCM                     = pcm1;
 
     public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
@@ -194,7 +199,7 @@ public class Ports
     // Additional sensors
     // ******************
 
-    // TODO: Will these be fitted? 
+    // TODO: Will these be fitted?
     public static final int driveFrontRangefinder        = 0;    // ADC channel 0
     public static final int driveRearRangefinder         = 1;    // ADC channel 1
 
@@ -222,7 +227,7 @@ public class Ports
     // *********************
     // Operator Controller
     // *********************
-    public static final int OIOperatorJoystick           = 1;        
+    public static final int OIOperatorJoystick           = 1;
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick

@@ -1,6 +1,5 @@
 package frc.robot.subsystems.base;
 
-import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.utils.ScaledEncoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -24,8 +23,6 @@ public class BaseAngleControlledArm extends PIDSubsystem {
      *
      * @param armEncoder     - Type: SPIEncoderAMT203V - Encoder for tracking angle
      *
-     * @param armSpeed       - Type: double - Constant speed for arm to move at
-     *
      * @param kP             - Type: double - Porportional value of PID controller
      *
      * @param kI        `    - Type: double - Integral value of PID controller
@@ -34,8 +31,6 @@ public class BaseAngleControlledArm extends PIDSubsystem {
      *
      * @param tolerance      - Type: double - Set the percentage error which is considered
      *                                        tolerable for use with OnTarget.
-     *
-     * @param rampBand       - Type: double - The acceptable range for a motor change in one loop
      *
      */
     public BaseAngleControlledArm(BaseMotorizedArm arm, ScaledEncoder armEncoder, double kP,
@@ -52,12 +47,22 @@ public class BaseAngleControlledArm extends PIDSubsystem {
         enable();
     }
 
+    public void periodic()
+    {
+        arm.periodic();
+
+        if (arm.getBottomLimitTriggered())
+        {
+            armEncoder.reset();
+        }
+    }
+
     /**
      * Sets the set point angle to go to
      *
      * @param angle Type: double - angle for arm to go to
      */
-    public void moveToAngle(double angle)
+    public void moveToAngleDegrees(double angle)
     {
         setSetpoint(angle);
     }

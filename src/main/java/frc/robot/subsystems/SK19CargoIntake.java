@@ -20,14 +20,14 @@ import frc.robot.utils.ScaledEncoder;
  */
 public class SK19CargoIntake extends Subsystem
 {
-    SpeedController        RollerMotor;
-    SpeedController        ArmMotor;
-    BaseAngleControlledArm RollerArm;
-    BaseProximitySensor    CargoPresentAtIntake;
-    BaseProximitySensor    CargoPresentAtTransfer;
-    SpeedController        TransferMotorLeft;
-    SpeedController        TransferMotorRight;
-    ScaledEncoder          ArmEncoder;
+    public SpeedController        RollerMotor;
+    public SpeedController        ArmMotor;
+    public BaseAngleControlledArm RollerArm;
+    public BaseProximitySensor    CargoPresentAtIntake;
+    public BaseProximitySensor    CargoPresentAtTransfer;
+    public SpeedController        TransferMotorLeft;
+    public SpeedController        TransferMotorRight;
+    public ScaledEncoder          ArmEncoder;
 
     double                 TransferMotorSpeed = 0.0;
     double                 RollerSpeed        = 0.0;
@@ -44,7 +44,7 @@ public class SK19CargoIntake extends Subsystem
         this.ArmMotor               = new WPI_TalonSRX(Ports.intakeArmMotor);
 
         // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
-        this.ArmEncoder             = new ScaledEncoder(9, 8, Ports.intakeEncoderPulsesPerRev, 0.25);
+        this.ArmEncoder             = new ScaledEncoder(9, 8, Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
 
         // TODO: Verify that the transfer motors do need to run in opposite directions.
         TransferMotorLeft.setInverted(false);
@@ -53,12 +53,24 @@ public class SK19CargoIntake extends Subsystem
         // Set the right transfer motor to follow control input from the left.
         ((WPI_TalonSRX) TransferMotorRight).set(ControlMode.Follower, ((WPI_TalonSRX) TransferMotorLeft).getDeviceID());
 
-        //this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, Ports.intakeArmMotorSpeed);
-        this.RollerArm              = new BaseAngleControlledArm(this.ArmMotor, this.ArmEncoder, Ports.intakeArmMotorSpeed);
+        this.RollerArm              = new BaseAngleControlledArm(new BaseMotorizedArm(ArmMotor), this.ArmEncoder,
+                                                                Ports.intakeArmPValue, Ports.intakeArmIValue,
+                                                                Ports.intakeArmDValue, Ports.intakeArmToleranceValue);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectState);
         this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectState);
 
         stopCargoIntake();
+    }
+
+    /**
+    * Called periodically by the top level class, this method carries out any required
+    * housekeeping operations. In this case, that means only passing the call on to the
+    * rotating arm so that it can drive its position controller and handle the limit
+    * switches.
+    */
+    public void periodic()
+    {
+    RollerArm.periodic();
     }
 
     /**
@@ -67,7 +79,6 @@ public class SK19CargoIntake extends Subsystem
     public void stopCargoIntake()
     {
         stopTransfer();
-        ArmMotor.set(0.0);
         RollerMotor.set(0.0);
         RollerSpeed = 0.0;
     }
@@ -87,7 +98,8 @@ public class SK19CargoIntake extends Subsystem
      */
     public void deployCargoIntake()
     {
-        RollerArm.moveToAngle(Ports.intakeArmDeployedAngle);
+        RollerArm.moveToAngleDegrees(Ports.intakeArmDeployedAngle);
+
         RollerSpeed = Ports.intakeIngestMotorSpeed;
         RollerMotor.set(RollerSpeed);
     }
@@ -97,7 +109,7 @@ public class SK19CargoIntake extends Subsystem
      */
     public void stowCargoIntake()
     {
-        RollerArm.moveToAngle(0.0);
+        RollerArm.moveToAngleDegrees(0.0);
         RollerSpeed = 0.0;
         RollerMotor.set(RollerSpeed);
     }
@@ -136,16 +148,6 @@ public class SK19CargoIntake extends Subsystem
         TransferMotorLeft.set(TransferMotorSpeed);
     }
 
-    /**
-     * Called periodically by the top level class, this method carries out any required
-     * housekeeping operations. In this case, that means only passing the call on to the
-     * rotating arm so that it can drive its position controller and handle the limit
-     * switches.
-     */
-    public void periodic()
-    {
-        RollerArm.periodic();
-    }
 
     /**
      * This function sets the speed of the roller motor. It must only be used in test mode.

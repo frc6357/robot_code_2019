@@ -38,7 +38,7 @@ public class Robot extends TimedRobot
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
- 
+
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
   // 5 times per second (based on a 20mS periodic callback).
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot
 
     // Initialize the operator interface.
     oi = new OI();
-    
+
     camera=CameraServer.getInstance().startAutomaticCapture("Driver Front Camera", 0);
     //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
     //cameraRear.setResolution(640, 480);
@@ -102,7 +102,7 @@ public class Robot extends TimedRobot
    * SendableChooser make sure to add them to the chooser code above as well.
    */
   @Override
-  public void autonomousInit() 
+  public void autonomousInit()
   {
     oi.setMode(OI.Mode.NORMAL);
   }
@@ -206,6 +206,16 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+
+        // PID for intake arm
+        SmartDashboard.putNumber("P", Ports.intakeArmPValue);
+        SmartDashboard.putNumber("I", Ports.intakeArmIValue);
+        SmartDashboard.putNumber("D", Ports.intakeArmDValue);
+        SmartDashboard.putNumber("Tolerance", Ports.intakeArmToleranceValue);
+        SmartDashboard.putNumber("Set Point", Intake.RollerArm.getArmSetpoint());
+        SmartDashboard.putNumber("Position", Intake.RollerArm.getArmPosition());
+        SmartDashboard.putNumber("Intake Arm Motor Speed", Intake.ArmMotor.get());
+
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
         //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
       }
