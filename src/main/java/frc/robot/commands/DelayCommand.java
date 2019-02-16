@@ -1,39 +1,41 @@
 package frc.robot.commands;
 
+import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class which implements a command that does absolutely nothing. This
- * may sound silly but it's useful when switching modes and making some
- * buttons inactive.
+ * A class supporting timed delays. This is intended for use in
+ * command groups where a delay is required between adjacent commands.
  */
-public class NullCommand extends Command
+public class DelayCommand extends Command
 {
+    private int msDelay;
+    private int msToGo;
+    private final int msPerPeriodic = 20;
 
-    /**
-     * 
-     * @param
-     */
-    public NullCommand()
+    public DelayCommand(int msDelay)
     {
+        this.msDelay = msDelay;
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        msToGo = msDelay;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        msToGo -= msPerPeriodic;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return true;
+        return (msToGo <= 0);
     }
 
     // Called once after isFinished returns true
