@@ -113,7 +113,7 @@ public class OI
         buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
         buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
 
-        buttonOperatorX.whenPressed(new TestIntakeRollers(OI.Mode.TEST, false, true));
+        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.TEST, false, true));
 
         buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch(OI.Mode.TEST));
         buttonOperatorStart.whenPressed(new TestToggleDeployHatch(OI.Mode.TEST));
@@ -134,7 +134,7 @@ public class OI
         buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, true));
         buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, false));
 
-        buttonOperatorX.whenPressed(new TestIntakeRollers(OI.Mode.MANUAL, false, true));
+        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.MANUAL, false, true));
 
         buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.MANUAL));
         buttonOperatorStart.whenPressed(new ReleaseHatch(OI.Mode.MANUAL));

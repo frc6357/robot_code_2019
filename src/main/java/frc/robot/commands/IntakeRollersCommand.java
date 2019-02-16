@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * A class supporting the testing of the intake roller motor.
  */
-public class TestIntakeRollers extends Command
+public class IntakeRollersCommand extends Command
 {   
     private boolean on;
     private boolean toggle;
@@ -20,7 +20,7 @@ public class TestIntakeRollers extends Command
      * @param toggle checks if the motor is on/off and changes the state its currently in based on its previous state. i.e (on to off/ off to on)
      *    
      *   */
-    public TestIntakeRollers(OI.Mode mode, boolean on, boolean toggle)
+    public IntakeRollersCommand(OI.Mode mode, boolean on, boolean toggle)
     {
         requires(Robot.Intake);
         this.on     = on;
