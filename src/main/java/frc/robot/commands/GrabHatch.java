@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,16 +9,22 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GrabHatch extends Command
 {
-    // TODO: Code the GrabHatch command!
-    
-    public GrabHatch()
+    OI.Mode mode;
+
+    public GrabHatch(OI.Mode mode)
     {
+        this.mode = mode;
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        // Do not execute this command if we're not in the required mode!
+        if(Robot.oi.getMode() != mode)
+            return;
+
+        // TODO: Code the GrabHatch command!
     }
 
     // Called repeatedly when this Command is scheduled to run

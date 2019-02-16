@@ -14,19 +14,28 @@ import edu.wpi.first.wpilibj.buttons.Button;
  */
 public class ClimbStartWithCheck extends Command
 {
+    OI.Mode mode;
+    Button  check;
+
     /**
      * 
      * @param Override sets manual override mode if true, else sets normal control mode.
      */
-    public ClimbStartWithCheck(Button CheckBtn)
+    public ClimbStartWithCheck(OI.Mode Mode, Button CheckBtn)
     {
-        // TODO: Code the ClimbStartWithCheck command.
+        mode = Mode;
+        check = CheckBtn;
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        // Do not execute this command if we're not in the required mode!
+        if(Robot.oi.getMode() != mode)
+            return;
+    
+        // TODO: Code the ClimbStartWithCheck command.
     }
 
     // Called repeatedly when this Command is scheduled to run

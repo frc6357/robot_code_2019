@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -12,7 +13,7 @@ public class ModeSelect extends Command
      * 
      * @param Override sets manual override mode if true, else sets normal control mode.
      */
-    public ModeSelect(boolean Override)
+    public ModeSelect()
     {   
     }
   
@@ -25,7 +26,17 @@ public class ModeSelect extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        Robot.oi.setMode(false, Override);
+        // NB: We don't change the mode unless it is originally MANUAL or NORMAL!
+        // This ensures that we stay in TEST mode if we start there.
+        OI.Mode RobotState = Robot.oi.getMode();
+        if (RobotState == OI.Mode.NORMAL)
+        {
+            Robot.oi.setMode(OI.Mode.MANUAL);
+        }
+        else if(RobotState == OI.Mode.MANUAL)
+        {
+            Robot.oi.setMode(OI.Mode.NORMAL);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

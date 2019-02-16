@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Ports;
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -10,6 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TestIntakeMoveArm extends Command
 {
+    private OI.Mode mode;
+    private boolean startMotor;
+    private boolean moveOut;
+
     /**
      * 
      * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.
@@ -18,9 +23,12 @@ public class TestIntakeMoveArm extends Command
      * @param startMotor Determines whether the motor should be run or stopped. If true, the motor runs
      *              in the direction specified by the moveOutut parameter
      */
-    public TestIntakeMoveArm(boolean moveOut, boolean startMotor)
+    public TestIntakeMoveArm(OI.Mode mode, boolean moveOut, boolean startMotor)
     {
         requires(Robot.Intake);
+        this.mode       = mode;
+        this.startMotor = startMotor;
+        this.moveOut    = moveOut;
     }
   
 
@@ -33,6 +41,10 @@ public class TestIntakeMoveArm extends Command
     protected void execute()
     {
         double newSpeed = 0.0;
+
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
 
         if(startMotor)
         {

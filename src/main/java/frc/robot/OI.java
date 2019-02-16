@@ -5,6 +5,7 @@
 
 package frc.robot;
 
+import frc.robot.OI;
 import frc.robot.commands.*;
 import frc.robot.utils.FilteredJoystick;
 
@@ -95,6 +96,57 @@ public class OI
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+
+        //*************************************
+        // Button mappings common to all modes.
+        //*************************************
+        buttonOperatorBack.whenPressed(new ModeSelect());
+
+        //************************************
+        // Test mode operator button mappings.
+        //************************************
+        buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.TEST, false));
+        buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
+
+        buttonOperatorB.whenActive(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
+        buttonOperatorB.whenInactive(new TestIntakeMoveArm(OI.Mode.TEST, false, false));
+        buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
+        buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
+
+        buttonOperatorX.whenPressed(new TestIntakeRollers(OI.Mode.TEST, false, true));
+
+        buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch(OI.Mode.TEST));
+        buttonOperatorStart.whenPressed(new TestToggleDeployHatch(OI.Mode.TEST));
+
+        buttonOperatorLeftStick.whenPressed(new TestClimbStart(OI.Mode.TEST));
+        buttonOperatorRightStick.whenPressed(new TestToggleTransportRoller(OI.Mode.TEST));
+
+        buttonOperatorBack.whenPressed(new TestToggleClimbTilt(OI.Mode.TEST));
+
+        //**************************************
+        // Manual mode operator button mappings.
+        //**************************************
+        buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.MANUAL, false));
+        buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.MANUAL, true));
+
+        buttonOperatorB.whenActive(new TestIntakeMoveArm(OI.Mode.MANUAL, false, true));
+        buttonOperatorB.whenInactive(new TestIntakeMoveArm(OI.Mode.MANUAL, false, false));
+        buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, true));
+        buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, false));
+
+        buttonOperatorX.whenPressed(new TestIntakeRollers(OI.Mode.MANUAL, false, true));
+
+        buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.MANUAL));
+        buttonOperatorStart.whenPressed(new ReleaseHatch(OI.Mode.MANUAL));
+
+        buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorRightStick));
+        buttonOperatorRightStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorLeftStick));
+
+        //**************************************
+        // Normal mode operator button mappings.
+        //**************************************
+        // TODO: Set up control actions for normal mode.
+
     }
 
     /**
@@ -203,28 +255,6 @@ public class OI
             {
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
-
-                // TODO: Rework this to match the actual test mode control mapping
-                //       when this is defined. For not, it's just a copy of the override
-                //       mode mapping with the Back button action disabled.
-
-                buttonOperatorA.whenPressed(new TestElevatorMove(false));
-                buttonOperatorY.whenPressed(new TestElevatorMove(true));
-
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-
-                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
-
-                buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch());
-                buttonOperatorStart.whenPressed(new TestToggleDeployHatch());
-
-                buttonOperatorLeftStick.whenPressed(new TestClimbStart());
-                buttonOperatorRightStick.whenPressed(new TestToggleTransportRoller());
-
-                buttonOperatorBack.whenPressed(new TestToggleClimbTilt());
             }
             break;
 
@@ -232,9 +262,6 @@ public class OI
             {
                 SmartDashboard.putString("Operator Mode", "NORMAL");
                 SmartDashboard.putBoolean("Operator Override", false);
-
-                // TODO: Set up control actions for normal mode.
-                buttonOperatorBack.whenPressed(new ModeSelect(true));
             }
             break;
 
@@ -242,24 +269,6 @@ public class OI
             {
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
-
-                buttonOperatorA.whenPressed(new TestElevatorMove(false));
-                buttonOperatorY.whenPressed(new TestElevatorMove(true));
-
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-
-                buttonOperatorX.whenPressed(new IntakeRollers(false, true));
-
-                buttonOperatorLeftBumper.whenPressed(new GrabHatch());
-                buttonOperatorStart.whenPressed(new ReleaseHatch());
-
-                buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(buttonOperatorRightStick));
-                buttonOperatorRightStick.whenPressed(new ClimbStartWithCheck(buttonOperatorLeftStick));
-
-                buttonOperatorBack.whenPressed(new ModeSelect(false));
             }
             break;
         }

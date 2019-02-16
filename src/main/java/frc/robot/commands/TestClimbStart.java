@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,16 +10,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TestClimbStart extends Command
 {
-    // TODO: Code the TestClimbStart command!
+    private OI.Mode mode;
 
-    public TestClimbStart()
+    public TestClimbStart(OI.Mode mode)
     {
+        this.mode = mode;
     }
   
-
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        // TODO: Code the TestClimbStart command!
     }
 
     // Called repeatedly when this Command is scheduled to run

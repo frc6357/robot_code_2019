@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,16 +10,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TestToggleDeployHatch extends Command
 {
-    // TODO: Code the TestToggleDeployHatch command!
+    OI.Mode mode;
 
-    public TestToggleDeployHatch()
+    public TestToggleDeployHatch(OI.Mode mode)
     {
+        this.mode = mode;
     }
   
-
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        // TODO: Code the TestToggleDeployHatch command!
     }
 
     // Called repeatedly when this Command is scheduled to run
