@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Ports;
@@ -38,10 +40,10 @@ public class SK19CargoIntake extends Subsystem
     public SK19CargoIntake()
     {
         // TODO: Which motor controllers are we using here? We assume TalonSRX for now.
-        this.RollerMotor            = new WPI_TalonSRX(Ports.intakeRollerMotor);
-        this.TransferMotorLeft      = new WPI_TalonSRX(Ports.intakeTransferMotorLeft);
-        this.TransferMotorRight     = new WPI_TalonSRX(Ports.intakeTransferMotorRight);
-        this.ArmMotor               = new WPI_TalonSRX(Ports.intakeArmMotor);
+        this.RollerMotor        = new WPI_VictorSPX(Ports.intakeRollerMotor);
+        this.TransferMotorLeft  = new WPI_VictorSPX(Ports.intakeTransferMotorLeft);
+        this.TransferMotorRight = new WPI_VictorSPX(Ports.intakeTransferMotorRight);
+        this.ArmMotor           = new WPI_VictorSPX(Ports.intakeArmMotor);
 
         // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
         this.ArmEncoder             = new ScaledEncoder(9, 8, Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
@@ -51,7 +53,7 @@ public class SK19CargoIntake extends Subsystem
         TransferMotorRight.setInverted(true);
 
         // Set the right transfer motor to follow control input from the left.
-        ((WPI_TalonSRX) TransferMotorRight).set(ControlMode.Follower, ((WPI_TalonSRX) TransferMotorLeft).getDeviceID());
+        ((WPI_VictorSPX) TransferMotorRight).set(ControlMode.Follower, ((WPI_VictorSPX) TransferMotorLeft).getDeviceID());
 
         this.RollerArm              = new BaseAngleControlledArm(new BaseMotorizedArm(ArmMotor), this.ArmEncoder,
                                                                 Ports.intakeArmPValue, Ports.intakeArmIValue,

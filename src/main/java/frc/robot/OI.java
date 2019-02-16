@@ -50,8 +50,8 @@ public class OI
     private static ExponentialFilter driveJoystickFilter;
 
     private static Button buttonCameraShifter;
-    private static Button buttonLowGear;
-    private static Button buttonHighGear;
+    private static Button buttonShifter;
+    private static Button buttonSlowMode;
 
     private static FilteredJoystick joystickOperator;
 
@@ -72,6 +72,9 @@ public class OI
 
     private static ModeSelect modeToggle = new ModeSelect();
 
+    private static GearShiftCommand ShiftLow = new GearShiftCommand(false);
+    private static GearShiftCommand ShiftHigh = new GearShiftCommand(true);
+
     public OI()
     {
         // Instantiate the driver joystick devices.
@@ -83,12 +86,10 @@ public class OI
         joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
         joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 
-        buttonLowGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectLow);
-        buttonHighGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectHigh);
+        buttonShifter = new JoystickButton(joystickDriver, Ports.IODriverGearShift);
+        buttonSlowMode = new JoystickButton(joystickDriver, Ports.OIDriverSlow);
 
-        buttonLowGear.whenPressed(new GearShiftCommand(false));
-        buttonHighGear.whenPressed(new GearShiftCommand(true));
-
+       
         // TODO: Revisit this if we end up having multiple cameras.
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
 
