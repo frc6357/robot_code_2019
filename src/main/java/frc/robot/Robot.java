@@ -16,6 +16,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Lift;
+import frc.robot.subsystems.SK19LiftLookup;
 import frc.robot.subsystems.SmoothDrive;
 
 /**
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
+  public static SK19Lift Lift = new SK19Lift();
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
