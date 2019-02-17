@@ -57,11 +57,15 @@ public class Ports
     public static final double driveWheelDiameterInches   = 6.0;
 
     // These values are the maximum motors speed change (where the range is [-1, 1])
-    // per 20mS. These give us a 1 second ramp from stopped to maximum speed in 
+    // per 20mS. These give us a 0.2 second ramp from stopped to maximum speed in 
     // either direction. Tune these as required.
-    public static final double driveMaxAccelForward       = 0.02;
-    public static final double driveMaxAccelBackwards     = 0.02;
+    public static final double driveMaxAccelForward       = 0.1;
+    public static final double driveMaxAccelBackwards     = 0.1;
     
+    // Set this to determine the maximum speed of the robot. 0.5 means that
+    // full joystick will drive the motors at 50% of their maximum rate.
+    public static final double driveJoystickCoefficient   = -1.0;
+
     // *************
     // Hatch Gripper
     // *************

@@ -29,8 +29,8 @@ public class SK19Lift extends Subsystem
     BaseHatchMechanism                  RobotHatch;
     DoubleSolenoid                      HatchLockSolenoid;
     DoubleSolenoid                      HatchDeploySolenoid;
-    BaseProximitySensor                 HatchSensor;
-    BaseProximitySensor                 BallSensor;
+    public BaseProximitySensor          HatchSensor;
+    public BaseProximitySensor          BallSensor;
 
     double                              ArmSpeed;
     int                                 lastPosition;

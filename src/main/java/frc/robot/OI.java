@@ -8,6 +8,7 @@ package frc.robot;
 import frc.robot.OI;
 import frc.robot.commands.*;
 import frc.robot.utils.FilteredJoystick;
+import frc.robot.utils.filters.*;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -47,10 +48,11 @@ public class OI
     // button.whenReleased(new ExampleCommand());
 
     private static FilteredJoystick joystickDriver;
+    private static ExponentialFilter driveJoystickFilter;
 
     private static Button buttonCameraShifter;
-    private static Button buttonLowGear;
-    private static Button buttonHighGear;
+    private static Button buttonShifter;
+    private static Button buttonSlowMode;
 
     private static FilteredJoystick joystickOperator;
 
@@ -69,16 +71,30 @@ public class OI
 
     private static Mode oiMode = Mode.NONE;
 
+    private static ModeSelect modeToggle = new ModeSelect();
+
+    private static GearShiftCommand shiftLow = new GearShiftCommand(false);
+    private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
+
     public OI()
     {
         // Instantiate the driver joystick devices.
         joystickDriver = new FilteredJoystick(Ports.OIDriverJoystick);
 
-        buttonLowGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectLow);
-        buttonHighGear = new JoystickButton(joystickDriver, Ports.IODriverGearSelectHigh);
+        // Add an exponential filter to the driver joystick to damp the response around the zero
+        // point. The coefficient here must be negative
+        driveJoystickFilter = new ExponentialFilter(Ports.driveJoystickCoefficient);
+        joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
+        joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 
-        buttonLowGear.whenPressed(new GearShiftCommand(false));
-        buttonHighGear.whenPressed(new GearShiftCommand(true));
+        buttonShifter = new JoystickButton(joystickDriver, Ports.IODriverGearShift);
+        buttonSlowMode = new JoystickButton(joystickDriver, Ports.OIDriverSlow);
+
+        buttonShifter.whenPressed(shiftLow);
+        buttonShifter.whenReleased(shiftHigh);
+
+        buttonSlowMode.whenPressed(new SlowModeCommand(true));
+        buttonSlowMode.whenReleased(new SlowModeCommand(false));
 
         // TODO: Revisit this if we end up having multiple cameras.
         buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
@@ -138,7 +154,7 @@ public class OI
 
         buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.MANUAL, false, true));
 
-        buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.MANUAL));
+        buttonOperatorLeftBumper.whenPressed(new GrabHatch());
         buttonOperatorStart.whenPressed(new ReleaseHatch(OI.Mode.MANUAL));
 
         buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorRightStick));
@@ -149,6 +165,16 @@ public class OI
         //**************************************
         // TODO: Set up control actions for normal mode.
 
+    }
+
+    /**
+     * Set the transfer function coefficient used by the driver (speed) joystick.
+     * 
+     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0. 
+     */
+    public void setDriverJoystickCoefficient(double coeff)
+    {
+        driveJoystickFilter.setCoef(coeff);
     }
 
     /**
