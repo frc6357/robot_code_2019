@@ -3,8 +3,6 @@
  */
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
-
 /**
  *
  * This class defines the connections of all actuators and controllers to the
@@ -131,8 +129,8 @@ public class Ports
 
     // TODO: We're using an SSI-based absolute encoder on the arm so change
     //       these to indicate SSI port and CS number instead of DIOs.
-    public static final int intakeArmEncoderA            = 9;   // DIO input 14
-    public static final int intakeArmEncoderB            = 8;   // DIO input 15
+    public static final int intakeArmEncoderA            = 8;   // DIO input 14
+    public static final int intakeArmEncoderB            = 9;   // DIO input 15
     public static final double intakeArmEncoderDiameter  = 0.25;
     public static final int intakeEncoderPulsesPerRev    = 1024;
 

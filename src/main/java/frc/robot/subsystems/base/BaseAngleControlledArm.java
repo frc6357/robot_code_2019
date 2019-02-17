@@ -81,7 +81,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
     protected double returnPIDInput()
     {
         double encoderAngle = armEncoder.getAngleDegrees();
-        return encoderAngle;
+        return Math.max(encoderAngle, 0.0);
     }
 
     @Override
