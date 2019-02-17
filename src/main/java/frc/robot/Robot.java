@@ -73,6 +73,7 @@ public class Robot extends TimedRobot
     {
         BaseDrive.setLeftSpeed(0);
         BaseDrive.setRightSpeed(0);
+        Intake.RollerArm.disable();
         // TODO: Do anything else needed to safe the robot when it is disabled.
     }
 
@@ -152,6 +153,7 @@ public class Robot extends TimedRobot
         //CameraServer camServer = CameraServer.getInstance();
         //camServer.addServer(Server);
         oi.setMode(OI.Mode.TEST);
+        Intake.RollerArm.enable();
   }
 
   /**
@@ -160,16 +162,23 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    double driveLeft, driveRight;
+    double driveLeft, driveRight, operatorLeft;
     Scheduler.getInstance().run();
 
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
+    operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, false) * 180 + 180;
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
 
     UpdateSmartDashboard(OI.Mode.TEST);
+
+    Intake.periodic();
+
+    Intake.setArmAngle(operatorLeft);
+
+
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
     //{
     //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
@@ -213,6 +222,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("D", Ports.intakeArmDValue);
         SmartDashboard.putNumber("Tolerance", Ports.intakeArmToleranceValue);
         SmartDashboard.putNumber("Set Point", Intake.RollerArm.getArmSetpoint());
+        SmartDashboard.putNumber("Encoder Angle", Intake.RollerArm.armEncoder.getAngleDegrees());
         SmartDashboard.putNumber("Position", Intake.RollerArm.getArmPosition());
         SmartDashboard.putNumber("Intake Arm Motor Speed", Intake.ArmMotor.get());
 

@@ -73,7 +73,7 @@ public class SK19CargoIntake extends Subsystem
     */
     public void periodic()
     {
-    RollerArm.periodic();
+        RollerArm.periodic();
     }
 
     /**
@@ -115,6 +115,11 @@ public class SK19CargoIntake extends Subsystem
         RollerArm.moveToAngleDegrees(0.0);
         RollerSpeed = 0.0;
         RollerMotor.set(RollerSpeed);
+    }
+
+    public void setArmAngle(double angle)
+    {
+        RollerArm.moveToAngleDegrees(angle);
     }
 
     /**

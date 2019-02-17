@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class BaseAngleControlledArm extends PIDSubsystem {
 
-    private ScaledEncoder armEncoder;
+    public ScaledEncoder armEncoder;
     private BaseMotorizedArm arm;
 
     /**
@@ -38,13 +38,13 @@ public class BaseAngleControlledArm extends PIDSubsystem {
 
         super(kP, kI, kD);
         setAbsoluteTolerance(tolerance);
+        setOutputRange(-1.0, 1.0);
+        setInputRange(0, 360);
 
         this.armEncoder = armEncoder;
         this.arm = arm;
 
         armEncoder.reset();
-
-        enable();
     }
 
     public void periodic()
@@ -80,7 +80,8 @@ public class BaseAngleControlledArm extends PIDSubsystem {
     @Override
     protected double returnPIDInput()
     {
-        return armEncoder.getAngleDegrees();
+        double encoderAngle = armEncoder.getAngleDegrees();
+        return encoderAngle;
     }
 
     @Override

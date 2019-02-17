@@ -136,8 +136,8 @@ public class Ports
     public static final double intakeArmEncoderDiameter  = 0.25;
     public static final int intakeEncoderPulsesPerRev    = 1024;
 
-    public static final double intakeArmPValue           = 2;
-    public static final double intakeArmIValue           = 0;
+    public static final double intakeArmPValue           = 0.005;
+    public static final double intakeArmIValue           = 0.00005;
     public static final double intakeArmDValue           = 0;
     public static final double intakeArmToleranceValue   = 0;
 
@@ -228,10 +228,12 @@ public class Ports
     // *********************
     public static final int OIOperatorJoystick           = 1;
 
-    public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
+    public static final int OIOperatorJoystickL          = 9;    // Left Joystick
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick
     public static final int OIOperatorLeftBumper         = 5;    // Left Bumper
     public static final int OIOperatorRightBumper        = 6;    // Right Bumper
+
+    public static final int OIOperatorJoystickARMPos     = 1;    // Left stick, X axis
 
     public static final int OIOperatorButtonA            = 1;    // A Button
     public static final int OIOperatorButtonB            = 2;    // B Button
