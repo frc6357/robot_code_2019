@@ -36,7 +36,7 @@ public class Robot extends TimedRobot
   private int m_DisplayUpdateCounter = 0;
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
-  public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
+  public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
 
   // This is the number of periodic callbacks to skip between each update
@@ -217,10 +217,10 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
 
         // PID for intake arm
-        SmartDashboard.putNumber("P", Ports.intakeArmPValue);
-        SmartDashboard.putNumber("I", Ports.intakeArmIValue);
-        SmartDashboard.putNumber("D", Ports.intakeArmDValue);
-        SmartDashboard.putNumber("Tolerance", Ports.intakeArmToleranceValue);
+        SmartDashboard.putNumber("P", TuningParams.intakeArmPValue);
+        SmartDashboard.putNumber("I", TuningParams.intakeArmIValue);
+        SmartDashboard.putNumber("D", TuningParams.intakeArmDValue);
+        SmartDashboard.putNumber("Tolerance", TuningParams.intakeArmToleranceValue);
         SmartDashboard.putNumber("Set Point", Intake.RollerArm.getArmSetpoint());
         SmartDashboard.putNumber("Encoder Angle", Intake.RollerArm.armEncoder.getAngleDegrees());
         SmartDashboard.putNumber("Position", Intake.RollerArm.getArmPosition());

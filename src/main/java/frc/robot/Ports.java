@@ -54,16 +54,6 @@ public class Ports
     public static final int driveEncoderPulsesPerRotation = 256;
     public static final double driveWheelDiameterInches   = 6.0;
 
-    // These values are the maximum motors speed change (where the range is [-1, 1])
-    // per 20mS. These give us a 0.33 second ramp from stopped to maximum speed in
-    // either direction. Tune these as required.
-    public static final double driveMaxAccelForward       = 0.1;
-    public static final double driveMaxAccelBackwards     = 0.1;
-
-    // Set this to determine the maximum speed of the robot. 0.5 means that
-    // full joystick will drive the motors at 50% of their maximum rate.
-    public static final double driveJoystickCoefficient   = -1.0;
-
     // *************
     // Hatch Gripper
     // *************
@@ -118,26 +108,16 @@ public class Ports
     public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
     public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
 
-
-    // TODO: Define this information once climb design is clearer.
-
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
     public static final int intakeRollerMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
 
-    // TODO: We're using an SSI-based absolute encoder on the arm so change
-    //       these to indicate SSI port and CS number instead of DIOs.
     public static final int intakeArmEncoderA            = 8;   // DIO input 14
     public static final int intakeArmEncoderB            = 9;   // DIO input 15
     public static final double intakeArmEncoderDiameter  = 0.25;
     public static final int intakeEncoderPulsesPerRev    = 1024;
-
-    public static final double intakeArmPValue           = 0.005;
-    public static final double intakeArmIValue           = 0.00005;
-    public static final double intakeArmDValue           = 0;
-    public static final double intakeArmToleranceValue   = 0;
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
@@ -155,34 +135,11 @@ public class Ports
     // rollers.
     public static final int intakeTransferDetect         = 12;   // DIO input 12
 
-    // The speed of the intake and transfer roller motors when enabled.
-    public static final double intakeTransferMotorSpeed  = 0.25;
-    public static final double intakeIngestMotorSpeed    = 0.5;
-    public static final double intakeArmMotorSpeed       = 0.25;
-
-    // The angle (in degrees from the stowed position) to move the intake arm to
-    // when deployed.
-    //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 90.0;
-
-    // The triggered states of the ingest and transfer proximity sensors.
-    // TODO: Set these states according to the way the sensor is wired.
-    public static final boolean intakeIngestDetectState   = true;
-    public static final boolean intakeTransferDetectState = true;
-
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
     public static final int octopusMotor                 = 30;   // CAN ID 30
     public static final int octopusCargoDetect           = 13;   // DIO input 13
-
-    // The triggered state of the cargo detect sensor.
-    // TODO: Set this state according to the way the sensor is wired.
-    public static final boolean octopusCargoDetectState  = true;
-
-    // The fixed speed at which the octopus motor will run when turned on.
-    // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25;
 
     // ***************
     // Climb Subsystem
@@ -219,7 +176,7 @@ public class Ports
 
     public static final int IODriverGearShift            = 6;    // Right Bumper
 
-    public static final int OIDriverCameraSwitcher      = 2;     // Button B
+    public static final int OIDriverCameraSwitcher       = 2;     // Button B
 
     // *********************
     // Operator Controller

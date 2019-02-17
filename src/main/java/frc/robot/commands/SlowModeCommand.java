@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.Ports;
+import frc.robot.TuningParams;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class SlowModeCommand extends Command
 {
-    private double coeff          = Ports.driveJoystickCoefficient;
+    private double coeff          = TuningParams.driveJoystickCoefficient;
 
     /**
      * 
@@ -18,7 +19,7 @@ public class SlowModeCommand extends Command
      */
     public SlowModeCommand(boolean bSlow)
     {
-        this.coeff = Ports.driveJoystickCoefficient / (bSlow ? 2 : 1);
+        this.coeff = TuningParams.driveJoystickCoefficient / (bSlow ? 2 : 1);
     }
 
     // Called just before this Command runs the first time

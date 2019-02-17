@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Ports;
+import frc.robot.TuningParams;
 import frc.robot.subsystems.base.*;
 import frc.robot.utils.ScaledEncoder;
 
@@ -56,10 +57,10 @@ public class SK19CargoIntake extends Subsystem
         ((WPI_VictorSPX) TransferMotorRight).set(ControlMode.Follower, ((WPI_VictorSPX) TransferMotorLeft).getDeviceID());
 
         this.RollerArm              = new BaseAngleControlledArm(new BaseMotorizedArm(ArmMotor), this.ArmEncoder,
-                                                                Ports.intakeArmPValue, Ports.intakeArmIValue,
-                                                                Ports.intakeArmDValue, Ports.intakeArmToleranceValue);
-        this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectState);
-        this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectState);
+                                                                TuningParams.intakeArmPValue, TuningParams.intakeArmIValue,
+                                                                TuningParams.intakeArmDValue, TuningParams.intakeArmToleranceValue);
+        this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, TuningParams.intakeIngestDetectState);
+        this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, TuningParams.intakeTransferDetectState);
 
         stopCargoIntake();
     }
@@ -100,9 +101,9 @@ public class SK19CargoIntake extends Subsystem
      */
     public void deployCargoIntake()
     {
-        RollerArm.moveToAngleDegrees(Ports.intakeArmDeployedAngle);
+        RollerArm.moveToAngleDegrees(TuningParams.intakeArmDeployedAngle);
 
-        RollerSpeed = Ports.intakeIngestMotorSpeed;
+        RollerSpeed = TuningParams.intakeIngestMotorSpeed;
         RollerMotor.set(RollerSpeed);
     }
 
@@ -145,7 +146,7 @@ public class SK19CargoIntake extends Subsystem
 
     public void startTransfer(boolean bForward)
     {
-        TransferMotorSpeed = bForward ? Ports.intakeTransferMotorSpeed : -Ports.intakeTransferMotorSpeed;
+        TransferMotorSpeed = bForward ? TuningParams.intakeTransferMotorSpeed : -TuningParams.intakeTransferMotorSpeed;
         TransferMotorLeft.set(TransferMotorSpeed);
     }
 

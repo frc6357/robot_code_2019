@@ -82,7 +82,7 @@ public class OI
 
         // Add an exponential filter to the driver joystick to damp the response around the zero
         // point. The coefficient here must be negative
-        driveJoystickFilter = new ExponentialFilter(Ports.driveJoystickCoefficient);
+        driveJoystickFilter = new ExponentialFilter(TuningParams.driveJoystickCoefficient);
         joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
         joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 

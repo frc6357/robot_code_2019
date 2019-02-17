@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Ports;
 import frc.robot.Robot;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -26,7 +27,7 @@ public class TestIntakeMoveArm extends Command
 
         if(startMotor)
         {
-            newSpeed = moveOut ? Ports.intakeArmMotorSpeed : -Ports.intakeArmMotorSpeed;
+            newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
         }
 
         Robot.Intake.testSetArmMotorSpeed(newSpeed);
