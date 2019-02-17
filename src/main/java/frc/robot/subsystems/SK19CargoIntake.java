@@ -46,7 +46,8 @@ public class SK19CargoIntake extends Subsystem
         this.ArmMotor           = new WPI_VictorSPX(Ports.intakeArmMotor);
 
         // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
-        this.ArmEncoder             = new ScaledEncoder(9, 8, Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
+        this.ArmEncoder             = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB,
+                                                        Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
 
         // TODO: Verify that the transfer motors do need to run in opposite directions.
         TransferMotorLeft.setInverted(false);
