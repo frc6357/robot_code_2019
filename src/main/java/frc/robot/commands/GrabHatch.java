@@ -9,14 +9,19 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GrabHatch extends Command
 {
-    public GrabHatch()
+    OI.Mode mode;
+    public GrabHatch(OI.Mode setMode)
     {
+        mode = setMode;
+        
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        if (mode != Robot.oi.getMode())
+            return;
         Robot.Lift.HatchGripper(true);
     }
 

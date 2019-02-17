@@ -24,8 +24,7 @@ public class TestToggleGrabHatch extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-            
-        // TODO: Code the TestToggleGrabHatch command!
+        Robot.Lift.HatchGripper(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

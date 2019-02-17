@@ -117,8 +117,7 @@ public class OI
         // Button mappings common to all modes.
         //*************************************
         buttonOperatorBack.whenPressed(new ModeSelect());
-        if(Robot.Lift.HatchSensor.getIsTriggered())
-            buttonOperatorLeftBumper.whenPressed(new GrabHatch());
+        
 
         //************************************
         // Test mode operator button mappings.
@@ -154,7 +153,7 @@ public class OI
 
         buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.MANUAL, false, true));
 
-        buttonOperatorLeftBumper.whenPressed(new GrabHatch());
+        buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.MANUAL));
         buttonOperatorStart.whenPressed(new ReleaseHatch(OI.Mode.MANUAL));
 
         buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorRightStick));
@@ -164,6 +163,8 @@ public class OI
         // Normal mode operator button mappings.
         //**************************************
         // TODO: Set up control actions for normal mode.
+        if(Robot.Lift.HatchSensor.getIsTriggered() || buttonOperatorLeftBumper.get())
+            buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.NORMAL));
 
     }
 
