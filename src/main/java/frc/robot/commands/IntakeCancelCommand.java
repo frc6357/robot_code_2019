@@ -2,44 +2,38 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.OI;
+import frc.robot.Ports;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Drive the intake arm to a given angle.
+ * A command group implementing the sequence necessary to pull cargo into the robot.
  */
-public class IntakeArmPositionCommand extends Command
+public class IntakeCancelCommand extends Command
 {   
     private OI.Mode mode;
-    private double  setAngle;
 
     /**
-     * 
-     * @param mode - the operating mode in which this command must run.
-     * @param angleDegrees - the angle that the arm will be moved to when this command runs.
-     *    
-     *   */
-    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees)
+     *   
+     *   
+     **/
+    public IntakeCancelCommand(OI.Mode mode)
     {
         requires(Robot.Intake);
-
-        this.mode     = mode;
-        this.setAngle = angleDegrees;
+        this.mode   = mode;
     }
-  
 
-    // Called just before this Command runs the first time
     protected void initialize()
     {
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
 
-        Robot.Intake.setArmAngle(setAngle);
+        Robot.Intake.stowCargoIntake();
+        Robot.Intake.setRollerSpeed(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

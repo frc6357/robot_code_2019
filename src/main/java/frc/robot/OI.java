@@ -75,6 +75,8 @@ public class OI
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
+    private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
+
     public OI()
     {
         // Instantiate the driver joystick devices.
@@ -236,13 +238,13 @@ public class OI
 
                 // TODO: Set up control actions for normal mode.
                 buttonOperatorBack.whenPressed(modeToggle);
+                buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
                 break;
 
             case MANUAL:
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
                 buttonOperatorBack.whenPressed(modeToggle);
-                //buttonOperatorBack.whenPressed(modeSelectNormal);
                 break;
         }
     }
