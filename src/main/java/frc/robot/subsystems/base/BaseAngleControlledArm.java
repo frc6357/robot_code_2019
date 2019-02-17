@@ -14,6 +14,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
 
     public ScaledEncoder armEncoder;
     private BaseMotorizedArm arm;
+    private boolean invertMotor;
 
     /**
      * Constructor:
@@ -34,7 +35,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
      *
      */
     public BaseAngleControlledArm(BaseMotorizedArm arm, ScaledEncoder armEncoder, double kP,
-                                    double kI, double kD, double tolerance) {
+                                    double kI, double kD, double tolerance, boolean invertMotor) {
 
         super(kP, kI, kD);
         setAbsoluteTolerance(tolerance);
@@ -43,6 +44,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
 
         this.armEncoder = armEncoder;
         this.arm = arm;
+        this.invertMotor = invertMotor;
 
         armEncoder.reset();
     }
@@ -87,7 +89,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
     @Override
     protected void usePIDOutput(double output)
     {
-        arm.setSpeed(output);
+        arm.setSpeed(invertMotor ? -output : output);
     }
 
     @Override

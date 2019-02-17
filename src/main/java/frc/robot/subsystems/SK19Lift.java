@@ -79,7 +79,8 @@ public class SK19Lift extends Subsystem
         this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect);
         // This is the decleration for the two base subsytems that we're using, BaseAngledControlledArm
         // As well as BasePneumaticElevator
-        this.RobotArmAngled              = new BaseAngleControlledArm(new BaseMotorizedArm(this.ArmMotor, this.ArmDownLimitSensor, this.ArmUpLimitSensor), ArmEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue);
+        this.RobotArmAngled              = new BaseAngleControlledArm(new BaseMotorizedArm(this.ArmMotor, this.ArmDownLimitSensor, this.ArmUpLimitSensor),
+                                                                      ArmEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
         this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);

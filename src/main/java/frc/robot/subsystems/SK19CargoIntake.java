@@ -58,7 +58,8 @@ public class SK19CargoIntake extends Subsystem
 
         this.RollerArm              = new BaseAngleControlledArm(new BaseMotorizedArm(ArmMotor), this.ArmEncoder,
                                                                 TuningParams.intakeArmPValue, TuningParams.intakeArmIValue,
-                                                                TuningParams.intakeArmDValue, TuningParams.intakeArmToleranceValue);
+                                                                TuningParams.intakeArmDValue, TuningParams.intakeArmToleranceValue,
+                                                                TuningParams.intakeArmInvertMotor);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, TuningParams.intakeIngestDetectState);
         this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, TuningParams.intakeTransferDetectState);
 
@@ -81,7 +82,6 @@ public class SK19CargoIntake extends Subsystem
      */
     public void stopCargoIntake()
     {
-        stopTransfer();
         RollerMotor.set(0.0);
         RollerSpeed = 0.0;
     }
@@ -93,7 +93,6 @@ public class SK19CargoIntake extends Subsystem
     public void safeCargoIntake()
     {
         stowCargoIntake();
-        stopTransfer();
     }
 
     /**
@@ -144,25 +143,12 @@ public class SK19CargoIntake extends Subsystem
         return CargoPresentAtTransfer.getIsTriggered();
     }
 
-    public void startTransfer(boolean bForward)
-    {
-        TransferMotorSpeed = bForward ? TuningParams.intakeTransferMotorSpeed : -TuningParams.intakeTransferMotorSpeed;
-        TransferMotorLeft.set(TransferMotorSpeed);
-    }
-
-    public void stopTransfer()
-    {
-        TransferMotorSpeed = 0.0;
-        TransferMotorLeft.set(TransferMotorSpeed);
-    }
-
-
     /**
-     * This function sets the speed of the roller motor. It must only be used in test mode.
+     * This function sets the speed of the roller motor.
      *
      * @param speed The speed of the roller motor.
      */
-    public void testSetRollerSpeed(double speed)
+    public void setRollerSpeed(double speed)
     {
         RollerSpeed = speed;
         RollerMotor.set(speed);
@@ -178,7 +164,7 @@ public class SK19CargoIntake extends Subsystem
         ArmMotor.set(speed);
     }
 
-    public double testGetRollerSpeed()
+    public double getRollerSpeed()
     {
         return RollerSpeed;
     }

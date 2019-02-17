@@ -51,6 +51,10 @@ public class TuningParams
     public static final double LiftArmDValue           = 0;
     public static final double LiftArmToleranceValue   = 0;
 
+    // TODO: Check this when we wire up the motor. If the PID controller diverges,
+    // set this to true and continue debug.
+    public static final boolean LiftArmInvertMotor     = false;
+
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
@@ -58,6 +62,8 @@ public class TuningParams
     public static final double intakeArmIValue           = 0.00005;
     public static final double intakeArmDValue           = 0;
     public static final double intakeArmToleranceValue   = 0;
+
+    public static final boolean intakeArmInvertMotor     = true;
 
     // The speed of the intake and transfer roller motors when enabled.
     public static final double intakeTransferMotorSpeed  = 0.25;
