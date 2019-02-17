@@ -50,11 +50,11 @@ public class IntakeRollersCommand extends Command
         }
         else
         {
-            double currentSpeed = Robot.Intake.testGetRollerSpeed();
+            double currentSpeed = Robot.Intake.getRollerSpeed();
             speed = (currentSpeed == 0.0) ? TuningParams.intakeIngestMotorSpeed : 0.0;
         }
         
-        Robot.Intake.testSetRollerSpeed(speed);
+        Robot.Intake.setRollerSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
