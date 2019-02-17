@@ -65,7 +65,7 @@ public class OI
     private static Button buttonOperatorRightBumper;
     private static Button buttonOperatorBack;
     private static Button buttonOperatorStart;
-    
+
     public static enum Mode { NONE, TEST, NORMAL, MANUAL };
 
     private static Mode oiMode = Mode.NONE;
@@ -115,8 +115,8 @@ public class OI
 
     /**
      * Set the transfer function coefficient used by the driver (speed) joystick.
-     * 
-     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0. 
+     *
+     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0.
      */
     public void setDriverJoystickCoefficient(double coeff)
     {
@@ -161,9 +161,9 @@ public class OI
     }
 
     /**
-     * This method wires up the operator interface controls depending upon the mode that the 
+     * This method wires up the operator interface controls depending upon the mode that the
      * robot is operating in. Valid combinations of the two parameters are:
-     * 
+     *
      *                           ----------------------------------
      *                     bTest |    false         |     true    |
      * bManualOverride           |------------------|--------------
@@ -173,7 +173,7 @@ public class OI
      *                    false  |     Normal       |     Test    |
      *                           | game operation   |     Mode    |
      *                           ----------------------------------
-     * 
+     *
      * @param bTest Sets operator controls for test mode.
      * @param bManualOverride Sets normal or manual override mode. Ignored if bTest is true.
      */
@@ -200,9 +200,9 @@ public class OI
     }
 
     /**
-     * This method wires up the operator interface controls depending upon the mode that the 
+     * This method wires up the operator interface controls depending upon the mode that the
      * robot is to operate in.
-     * 
+     *
      * @param mode The desired operator mode - TEST, NORMAL or MANUAL. See the Robot User Manual for
      *             details of the control mappings in each mode.
      */
@@ -248,7 +248,7 @@ public class OI
     }
     /**
      * Query the current operating mode of the robot.
-     * 
+     *
      * @return The current mode, Mode.NONE, Mode.NORMAL, Mode.MANUAL or Mode.TEST
      */
     public Mode getMode()
