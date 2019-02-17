@@ -68,6 +68,7 @@ public class TuningParams
     // when deployed.
     //  TODO: Tune intake arm angle to the correct value.
     public static final double intakeArmDeployedAngle    = 90.0;
+    public static final double intakeArmStowedAngle      = 0.0;
 
     // The triggered states of the ingest and transfer proximity sensors.
     // TODO: Set these states according to the way the sensor is wired.
