@@ -208,10 +208,8 @@ public class Ports
     public static final int OIDriverRightDrive           = 5;    // Right Joystick Y
     public static final int OIDriverSlow                 = 5;    // Left bumper
 
-    public static final int IODriverGearShift            = 1;    // Button A
-    public static final int IODriverGearSlowMode         = 4;    // Button Y
-
-    public static final int OIDriverCameraSwitcher      = 2;     // Button B
+    public static final int IODriverGearShift            = 6;    // Button A
+    public static final int OIDriverCameraSwitcher       = 2;     // Button B
 
     // *********************
     // Operator Controller

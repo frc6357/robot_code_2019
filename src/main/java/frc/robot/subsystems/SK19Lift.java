@@ -96,13 +96,13 @@ public class SK19Lift extends Subsystem
         boolean hatchSensor = this.HatchSensor.getIsTriggered();
         boolean ballSensor = this.BallSensor.getIsTriggered();
         
-        if (hatchSensor && !ballSensor)
+        if (HatchSensor.getIsTriggered() && !BallSensor.getIsTriggered())
         {   
             setAngle = lookupTable[posIndex][cargoIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][cargoIndexSearch].ElevatorUp;
             lastPosition = posIndex;
         }
-        else if (ballSensor && !hatchSensor)
+        else if (BallSensor.getIsTriggered() && !HatchSensor.getIsTriggered())
         {
             setAngle = lookupTable[posIndex][hatchIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][hatchIndexSearch].ElevatorUp;

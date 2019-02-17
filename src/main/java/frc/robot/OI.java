@@ -101,6 +101,8 @@ public class OI
         // Button mappings common to all modes.
         //*************************************
         buttonOperatorBack.whenPressed(new ModeSelect());
+        if(Robot.Lift.HatchSensor.getIsTriggered())
+            buttonOperatorLeftBumper.whenPressed(new GrabHatch());
 
         //************************************
         // Test mode operator button mappings.

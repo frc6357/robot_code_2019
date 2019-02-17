@@ -11,20 +11,15 @@ public class GrabHatch extends Command
 {
     OI.Mode mode;
 
-    public GrabHatch(OI.Mode mode)
+    public GrabHatch()
     {
-        this.mode = mode;
     }
   
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        // Do not execute this command if we're not in the required mode!
-        if(Robot.oi.getMode() != mode)
-            return;
-
-        // TODO: Code the GrabHatch command!
+        Robot.Lift.HatchGripper(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
