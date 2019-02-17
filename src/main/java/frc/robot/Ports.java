@@ -94,7 +94,7 @@ public class Ports
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
     //       controller.
-    public static final int armLimitTop                  = 9;    // DIO input 9
+    public static final int armLimitTop                  = 7;    // DIO input 7
     public static final int armLimitBottom               = 10;   // DIO input 10
 
     public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
@@ -115,8 +115,8 @@ public class Ports
     public static final int intakeRollerMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
 
-    public static final int intakeArmEncoderA            = 8;   // DIO input 14
-    public static final int intakeArmEncoderB            = 9;   // DIO input 15
+    public static final int intakeArmEncoderA            = 8;   // DIO input 8
+    public static final int intakeArmEncoderB            = 9;   // DIO input 9
     public static final double intakeArmEncoderDiameter  = 0.25;
     public static final int intakeEncoderPulsesPerRev    = 1024;
 
