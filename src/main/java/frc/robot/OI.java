@@ -75,7 +75,7 @@ public class OI
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
-    private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
+    //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
     {
@@ -226,10 +226,11 @@ public class OI
                 // TODO: Rework this to match the actual test mode control mapping
                 //       when this is defined. For not, it's just a copy of the override
                 //       mode mapping with the Back button action disabled.
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
+                //buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
+                //buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
+                //buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
+                //buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
+                
                 break;
 
             case NORMAL:
@@ -238,7 +239,7 @@ public class OI
 
                 // TODO: Set up control actions for normal mode.
                 buttonOperatorBack.whenPressed(modeToggle);
-                buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
+                //buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
                 break;
 
             case MANUAL:

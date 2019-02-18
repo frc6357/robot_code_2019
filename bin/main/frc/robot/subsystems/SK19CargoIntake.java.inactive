@@ -20,6 +20,7 @@ import frc.robot.utils.ScaledEncoder;
  * detector to allow us to grab and hold the cargo until the octopus is in place to
  * receive it.
  */
+
 public class SK19CargoIntake extends Subsystem
 {
     public SpeedController        RollerMotor;

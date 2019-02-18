@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * A command group implementing the sequence necessary to pull cargo into the robot.
  */
-public class IntakeCancelCommand extends Command
+/*public class IntakeCancelCommand extends Command
 {   
     private OI.Mode mode;
 
@@ -17,7 +17,7 @@ public class IntakeCancelCommand extends Command
      *   
      *   
      **/
-    public IntakeCancelCommand(OI.Mode mode)
+    /*public IntakeCancelCommand(OI.Mode mode)
     {
         requires(Robot.Intake);
         this.mode   = mode;
@@ -52,4 +52,4 @@ public class IntakeCancelCommand extends Command
     protected void interrupted()
     {
     }
-}
+}*/
