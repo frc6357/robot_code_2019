@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.subsystems.base.BaseTankDrive;
 
 /**
- * The BaseTankDrive abstract class provides an interface suitable for 
+ * The BaseTankDrive abstract class provides an interface suitable for
  * implementing various types of tank drive. This is a low level class intended
  * merely to encapsulate the hardware implementation. It includes functions for
  * setting the basic motor speeds for each side of the robot, shifting gear
@@ -19,19 +19,19 @@ public class SmoothDrive
     private double speedSet[]     = {0.0, 0.0};
     private double accelMax[]     = {1.0, 1.0};
     private double speedCurrent[] = {0.0, 0.0};
- 
+
     /**
      * This constructor accepts a base drivetrain object and maximum acceleration values
      * for both the forward and backward directions. Accelerations are expressed in terms
      * of maximum motor speed delta between calls to the SmoothDrivePeriodic() function.
      * If this is called on every top level periodic callback, this represents the motor
      * speed change per 20 millisecond period.
-     * 
+     *
      * As an example, assuming a 20 millisecond periodic interval, setting a max
      * acceleration value of 0.02 will allow the robot to go from stopped to maximum
      * speed in 1 second (initial speed 0.0, increased by 0.02 per 20mS interval
      * reaches 1.0 after 50 intervals).
-     * 
+     *
      * @param Drive
      * @param accelMax
      * @param MaxBackAccel
@@ -101,7 +101,7 @@ public class SmoothDrive
 
     /**
      * This method is used query the raw reading from the left-side encoder.
-     * Note that the class is also expected to implement a PIDSource 
+     * Note that the class is also expected to implement a PIDSource
      * interface allowing this to be wired a WPI PID controller.
      */
     public double getLeftEncoderRaw()
@@ -111,7 +111,7 @@ public class SmoothDrive
 
     /**
      * This method is used query the raw reading from the right-side encoder.
-     * Note that the class is also expected to implement a PIDSource 
+     * Note that the class is also expected to implement a PIDSource
      * interface allowing this to be wired a WPI PID controller.
      */
     public double getRightEncoderRaw()
@@ -182,7 +182,7 @@ public class SmoothDrive
             speedNew[loop] = speedCurrent[loop] + delta;
 
             // If the speed to be set has just crossed the set speed in the correct direction
-            // then set the speed to the setpoint. 
+            // then set the speed to the setpoint.
             if (((delta > 0) && (speedNew[loop] > speedSet[loop])) ||
                 ((delta < 0) && (speedNew[loop] < speedSet[loop])))
             {

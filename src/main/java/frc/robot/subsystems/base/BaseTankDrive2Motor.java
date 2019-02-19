@@ -51,7 +51,7 @@ public class BaseTankDrive2Motor extends BaseTankDrive
     {
         super();
 
-        // NB: We are using 2 motors through a gearbox on each side of the robot. 
+        // NB: We are using 2 motors through a gearbox on each side of the robot.
 
         // Left Drive Controllers
         baseFrontLeftMaster = new WPI_VictorSPX(Ports.driveLeftFrontMotor);
@@ -70,13 +70,13 @@ public class BaseTankDrive2Motor extends BaseTankDrive
 
         // Encoders
         leftEncoder  = new ScaledEncoder(Ports.driveLeftEncoderA,
-                                         Ports.driveLeftEncoderB,
-                                         Ports.driveEncoderPulsesPerRotation,
-                                         Ports.driveWheelDiameterInches);
+                                        Ports.driveLeftEncoderB,
+                                        Ports.driveEncoderPulsesPerRotation,
+                                        Ports.driveWheelDiameterInches);
         rightEncoder = new ScaledEncoder(Ports.driveRightEncoderA,
-                                         Ports.driveRightEncoderB,
-                                         Ports.driveEncoderPulsesPerRotation,
-                                         Ports.driveWheelDiameterInches);
+                                        Ports.driveRightEncoderB,
+                                        Ports.driveEncoderPulsesPerRotation,
+                                        Ports.driveWheelDiameterInches);
 
         // This sets the all the speed controllers on the right side to follow the
         // center speed controller
@@ -150,7 +150,7 @@ public class BaseTankDrive2Motor extends BaseTankDrive
     {
         return leftSpeed;
     }
-    
+
     /**
      * This method is used to query the right side motor speed.
      *

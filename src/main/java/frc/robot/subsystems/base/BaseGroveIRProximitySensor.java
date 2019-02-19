@@ -15,7 +15,7 @@ public class BaseGroveIRProximitySensor extends BaseProximitySensor
      */
     public BaseGroveIRProximitySensor(int port)
     {
-         //TODO: Add specific "triggeredState" based on polarity of output
+        //TODO: Add specific "triggeredState" based on polarity of output
         super(port, true);
     }
 }

@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.Ports;
 import frc.robot.TuningParams;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,7 +13,7 @@ public class SlowModeCommand extends Command
     private double coeff          = TuningParams.driveJoystickCoefficient;
 
     /**
-     * 
+     *
      * @param high sets the gearing to either high or low based on a boolean variable
      */
     public SlowModeCommand(boolean bSlow)
@@ -31,7 +30,7 @@ public class SlowModeCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

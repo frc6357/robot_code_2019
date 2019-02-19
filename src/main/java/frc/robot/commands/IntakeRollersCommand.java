@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import frc.robot.Ports;
 import frc.robot.Robot;
 import frc.robot.TuningParams;
 import frc.robot.OI;
@@ -10,16 +9,16 @@ import edu.wpi.first.wpilibj.command.Command;
  * A class supporting the testing of the intake roller motor.
  */
 public class IntakeRollersCommand extends Command
-{   
+{
     private boolean on;
     private boolean toggle;
     private OI.Mode mode;
 
     /**
-     * 
+     *
      * @param on determines whether or not to stop/start based on the value returned by toggle
      * @param toggle checks if the motor is on/off and changes the state its currently in based on its previous state. i.e (on to off/ off to on)
-     *    
+     *
      *   */
     public IntakeRollersCommand(OI.Mode mode, boolean on, boolean toggle)
     {
@@ -28,7 +27,7 @@ public class IntakeRollersCommand extends Command
         this.toggle = toggle;
         this.mode   = mode;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -39,7 +38,7 @@ public class IntakeRollersCommand extends Command
     protected void execute()
     {
         double speed = 0.0;
-        
+
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
@@ -53,7 +52,7 @@ public class IntakeRollersCommand extends Command
             double currentSpeed = Robot.Intake.getRollerSpeed();
             speed = (currentSpeed == 0.0) ? TuningParams.intakeIngestMotorSpeed : 0.0;
         }
-        
+
         Robot.Intake.setRollerSpeed(speed);
     }
 

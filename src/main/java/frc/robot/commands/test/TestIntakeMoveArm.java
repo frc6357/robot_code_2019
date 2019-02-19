@@ -1,6 +1,5 @@
-package frc.robot.commands;
+package frc.robot.commands.test;
 
-import frc.robot.Ports;
 import frc.robot.Robot;
 import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TestIntakeMoveArm extends Command
 {
     /**
-     * 
+     *
      * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.
      *              If the moveOut parameter is true, the arm moves towards the deployed position, if
      *              false, it moves towards the stowed position.
@@ -32,7 +31,7 @@ public class TestIntakeMoveArm extends Command
 
         Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -42,7 +41,7 @@ public class TestIntakeMoveArm extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

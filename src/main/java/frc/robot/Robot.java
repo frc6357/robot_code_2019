@@ -23,7 +23,6 @@ import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Lift;
-//import frc.robot.subsystems.SK19LiftLookup;
 import frc.robot.subsystems.SmoothDrive;
 // import frc.robot.commands.TestMoveRobotArm;
 
