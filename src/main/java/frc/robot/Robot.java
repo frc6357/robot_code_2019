@@ -21,10 +21,10 @@ import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseMotorizedArm;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
-//import frc.robot.subsystems.SK19CargoIntake;
-// import frc.robot.subsystems.SK19Lift;
-// import frc.robot.subsystems.SK19LiftLookup;
-//import frc.robot.subsystems.SmoothDrive;
+import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Lift;
+//import frc.robot.subsystems.SK19LiftLookup;
+import frc.robot.subsystems.SmoothDrive;
 // import frc.robot.commands.TestMoveRobotArm;
 
 /**
@@ -48,9 +48,9 @@ public class Robot extends TimedRobot
   public static BaseMotorizedArm armSystem;
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
-  //public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
-  //public static SK19CargoIntake Intake = new SK19CargoIntake();
-  // public static SK19Lift Lift = new SK19Lift();
+  public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
+  public static SK19CargoIntake Intake = new SK19CargoIntake();
+  public static SK19Lift Lift = new SK19Lift();
 
   //public static TestMoveRobotArm RobotArmTest;
 
