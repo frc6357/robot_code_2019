@@ -190,7 +190,7 @@ public class Ports
     public static final int OIOperatorRightBumper        = 6;    // Right Bumper
 
     public static final int OIOperatorJoystickARMPos     = 1;    // Left stick, X axis
-
+    public static final int OIOperatorJoystickTestARMPos = 5;    // Right Stick, Y axis
     public static final int OIOperatorButtonA            = 1;    // A Button
     public static final int OIOperatorButtonB            = 2;    // B Button
     public static final int OIOperatorButtonY            = 4;    // Y Button

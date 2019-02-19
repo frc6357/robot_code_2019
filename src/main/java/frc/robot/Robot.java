@@ -7,18 +7,25 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.base.BaseMotorizedArm;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Lift;
-import frc.robot.subsystems.SK19LiftLookup;
+//import frc.robot.subsystems.SK19LiftLookup;
 import frc.robot.subsystems.SmoothDrive;
+// import frc.robot.commands.TestMoveRobotArm;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,10 +44,15 @@ public class Robot extends TimedRobot
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
 
+  public static SpeedController armMotorController;
+  public static BaseMotorizedArm armSystem;
+
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
   public static SK19CargoIntake Intake = new SK19CargoIntake();
   public static SK19Lift Lift = new SK19Lift();
+
+  //public static TestMoveRobotArm RobotArmTest;
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
@@ -55,6 +67,10 @@ public class Robot extends TimedRobot
   public void robotInit() {
     BaseDrive.setLeftSpeed(0);
     BaseDrive.setRightSpeed(0);
+
+    armMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
+    armSystem = new BaseMotorizedArm(armMotorController);
+    //RobotArmTest = new TestMoveRobotArm(oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false));
 
     // Initialize the operator interface.
     oi = new OI();
@@ -76,7 +92,7 @@ public class Robot extends TimedRobot
     {
         BaseDrive.setLeftSpeed(0);
         BaseDrive.setRightSpeed(0);
-        Intake.RollerArm.disable();
+        //Intake.RollerArm.disable();
         // TODO: Do anything else needed to safe the robot when it is disabled.
     }
 
@@ -141,10 +157,10 @@ public class Robot extends TimedRobot
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
-    teleopDrive.setLeftSpeed(driveLeft);
-    teleopDrive.setRightSpeed(driveRight);
+    BaseDrive.setLeftSpeed(driveLeft);
+    BaseDrive.setRightSpeed(driveRight);
 
-    teleopDrive.SmoothDrivePeriodic();
+    //teleopDrive.SmoothDrivePeriodic();
   }
 
   /**
@@ -156,7 +172,7 @@ public class Robot extends TimedRobot
         //CameraServer camServer = CameraServer.getInstance();
         //camServer.addServer(Server);
         oi.setMode(OI.Mode.TEST);
-        Intake.RollerArm.enable();
+        //Intake.RollerArm.enable();
   }
 
   /**
@@ -165,21 +181,22 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    double driveLeft, driveRight, operatorLeft;
+    double driveLeft, driveRight, operatorLeft, operatorRight;
     Scheduler.getInstance().run();
 
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
     operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, false) * 180 + 180;
+    operatorRight = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false);
 
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
 
     UpdateSmartDashboard(OI.Mode.TEST);
 
-    Intake.periodic();
-
-    Intake.setArmAngle(operatorLeft);
+    //Intake.periodic();
+    armSystem.periodic();
+    //Intake.setArmAngle(operatorLeft);
 
 
     //if (OI.buttonCameraShifter.get() && !cameraPrev)
@@ -218,16 +235,17 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+        SmartDashboard.putBoolean("Spinning Forwards", oi.buttonOperatorRightBumper.get());
 
         // PID for intake arm
         SmartDashboard.putNumber("P", TuningParams.intakeArmPValue);
         SmartDashboard.putNumber("I", TuningParams.intakeArmIValue);
         SmartDashboard.putNumber("D", TuningParams.intakeArmDValue);
         SmartDashboard.putNumber("Tolerance", TuningParams.intakeArmToleranceValue);
-        SmartDashboard.putNumber("Set Point", Intake.RollerArm.getArmSetpoint());
-        SmartDashboard.putNumber("Encoder Angle", Intake.RollerArm.armEncoder.getAngleDegrees());
-        SmartDashboard.putNumber("Position", Intake.RollerArm.getArmPosition());
-        SmartDashboard.putNumber("Intake Arm Motor Speed", Intake.ArmMotor.get());
+        //SmartDashboard.putNumber("Set Point", Intake.RollerArm.getArmSetpoint());
+        //SmartDashboard.putNumber("Encoder Angle", Intake.RollerArm.armEncoder.getAngleDegrees());
+        //SmartDashboard.putNumber("Position", Intake.RollerArm.getArmPosition());
+        //SmartDashboard.putNumber("Intake Arm Motor Speed", Intake.ArmMotor.get());
 
         //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
         //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());

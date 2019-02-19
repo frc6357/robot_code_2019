@@ -9,6 +9,7 @@ import frc.robot.commands.*;
 import frc.robot.utils.FilteredJoystick;
 import frc.robot.utils.filters.*;
 
+
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,7 +63,7 @@ public class OI
     private static Button buttonOperatorLeftStick;
     private static Button buttonOperatorRightStick;
     private static Button buttonOperatorLeftBumper;
-    private static Button buttonOperatorRightBumper;
+    public static Button buttonOperatorRightBumper;
     private static Button buttonOperatorBack;
     private static Button buttonOperatorStart;
 
@@ -75,7 +76,7 @@ public class OI
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
-    private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
+    //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
     {
@@ -113,6 +114,12 @@ public class OI
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+
+        System.out.println("WE got Here");
+        buttonOperatorRightBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, true));
+        buttonOperatorRightBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
+        buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
+        buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
     }
 
     /**
@@ -154,11 +161,11 @@ public class OI
     public double getOperatorJoystickValue(int port, boolean invert)
     {
         double multiplier = 1;
-
         if (invert)
         {
             multiplier = -1.0;
         }
+        //System.out.println(buttonOperatorLeftBumper.get() + " Left Bumper " + buttonOperatorRightBumper.get() + " Right Bumper ");
         return (multiplier * joystickOperator.getRawAxis(port));
     }
 
@@ -222,14 +229,16 @@ public class OI
             case TEST:
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
+                
 
                 // TODO: Rework this to match the actual test mode control mapping
                 //       when this is defined. For not, it's just a copy of the override
                 //       mode mapping with the Back button action disabled.
-                buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
+                //buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
+                //buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
+                //buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
+                //buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
+                
                 break;
 
             case NORMAL:
@@ -238,7 +247,7 @@ public class OI
 
                 // TODO: Set up control actions for normal mode.
                 buttonOperatorBack.whenPressed(modeToggle);
-                buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
+                //buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
                 break;
 
             case MANUAL:
