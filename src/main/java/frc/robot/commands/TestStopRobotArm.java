@@ -8,56 +8,46 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 import frc.robot.OI;
+import frc.robot.Robot;
 
-public class TestMoveRobotArm extends Command 
+public class TestStopRobotArm extends Command 
 {
-    private OI.Mode setMode;
-    private boolean direction;
-    public TestMoveRobotArm(OI.Mode Mode, boolean direction) 
-    {  
-        System.out.println("Move Constructor");
+    OI.Mode setMode;
+    public TestStopRobotArm(OI.Mode setMode) 
+    {
+        System.out.println("Stop Constructor");
         //requires(Robot.Lift);
+        this.setMode = setMode;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        //this.setMode = setMode;
-        this.direction = direction;
-
     }
 
     // Called just before this Command runs the first time
+    
     protected void initialize() 
     {
-        System.out.println("MOVE");
+        System.out.println("STOP");
+        Robot.ArmMotorController.set(0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
+    
     protected void execute() 
     {
-        System.out.println("EXECUTE");
-        if(direction)
-        {
-            Robot.ArmMotorController.set(0.2);
-             System.out.println("Should be Spinning Forwards");
-        }
-        else if(!direction)
-        {
-            Robot.ArmMotorController.set(-0.2);
-            System.out.println("Should be spinning backwards");
-        }
+        System.out.println("Stop EXECUTE");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     
     protected boolean isFinished() 
     {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     
-    protected void end()
+    protected void end() 
     {
     }
 
