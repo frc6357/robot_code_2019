@@ -11,50 +11,44 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 
-public class TestStopRobotArm extends Command 
+public class TestStopRobotArm extends Command
 {
-    OI.Mode setMode;
-    public TestStopRobotArm(OI.Mode setMode) 
+    OI.Mode mode;
+
+    public TestStopRobotArm(OI.Mode mode)
     {
-        System.out.println("Stop Constructor");
-        //requires(Robot.Lift);
-        this.setMode = setMode;
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.armSystem);
+        this.mode = mode;
     }
 
     // Called just before this Command runs the first time
-    
-    protected void initialize() 
+    protected void initialize()
     {
-        System.out.println("STOP");
-        Robot.ArmMotorController.set(0.0);
+        if(Robot.oi.getMode() != mode)
+            return;
     }
 
     // Called repeatedly when this Command is scheduled to run
-    
-    protected void execute() 
+    protected void execute()
     {
+        Robot.armSystem.stop();
         System.out.println("Stop EXECUTE");
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    
-    protected boolean isFinished() 
+    protected boolean isFinished()
     {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
-    
-    protected void end() 
+    protected void end()
     {
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    
-    protected void interrupted() 
+    protected void interrupted()
     {
     }
 }

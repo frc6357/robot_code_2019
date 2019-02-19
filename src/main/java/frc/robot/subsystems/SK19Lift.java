@@ -14,34 +14,36 @@ import frc.robot.subsystems.base.*;
 import frc.robot.TuningParams;
 
 /**
- *  The SK19Lift subsystem is responsible for both the elevator and arm systems that 
+ *  The SK19Lift subsystem is responsible for both the elevator and arm systems that
  *  are responsible for moving the cargo and hatch to a set series of points.
  */
 public class SK19Lift extends Subsystem
 {
-    SpeedController                     ArmMotor;
-    SpeedController                     octopusMotor;
-    BaseAngleControlledArm              RobotArmAngled;
-    BasePneumaticElevator               RobotElevator;
-    BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
-    BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
-    ScaledEncoder                       ArmEncoder;
-    BaseProximitySensor                 ArmDownLimitSensor;
-    BaseProximitySensor                 ArmUpLimitSensor;
-    Solenoid                            ElevatorSolenoid;
-    BaseOctopusRoller                   OctopusRoller;
-    BaseHatchMechanism                  RobotHatch;
-    DoubleSolenoid                      HatchLockSolenoid;
-    DoubleSolenoid                      HatchDeploySolenoid;
+    private SpeedController                     octopusMotor;
+    private SpeedController                     ArmMotor;
+    private BaseAngleControlledArm              RobotArmAngled;
+    private BasePneumaticElevator               RobotElevator;
+    private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
+    private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
+    private ScaledEncoder                       ArmEncoder;
+    private BaseProximitySensor                 ArmDownLimitSensor;
+    private BaseProximitySensor                 ArmUpLimitSensor;
+    private Solenoid                            ElevatorSolenoid;
+    private BaseOctopusRoller                   OctopusRoller;
+    private BaseHatchMechanism                  RobotHatch;
+    private DoubleSolenoid                      HatchLockSolenoid;
+    private DoubleSolenoid                      HatchDeploySolenoid;
+    private BaseMotorizedArm                    robotArmMotorized;
+
+    private double                              ArmSpeed;
+    private int                                 lastPosition;
+    private double                              octopusScaler;
+    private int                                 cargoIndexSearch = 0;
+    private int                                 hatchIndexSearch = 1;
+
     public BaseProximitySensor          HatchSensor;
     public BaseProximitySensor          BallSensor;
-    BaseMotorizedArm                    robotArmMotorized;
 
-    double                              ArmSpeed;
-    int                                 lastPosition;
-    double                              octopusScaler;
-    int                                 cargoIndexSearch = 0;
-    int                                 hatchIndexSearch = 1;
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
@@ -69,7 +71,6 @@ public class SK19Lift extends Subsystem
         //this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM);
         //this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperOut, Ports.hatchGripperIn);
         //this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperLock, Ports.hatchGripperUnlock);
-      
 
         // This is the decleration for all of the required sensors
         this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
@@ -83,7 +84,7 @@ public class SK19Lift extends Subsystem
         // As well as BasePneumaticElevator
         this.robotArmMotorized           = new BaseMotorizedArm(this.ArmMotor, this.ArmUpLimitSensor, this.ArmDownLimitSensor);
         //this.RobotArmAngled              = new BaseAngleControlledArm(this.robotArmMotorized, ArmEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
-        //this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);     
+        //this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         //this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         //this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
     }
@@ -96,14 +97,14 @@ public class SK19Lift extends Subsystem
      *      - This is the passed index that controls what position the arm is going to move to
      */
     /*public void setArmPosition(int posIndex)
-    {   
+    {
         double setAngle = 0.0;
         boolean setPosition = false;
         boolean hatchSensor = this.HatchSensor.getIsTriggered();
         boolean ballSensor = this.BallSensor.getIsTriggered();
-        
+
         if (HatchSensor.getIsTriggered() && !BallSensor.getIsTriggered())
-        {   
+        {
             setAngle = lookupTable[posIndex][cargoIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][cargoIndexSearch].ElevatorUp;
             lastPosition = posIndex;
@@ -193,7 +194,7 @@ public class SK19Lift extends Subsystem
      *  This method takes a double value and runs a comparison on it to see if it's greater than, less than or equal to zero
      *  @param cargoSpeed
      *      - Type double:
-     *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value 
+     *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value
      */
     /*public void cargoSystem(double cargoSpeed)
     {

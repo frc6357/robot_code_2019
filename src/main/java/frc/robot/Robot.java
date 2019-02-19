@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,13 +18,14 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.subsystems.base.BaseMotorizedArm;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 //import frc.robot.subsystems.SK19CargoIntake;
-import frc.robot.subsystems.SK19Lift;
-import frc.robot.subsystems.SK19LiftLookup;
+// import frc.robot.subsystems.SK19Lift;
+// import frc.robot.subsystems.SK19LiftLookup;
 //import frc.robot.subsystems.SmoothDrive;
-import frc.robot.commands.TestMoveRobotArm;
+// import frc.robot.commands.TestMoveRobotArm;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,12 +43,14 @@ public class Robot extends TimedRobot
   public static boolean cameraPrev = false;
   public static MjpegServer Server;
   private int m_DisplayUpdateCounter = 0;
-  public static CANSparkMax ArmMotorController;
+
+  public static SpeedController armMotorController;
+  public static BaseMotorizedArm armSystem;
 
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   //public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
   //public static SK19CargoIntake Intake = new SK19CargoIntake();
-  public static SK19Lift Lift = new SK19Lift();
+  // public static SK19Lift Lift = new SK19Lift();
 
   //public static TestMoveRobotArm RobotArmTest;
 
@@ -63,7 +67,9 @@ public class Robot extends TimedRobot
   public void robotInit() {
     BaseDrive.setLeftSpeed(0);
     BaseDrive.setRightSpeed(0);
-    ArmMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
+
+    armMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
+    armSystem = new BaseMotorizedArm(armMotorController);
     //RobotArmTest = new TestMoveRobotArm(oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false));
 
     // Initialize the operator interface.
@@ -189,7 +195,7 @@ public class Robot extends TimedRobot
     UpdateSmartDashboard(OI.Mode.TEST);
 
     //Intake.periodic();
-    ArmMotorController.set(operatorRight);
+    armSystem.periodic();
     //Intake.setArmAngle(operatorLeft);
 
 

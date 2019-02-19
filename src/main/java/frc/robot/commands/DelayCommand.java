@@ -16,7 +16,6 @@ public class DelayCommand extends Command
     {
         this.msDelay = msDelay;
     }
-  
 
     // Called just before this Command runs the first time
     protected void initialize()

@@ -1,6 +1,7 @@
 package frc.robot.subsystems.base;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.subsystems.base.BaseLimitSensor;
 import frc.robot.subsystems.base.DummyLimitSensor;
 
@@ -9,7 +10,7 @@ import frc.robot.subsystems.base.DummyLimitSensor;
  *
  * PERIODIC MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
  */
-public class BaseMotorizedArm
+public class BaseMotorizedArm extends Subsystem
 {
     // Rotate Speed Controller
     private final SpeedController armRotateMotor;
@@ -165,5 +166,10 @@ public class BaseMotorizedArm
     public boolean getTopLimitTriggered()
     {
         return armLimitTop.getIsTriggered();
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+
     }
 }
