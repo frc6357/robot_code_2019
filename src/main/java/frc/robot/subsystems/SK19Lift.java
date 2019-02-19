@@ -67,6 +67,7 @@ public class SK19Lift extends Subsystem
         // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
         this.ArmSpeed = 1.0;
         this.octopusScaler = 0.6;
+
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
         this.ElevatorSolenoid            = new Solenoid(Ports.pcm1, Ports.elevatorPCM);
