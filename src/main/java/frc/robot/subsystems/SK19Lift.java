@@ -62,11 +62,12 @@ public class SK19Lift extends Subsystem
         // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
         this.ArmSpeed = 1.0;
         this.octopusScaler = 0.6;
+        // TODO: Change these motor controller types. We're using a Spark MAX and Victor here.
         this.ArmMotor                    = new WPI_TalonSRX(Ports.armRotateMotor);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
         this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM);
-        this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperOut, Ports.hatchGripperIn);
-        this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperLock, Ports.hatchGripperUnlock);
+        this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperOut, Ports.hatchGripperIn);
+        this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperLock, Ports.hatchGripperUnlock);
 
 
         // This is the decleration for all of the required sensors
