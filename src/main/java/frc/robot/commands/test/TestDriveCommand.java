@@ -14,7 +14,7 @@ public class TestDriveCommand extends Command
 
     public TestDriveCommand(OI.Mode mode, double speed)
     {
-        requires(Robot.BaseDrive);
+        requires(Robot.Drive);
         this.mode = mode;
     }
 
@@ -31,8 +31,8 @@ public class TestDriveCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        Robot.BaseDrive.setLeftSpeed(speed);
-        Robot.BaseDrive.setRightSpeed(speed);
+        Robot.Drive.baseDrive.setLeftSpeed(speed);
+        Robot.Drive.baseDrive.setRightSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

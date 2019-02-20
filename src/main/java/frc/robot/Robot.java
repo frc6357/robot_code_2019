@@ -22,6 +22,7 @@ import frc.robot.subsystems.base.BaseMotorizedArm;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
 import frc.robot.subsystems.SmoothDrive;
 // import frc.robot.commands.TestMoveRobotArm;
@@ -46,8 +47,7 @@ public class Robot extends TimedRobot
   public static SpeedController armMotorController;
   public static BaseMotorizedArm armSystem;
 
-  public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
-  public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
+  public static SK19Drive Drive = new SK19Drive();
   public static SK19CargoIntake Intake = new SK19CargoIntake();
   public static SK19Lift Lift = new SK19Lift();
 
@@ -64,8 +64,8 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotInit() {
-    BaseDrive.setLeftSpeed(0);
-    BaseDrive.setRightSpeed(0);
+    Drive.baseDrive.setLeftSpeed(0);
+    Drive.baseDrive.setRightSpeed(0);
 
     armMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
     armSystem = new BaseMotorizedArm(armMotorController);
@@ -89,8 +89,8 @@ public class Robot extends TimedRobot
     @Override
     public void disabledInit()
     {
-        BaseDrive.setLeftSpeed(0);
-        BaseDrive.setRightSpeed(0);
+        Drive.baseDrive.setLeftSpeed(0);
+        Drive.baseDrive.setRightSpeed(0);
         //Intake.RollerArm.disable();
         // TODO: Do anything else needed to safe the robot when it is disabled.
     }
@@ -156,8 +156,8 @@ public class Robot extends TimedRobot
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
-    BaseDrive.setLeftSpeed(driveLeft);
-    BaseDrive.setRightSpeed(driveRight);
+    Drive.baseDrive.setLeftSpeed(driveLeft);
+    Drive.baseDrive.setRightSpeed(driveRight);
 
     //teleopDrive.SmoothDrivePeriodic();
   }
@@ -188,8 +188,8 @@ public class Robot extends TimedRobot
     operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, false) * 180 + 180;
     operatorRight = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false);
 
-    BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
-    BaseDrive.setRightSpeed(driveRight);
+    Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
+    Drive.baseDrive.setRightSpeed(driveRight);
 
     UpdateSmartDashboard(OI.Mode.TEST);
 
@@ -228,12 +228,12 @@ public class Robot extends TimedRobot
         // TODO: Send back additional test mode information for the smart dashboard.
         SmartDashboard.putNumber("Left Commanded Speed", driveLeft);
         SmartDashboard.putNumber("Right Commanded Speed", driveRight);
-        SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
-        SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
-        SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
-        SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
-        SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
-        SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
+        SmartDashboard.putNumber("Left Actual Speed", Drive.baseDrive.getLeftSpeed());
+        SmartDashboard.putNumber("Right Actual Speed", Drive.baseDrive.getRightSpeed());
+        SmartDashboard.putNumber("Left Encoder Raw", Drive.baseDrive.getLeftEncoderRaw());
+        SmartDashboard.putNumber("Right Encoder Raw", Drive.baseDrive.getRightEncoderRaw());
+        SmartDashboard.putNumber("Left Encoder Dist", Drive.baseDrive.getLeftEncoderDistance());
+        SmartDashboard.putNumber("Right Encoder Dist", Drive.baseDrive.getRightEncoderDistance());
         SmartDashboard.putBoolean("Spinning Forwards", oi.buttonOperatorRightBumper.get());
 
         // PID for intake arm

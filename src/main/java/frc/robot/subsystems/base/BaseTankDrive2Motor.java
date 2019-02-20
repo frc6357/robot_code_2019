@@ -47,47 +47,22 @@ public class BaseTankDrive2Motor extends BaseTankDrive
      * The DriveBaseSystem constructor handles all the actuator object creation, and
      * sets the follow mode for the speed controllers
      */
-    public BaseTankDrive2Motor()
+    public BaseTankDrive2Motor(SpeedController baseFrontLeftMaster, SpeedController baseBackLeft, SpeedController baseFrontRightMaster, SpeedController baseBackRight,
+    Solenoid baseGearShiftSolenoid, ScaledEncoder rightEncoder, ScaledEncoder leftEncoder)
     {
         super();
 
-        // NB: We are using 2 motors through a gearbox on each side of the robot.
+        this.baseFrontLeftMaster = baseFrontLeftMaster;
+        this.baseBackLeft = baseBackLeft;
+        this.baseFrontRightMaster = baseFrontRightMaster;
+        this.baseBackRight = baseBackRight;
 
-        // Left Drive Controllers
-        baseFrontLeftMaster = new WPI_VictorSPX(Ports.driveLeftFrontMotor);
-        baseBackLeft = new WPI_VictorSPX(Ports.driveLeftRearMotor);
+        this.baseGearShiftSolenoid = baseGearShiftSolenoid;
 
-        // Right Drive Controllers
-        baseFrontRightMaster = new WPI_VictorSPX(Ports.driveRightFrontMotor);
-        baseBackRight = new WPI_VictorSPX(Ports.driveRightRearMotor);
+        this.rightEncoder = rightEncoder;
+        this.leftEncoder = leftEncoder;
 
-        // Inverts the speed controllers so they do not spin the wrong way.
-        baseBackRight.setInverted(true);
-        baseFrontRightMaster.setInverted(true);
 
-        baseBackLeft.setInverted(false);
-        baseFrontLeftMaster.setInverted(false);
-
-        // Encoders
-        leftEncoder  = new ScaledEncoder(Ports.driveLeftEncoderA,
-                                        Ports.driveLeftEncoderB,
-                                        Ports.driveEncoderPulsesPerRotation,
-                                        Ports.driveWheelDiameterInches);
-        rightEncoder = new ScaledEncoder(Ports.driveRightEncoderA,
-                                        Ports.driveRightEncoderB,
-                                        Ports.driveEncoderPulsesPerRotation,
-                                        Ports.driveWheelDiameterInches);
-
-        // This sets the all the speed controllers on the right side to follow the
-        // center speed controller
-        ((WPI_VictorSPX) baseBackRight).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontRightMaster).getDeviceID());
-
-        // This sets the all the speed controllers on the left side to follow the center
-        // speed controller
-        ((WPI_VictorSPX) baseBackLeft).set(ControlMode.Follower, ((WPI_VictorSPX) baseFrontLeftMaster).getDeviceID());
-
-        // Gear shifter
-        baseGearShiftSolenoid = new Solenoid(Ports.driveGearShiftPCM, Ports.driveGearShiftHigh);
         baseHighGear = false;
 
         // Sets Defaults

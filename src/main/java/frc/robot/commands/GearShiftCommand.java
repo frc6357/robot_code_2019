@@ -11,12 +11,12 @@ public class GearShiftCommand extends Command
     private boolean SelectHigh;
 
     /**
-     * 
+     *
      * @param high sets the gearing to either high or low based on a boolean variable
      */
     public GearShiftCommand(boolean high)
     {
-        requires(Robot.BaseDrive);
+        requires(Robot.Drive);
         SelectHigh = high;
     }
 
@@ -28,9 +28,9 @@ public class GearShiftCommand extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        if(SelectHigh != Robot.BaseDrive.getIsHighGear())
+        if(SelectHigh != Robot.Drive.baseDrive.getIsHighGear())
         {
-            Robot.BaseDrive.setHighGear(SelectHigh);
+            Robot.Drive.baseDrive.setHighGear(SelectHigh);
         }
     }
 
