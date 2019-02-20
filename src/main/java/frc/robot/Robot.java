@@ -175,13 +175,14 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic()
   {
-    double driveLeft, driveRight, operatorLeft, operatorRight;
+    double driveLeft, driveRight;
+    //double operatorLeft, operatorRight;
     Scheduler.getInstance().run();
 
     driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
-    operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, false) * 180 + 180;
-    operatorRight = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false);
+    //operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, false) * 180 + 180;
+    //operatorRight = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false);
 
     Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     Drive.baseDrive.setRightSpeed(driveRight);
@@ -229,7 +230,7 @@ public class Robot extends TimedRobot
         SmartDashboard.putNumber("Right Encoder Raw", Drive.baseDrive.getRightEncoderRaw());
         SmartDashboard.putNumber("Left Encoder Dist", Drive.baseDrive.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder Dist", Drive.baseDrive.getRightEncoderDistance());
-        SmartDashboard.putBoolean("Spinning Forwards", oi.buttonOperatorRightBumper.get());
+        //SmartDashboard.putBoolean("Spinning Forwards", oi.buttonOperatorRightBumper.get());
 
         // PID for intake arm
         SmartDashboard.putNumber("P", TuningParams.intakeArmPValue);

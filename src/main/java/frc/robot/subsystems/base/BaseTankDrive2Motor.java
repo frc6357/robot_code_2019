@@ -1,13 +1,7 @@
 package frc.robot.subsystems.base;
 
-import frc.robot.Ports;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
-
 import frc.robot.utils.ScaledEncoder;
 
 /**

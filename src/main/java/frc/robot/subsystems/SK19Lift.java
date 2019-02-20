@@ -218,7 +218,6 @@ public class SK19Lift extends Subsystem
     public void UpdateArmPosition(double axis)
     {
         double currentSetpoint;
-        double delta = 0.0;
 
         // Ignore any input where the joystick isn't near the top or bottom (wide deadband!)
         if((axis > -0.9) && (axis < 0.9))
