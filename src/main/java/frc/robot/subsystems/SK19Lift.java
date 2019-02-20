@@ -21,7 +21,6 @@ public class SK19Lift extends Subsystem
 {
     private SpeedController                     octopusMotor;
     private SpeedController                     ArmMotor;
-    private BaseAngleControlledArm              RobotArmAngled;
     private BasePneumaticElevator               RobotElevator;
     private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
     private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
@@ -42,13 +41,14 @@ public class SK19Lift extends Subsystem
 
     public BaseProximitySensor                  HatchSensor;
     public BaseProximitySensor                  BallSensor;
+    public BaseAngleControlledArm               RobotArmAngled;
 
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
     *   TODO: The actual values for the hatch and the cargo placement will need to be verified at a later point.
     */
-        private final SK19LiftLookup[][] lookupTable = 
+        private final SK19LiftLookup[][] lookupTable =
         {
             {new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0), new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0)},
             {new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPositionHatch1), new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPostionCargo1)},
