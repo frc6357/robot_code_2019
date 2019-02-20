@@ -3,6 +3,7 @@ package frc.robot.commands.test;
 import frc.robot.Robot;
 import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 
 /**
  * A class supporting starting and stopping the intake mechanism arm position motor.
@@ -13,6 +14,7 @@ public class TestIntakeMoveArm extends Command
     private double newSpeed;
     private boolean moveOut;
     private boolean startMotor;
+    private OI.Mode setMode;
     /**
      *
      * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.
@@ -21,12 +23,13 @@ public class TestIntakeMoveArm extends Command
      * @param startMotor Determines whether the motor should be run or stopped. If true, the motor runs
      *              in the direction specified by the moveOutut parameter
      */
-    public TestIntakeMoveArm(boolean moveOut, boolean startMotor)
+    public TestIntakeMoveArm(OI.Mode setMode, boolean moveOut, boolean startMotor)
     {
         requires(Robot.Intake);
         this.newSpeed = 0.0;
         this.moveOut = moveOut;
         this.startMotor = startMotor;
+        this.setMode = setMode;
 
     }
 
@@ -34,11 +37,14 @@ public class TestIntakeMoveArm extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        if(startMotor)
+        if (this.setMode == Robot.oi.getMode())
         {
-            newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
-        }
-        Robot.Intake.testSetArmMotorSpeed(newSpeed);
+            if(startMotor)
+            {
+                newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
+            }
+            Robot.Intake.testSetArmMotorSpeed(newSpeed);
+        }   
     }
 
     // Called repeatedly when this Command is scheduled to run
