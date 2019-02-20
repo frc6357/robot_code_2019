@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TestIntakeMoveArm extends Command
 {
+    private double newSpeed;
+    private boolean moveOut;
+    private boolean startMotor;
     /**
      *
      * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.
@@ -21,21 +24,21 @@ public class TestIntakeMoveArm extends Command
     public TestIntakeMoveArm(boolean moveOut, boolean startMotor)
     {
         requires(Robot.Intake);
+        this.newSpeed = 0.0;
+        this.moveOut = moveOut;
+        this.startMotor = startMotor;
 
-        double newSpeed = 0.0;
-
-        if(startMotor)
-        {
-            newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
-        }
-
-        Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        if(startMotor)
+        {
+            newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
+        }
+        Robot.Intake.testSetArmMotorSpeed(newSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run
