@@ -1,28 +1,22 @@
-package frc.robot.commands;
+package frc.robot.commands.test;
 
 import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the setting of the Elevators position
+ * A class supporting the command sequence used to toggle the transport roller
+ * motor on and off in test mode
  */
-public class TestElevatorMove extends Command
-{   
-    private OI.Mode mode;
-    private boolean up;
+public class TestToggleTransportRoller extends Command
+{
+    OI.Mode mode;
 
-    /**
-     * 
-     * @param Up sets the Elevator to up or down based on a boolean variable
-     */
-    public TestElevatorMove(OI.Mode mode, boolean up)
+    public TestToggleTransportRoller(OI.Mode mode)
     {
-        requires(Robot.Lift);
         this.mode = mode;
-        this.up   = up;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -31,13 +25,13 @@ public class TestElevatorMove extends Command
         if(mode != Robot.oi.getMode())
             return;
 
-        // TODO: Code the TestElevatorMove command!
+        // TODO: Code the TestToggleTransportRoller command!
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        Robot.Lift.SetElevatorPosition(up);
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
