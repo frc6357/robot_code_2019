@@ -100,9 +100,6 @@ public class OI
         buttonSlowMode.whenPressed(new SlowModeCommand(true));
         buttonSlowMode.whenReleased(new SlowModeCommand(false));
 
-        // TODO: Revisit this if we end up having multiple cameras.
-        buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
-
         // Instantiate the operator joystick devices.
         joystickOperator = new FilteredJoystick(Ports.OIOperatorJoystick);
 
@@ -117,11 +114,24 @@ public class OI
         buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
 
-        System.out.println("WE got Here");
+        // Test mode command bindings.
         buttonOperatorRightBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, true));
         buttonOperatorRightBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
         buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
         buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
+
+        // Manual mode command bindings.
+        buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
+        buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        buttonOperatorB.whenPressed(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
+        buttonOperatorB.whenReleased(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
+        buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, true));
+        buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, false));
+        buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
+        buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
+        buttonOperatorLeftBumper.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
+        buttonOperatorStart.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
+        buttonOperatorStart.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
     }
 
     /**
@@ -231,34 +241,20 @@ public class OI
             case TEST:
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
-                
-
-                // TODO: Rework this to match the actual test mode control mapping
-                //       when this is defined. For not, it's just a copy of the override
-                //       mode mapping with the Back button action disabled.
-                //buttonOperatorB.whenActive(new TestIntakeMoveArm(false, true));
-                //buttonOperatorB.whenInactive(new TestIntakeMoveArm(false, false));
-                //buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(true, true));
-                //buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(true, false));
-                
                 break;
 
             case NORMAL:
                 SmartDashboard.putString("Operator Mode", "NORMAL");
                 SmartDashboard.putBoolean("Operator Override", false);
-
-                // TODO: Set up control actions for normal mode.
-                buttonOperatorBack.whenPressed(modeToggle);
-                //buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
                 break;
 
             case MANUAL:
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
-                buttonOperatorBack.whenPressed(modeToggle);
                 break;
         }
     }
+
     /**
      * Query the current operating mode of the robot.
      *

@@ -177,8 +177,6 @@ public class Ports
 
     public static final int IODriverGearShift            = 6;    // Right Bumper
 
-    public static final int OIDriverCameraSwitcher       = 2;     // Button B
-
     // *********************
     // Operator Controller
     // *********************

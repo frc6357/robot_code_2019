@@ -101,18 +101,18 @@ public class SK19Lift extends Subsystem
      */
     public void setArmPosition(int posIndex)
     {
-        double setAngle = 0.0;
+        double setAngle     = 0.0;
         boolean setPosition = false;
         boolean hatchSensor = this.HatchSensor.getIsTriggered();
-        boolean ballSensor = this.BallSensor.getIsTriggered();
+        boolean ballSensor  = this.BallSensor.getIsTriggered();
 
-        if (HatchSensor.getIsTriggered() && !BallSensor.getIsTriggered())
+        if (hatchSensor && !ballSensor)
         {
             setAngle = lookupTable[posIndex][cargoIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][cargoIndexSearch].ElevatorUp;
             lastPosition = posIndex;
         }
-        else if (BallSensor.getIsTriggered() && !HatchSensor.getIsTriggered())
+        else if (ballSensor && !hatchSensor)
         {
             setAngle = lookupTable[posIndex][hatchIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][hatchIndexSearch].ElevatorUp;
@@ -147,7 +147,7 @@ public class SK19Lift extends Subsystem
      *      - Type: boolean
      *      - If this is true it sets the elevator to the highest position and if false it sets it to the lowest position
      */
-    public void testSetElevatorPosition(boolean ElevUp)
+    public void SetElevatorPosition(boolean ElevUp)
     {
         RobotElevator.setPosition(ElevUp);
     }

@@ -7,11 +7,8 @@ import frc.robot.subsystems.base.BaseLimitSensor;
  */
 public class BaseOctopusRoller extends BaseRoller
 {
-    // scaler Value
-    private final static double scaler = 1;
     ///Limit Sensors
     private final BaseLimitSensor CargoSensor;
-    
 
     /**
      *  Creates a base set of rollers for the octopus that utilizes a limit sensor
@@ -32,12 +29,13 @@ public class BaseOctopusRoller extends BaseRoller
     }
     
     /**
-     *  Checks whether the cargo sensor is activated
+     *  Checks whether cargo sensor is present in the octopus.
+     * 
      *  @return
      *      - Type: boolean
-     *      - Checks whether the sensor is activated and will return true
+     *      - True if the cargo is present, false otherwise.
      */
-    public boolean isCargoPressed()
+    public boolean isCargoPresent()
     {
         return CargoSensor.getIsTriggered();
     }
