@@ -35,7 +35,6 @@ public class SK19Lift extends Subsystem
     private DoubleSolenoid                      HatchDeploySolenoid;
     private BaseMotorizedArm                    robotArmMotorized;
 
-    private double                              ArmSpeed;
     private int                                 lastPosition;
     private double                              octopusScaler;
     private int                                 cargoIndexSearch = 0;
@@ -65,7 +64,6 @@ public class SK19Lift extends Subsystem
     {
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
         // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
-        this.ArmSpeed = 1.0;
         this.octopusScaler = 0.6;
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
@@ -215,4 +213,27 @@ public class SK19Lift extends Subsystem
         }
     }
 
+    // Move the lift subsystem arm. This is set up such that a joystick value of 90% or higher
+    // bumps the setpoint up one degree and input of -90% bumps it down a degree.
+    public void UpdateArmPosition(double axis)
+    {
+        double currentSetpoint;
+        double delta = 0.0;
+
+        // Ignore any input where the joystick isn't near the top or bottom (wide deadband!)
+        if((axis > -0.9) && (axis < 0.9))
+            return;
+
+        currentSetpoint = RobotArmAngled.getArmSetpoint();
+
+        currentSetpoint += ((axis > 0.9) ? 1.0 : -1.0);
+
+        RobotArmAngled.moveToAngleDegrees(currentSetpoint);
+    }
+
+    // Move the arm to a specific angle.
+    public void SetArmPositionDegrees(double angle)
+    {
+        RobotArmAngled.moveToAngleDegrees(angle);
+    }
 }

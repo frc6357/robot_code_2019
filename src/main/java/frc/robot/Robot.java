@@ -19,13 +19,9 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseMotorizedArm;
-import frc.robot.subsystems.base.BaseTankDrive;
-import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
-import frc.robot.subsystems.SmoothDrive;
-// import frc.robot.commands.TestMoveRobotArm;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,11 +43,9 @@ public class Robot extends TimedRobot
   public static SpeedController armMotorController;
   public static BaseMotorizedArm armSystem;
 
-  public static SK19Drive Drive = new SK19Drive();
+  public static SK19Drive Drive        = new SK19Drive();
   public static SK19CargoIntake Intake = new SK19CargoIntake();
-  public static SK19Lift Lift = new SK19Lift();
-
-  //public static TestMoveRobotArm RobotArmTest;
+  public static SK19Lift Lift          = new SK19Lift();
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 10, we update the smart dashboard
@@ -63,23 +57,20 @@ public class Robot extends TimedRobot
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit()
+  {
     Drive.baseDrive.setLeftSpeed(0);
     Drive.baseDrive.setRightSpeed(0);
 
     armMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
-    armSystem = new BaseMotorizedArm(armMotorController);
-    //RobotArmTest = new TestMoveRobotArm(oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false));
+    armSystem          = new BaseMotorizedArm(armMotorController);
 
     // Initialize the operator interface.
     oi = new OI();
 
     camera=CameraServer.getInstance().startAutomaticCapture("Driver Front Camera", 0);
-    //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
-    //cameraRear.setResolution(640, 480);
     camera.setResolution(240, 240);
     camera.setFPS(15);
-    //Server = new MjpegServer("cameraServer", 1);
   }
 
 
@@ -91,8 +82,7 @@ public class Robot extends TimedRobot
     {
         Drive.baseDrive.setLeftSpeed(0);
         Drive.baseDrive.setRightSpeed(0);
-        //Intake.RollerArm.disable();
-        // TODO: Do anything else needed to safe the robot when it is disabled.
+        Intake.RollerArm.disable();
     }
 
   /**
@@ -123,7 +113,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    oi.setMode(OI.Mode.NORMAL);
+    oi.setMode(OI.Mode.MANUAL);
   }
 
   /**
@@ -142,7 +132,7 @@ public class Robot extends TimedRobot
     // Do anything needed here when autonomous mode exits.
     // NB: In the 2019 game we will NOT be using autonomous code so this function
     // must NOT do anything to change the state of the robot!
-    oi.setMode(OI.Mode.NORMAL);
+    oi.setMode(OI.Mode.MANUAL);
   }
 
   /**
@@ -151,15 +141,20 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+    double armPosValue;
+
     Scheduler.getInstance().run();
 
-    driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
+    driveLeft  = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and joysticks
     driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
-    Drive.baseDrive.setLeftSpeed(driveLeft);
-    Drive.baseDrive.setRightSpeed(driveRight);
+    Drive.Drive.setLeftSpeed(driveLeft);
+    Drive.Drive.setRightSpeed(driveRight);
 
-    //teleopDrive.SmoothDrivePeriodic();
+    Drive.Drive.SmoothDrivePeriodic();
+
+    armPosValue = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, true);
+    Lift.UpdateArmPosition(armPosValue);
   }
 
   /**

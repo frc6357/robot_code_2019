@@ -24,13 +24,12 @@ public class SK19Drive extends Subsystem
 
     // Gear shifter
     private final Solenoid baseGearShiftSolenoid;
-    private boolean baseHighGear;
 
     // Encoders
-    public final ScaledEncoder rightEncoder;
-    public final ScaledEncoder leftEncoder;
+    public final ScaledEncoder      rightEncoder;
+    public final ScaledEncoder      leftEncoder;
 
-    public final SmoothDrive teleopDrive;
+    public final SmoothDrive         Drive;
     public final BaseTankDrive2Motor baseDrive;
 
     public SK19Drive()
@@ -77,8 +76,7 @@ public class SK19Drive extends Subsystem
         this.baseDrive = new BaseTankDrive2Motor(this.baseFrontLeftMaster, this.baseBackLeft, this.baseFrontRightMaster,
                                                         this.baseBackRight, this.baseGearShiftSolenoid, this.rightEncoder, this.leftEncoder);
 
-        this.teleopDrive = new SmoothDrive(baseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
-
+        this.Drive = new SmoothDrive(baseDrive, TuningParams.driveMaxAccelForward, TuningParams.driveMaxAccelBackwards);
     }
 
     @Override
