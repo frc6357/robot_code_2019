@@ -12,11 +12,15 @@ import frc.robot.Robot;
 
 public class TestIntakeArmMotorToggle extends Command 
 {
-  private boolean startRollers;
+  private boolean startRollers = false;
+  private boolean oldRollers;
   public TestIntakeArmMotorToggle(boolean startRollers) 
   {
-    requires(Robot.Intake);
+    this.startRollers = this.oldRollers;
     this.startRollers = startRollers;
+    requires(Robot.Intake);
+    if(this.startRollers == this.oldRollers)
+      this.startRollers = false;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

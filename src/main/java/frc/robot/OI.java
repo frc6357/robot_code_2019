@@ -78,6 +78,8 @@ public class OI
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
+    private static TestIntakeArmMotorToggle IntakeArmRollerMotor = new TestIntakeArmMotorToggle(true);
+
     //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
@@ -115,10 +117,13 @@ public class OI
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
 
         // Test mode command bindings.
-        buttonOperatorRightBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, true));
-        buttonOperatorRightBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
-        buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
-        buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
+        //buttonOperatorRightBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, true));
+        //buttonOperatorRightBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
+        //buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
+        //buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
+        buttonOperatorRightBumper.whileHeld(new TestIntakeMoveArm(true, true));
+        buttonOperatorB.whileHeld(new TestIntakeMoveArm(false, true));
+        buttonOperatorX.whenPressed(new TestIntakeArmMotorToggle(true));
 
         // Manual mode command bindings.
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
