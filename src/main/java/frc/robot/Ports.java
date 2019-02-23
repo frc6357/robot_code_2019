@@ -77,7 +77,7 @@ public class Ports
     // Elevator components
     //
     public static final int elevatorPCM                  = pcm1;
-    public static final int elevatorUp                   = 1;    // PCM 1 output 6
+    public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
     public static final int elevatorProximityUp          = 5;    // DIO input 5
     public static final int elevatorProximityDown        = 6;    // DIO input 6

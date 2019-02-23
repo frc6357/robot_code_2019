@@ -68,9 +68,9 @@ public class SK19Lift extends Subsystem
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
-        this.ElevatorSolenoid            = new Solenoid(Ports.pcm1, Ports.elevatorPCM);
-        this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.pcm1, Ports.hatchGripperOut, Ports.hatchGripperIn);
-        this.HatchLockSolenoid           = new DoubleSolenoid(Ports.pcm1, Ports.hatchGripperLock, Ports.hatchGripperUnlock);
+        this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM, Ports.elevatorUp);
+        this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperOut, Ports.hatchGripperIn);
+        this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperLock, Ports.hatchGripperUnlock);
 
         // This is the decleration for all of the required sensors
         this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
