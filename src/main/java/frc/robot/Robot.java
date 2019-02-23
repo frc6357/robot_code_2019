@@ -65,9 +65,6 @@ public class Robot extends TimedRobot {
 
         PIDSEnabled = false;
 
-        armMotorController = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
-        armSystem = new BaseMotorizedArm(armMotorController);
-
         // Initialize the operator interface.
         oi = new OI();
 
@@ -154,32 +151,49 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        double armPosValue;
+        OI.Mode mode = oi.getMode();
 
         Scheduler.getInstance().run();
 
-        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and
-                                                                        // joysticks
+        // Driver updates
+        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
         driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
         Drive.Drive.setLeftSpeed(driveLeft);
         Drive.Drive.setRightSpeed(driveRight);
-
         Drive.Drive.SmoothDrivePeriodic();
 
-        armPosValue = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos, true);
-        Lift.UpdateArmPosition(armPosValue);
+        // Operator updates. Left Y joystick controls the arm angle in MANUAL mode.
+        if(mode == OI.Mode.MANUAL)
+        {
+            double armPosAngle;
+            double operatorLeftY;
+
+            operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
+            armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
+            if(operatorLeftY > 0.9)
+                armPosAngle += 1.0;
+            if(operatorLeftY < -0.9)
+                armPosAngle -= 1.0;
+            armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
+            armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
+            Lift.RobotArmAngled.setSetpoint(armPosAngle);
+        }
+
+        // Housekeeping
+        Lift.periodic();
     }
 
     /**
      * This function is called on entry into test mode.
      */
     @Override
-    public void testInit() {
-        // CameraServer camServer = CameraServer.getInstance();
-        // camServer.addServer(Server);
-
+    public void testInit()
+    {
         Intake.RollerArm.enable();
+
+        // TODO: Add this when we want to enable the PID controller on the arm motor.
+        //Lift.RobotArmAngled.enable();
 
         oi.setMode(OI.Mode.TEST);
     }
@@ -190,25 +204,26 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        // double operatorLeft, operatorRight;
+        double operatorLeftY, operatorRightY;
+
         Scheduler.getInstance().run();
 
-        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); // Retrieves the status of all buttons and
-                                                                        // joysticks
+        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); 
         driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
-        // operatorLeft = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickARMPos,
-        // false) * 180 + 180;
-        // operatorRight =
-        // oi.getOperatorJoystickValue(Ports.OIOperatorJoystickTestARMPos, false);
+
+        operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
+        operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);
 
         UpdateSmartDashboard(OI.Mode.TEST);
 
-        // Intake.periodic();
-        armSystem.periodic();
-        // Intake.setArmAngle(operatorLeft);
+        Lift.cargoSystem(operatorRightY);
+        Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
+
+        // Perform housekeeping.
+        Lift.periodic();
     }
 
     void UpdateSmartDashboard(OI.Mode mode) {

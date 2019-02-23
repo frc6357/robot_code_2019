@@ -41,8 +41,8 @@ public class TuningParams
     public static final double ArmPositionHatch1         = 5.0;   // Hatch Position for level 1
     public static final double ArmPositionHatch2         = 5.0;   // Hatch Position for level 2
     public static final double ArmPositionHatch3         = 50.0;  // Hatch Position for level 3
-    public static final double ArmPostionCargo1          = 10.0;   // Cargo Position for level 1
-    public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
+    public static final double ArmPostionCargo1          = 10.0;  // Cargo Position for level 1
+    public static final double ArmPositionCargo2         = 10.0;  // Cargo Position for level 2
     public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
 
     public static final String liftPositionStow          = "STOW";
@@ -52,14 +52,22 @@ public class TuningParams
 
     // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
     // during bringup!
-    public static final double LiftArmPValue           = 0.0001;
-    public static final double LiftArmIValue           = 0.000001;
-    public static final double LiftArmDValue           = 0;
-    public static final double LiftArmToleranceValue   = 0;
+    public static final double LiftArmPValue             = 0.0001;
+    public static final double LiftArmIValue             = 0.000001;
+    public static final double LiftArmDValue             = 0;
+    public static final double LiftArmToleranceValue     = 0;
 
     // TODO: Check this when we wire up the motor. If the PID controller diverges,
     // set this to true and continue debug.
-    public static final boolean LiftArmInvertMotor     = false;
+    public static final boolean LiftArmInvertMotor       = false;
+
+    // In manual override mode, these are the angle setpoint limits for the arm.
+    public static final double LiftArmAngleMax           = 135.0;
+    public static final double LiftArmAngleMin           = 0.0;
+
+    // In test mode, when we set the arm motor speed directly from the joystick, this
+    // is the value we divide the joystick by before setting the motor speed.
+    public static final double LiftArmTestSpeedDivider   = 20.0;
 
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)

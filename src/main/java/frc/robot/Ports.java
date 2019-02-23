@@ -182,21 +182,20 @@ public class Ports
     // *********************
     public static final int OIOperatorJoystick           = 1;
 
-    public static final int OIOperatorJoystickL          = 9;    // Left Joystick
-    public static final int OIOperatorJoystickR          = 10;   // Right Joystick
+    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
+    public static final int OIOperatorJoystickLY         = 2;    // Left stick, Y axis
+    public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
+
+    public static final int OIOperatorJoystickL          = 9;    // Left Joystick button
+    public static final int OIOperatorJoystickR          = 10;   // Right Joystick button
+
     public static final int OIOperatorLeftBumper         = 5;    // Left Bumper
     public static final int OIOperatorRightBumper        = 6;    // Right Bumper
 
-    public static final int OIOperatorJoystickARMPos     = 2;    // Left stick, Y axis
-    public static final int OIOperatorJoystickTestARMPos = 2;    // Left Stick, Y axis
     public static final int OIOperatorButtonA            = 1;    // A Button
     public static final int OIOperatorButtonB            = 2;    // B Button
     public static final int OIOperatorButtonY            = 4;    // Y Button
     public static final int OIOperatorButtonX            = 3;    // X Button
-
-    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
-
-    public static final int OIOperatorJoystickLY         = 2;    // Up D-Pad, Joystick axis 2
 
     public static final int OIOperatorBack               = 7;    // Back/Select Button
     public static final int OIOperatorStart              = 8;    // Start Button

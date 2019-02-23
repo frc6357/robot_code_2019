@@ -264,4 +264,11 @@ public class SK19Lift extends Subsystem
     {
         RobotArmAngled.moveToAngleDegrees(angle);
     }
+
+    // Call this from the periodic callback(s) in the robot class to ensure that 
+    // all housekeeping (limit switch checks, etc) is performed.
+    public void periodic()
+    {
+        RobotArmAngled.periodic();
+    }
 }

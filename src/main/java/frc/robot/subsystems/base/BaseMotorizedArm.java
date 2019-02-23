@@ -10,7 +10,7 @@ import frc.robot.subsystems.base.DummyLimitSensor;
  *
  * PERIODIC MUST BE ADDED TO A PERIODIC LOOP FOR ARM TO FUNCTION
  */
-public class BaseMotorizedArm extends Subsystem
+public class BaseMotorizedArm
 {
     // Rotate Speed Controller
     private final SpeedController armRotateMotor;
@@ -166,10 +166,5 @@ public class BaseMotorizedArm extends Subsystem
     public boolean getTopLimitTriggered()
     {
         return armLimitTop.getIsTriggered();
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-
     }
 }
