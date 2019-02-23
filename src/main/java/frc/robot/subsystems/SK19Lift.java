@@ -173,6 +173,10 @@ public class SK19Lift extends Subsystem
         }
     }
 
+    public boolean isHatchGripperLocked()
+    {
+        return RobotHatch.isHatchLatched();
+    }
     /**
      *  This method takes a boolean value and decides whether to extend the pushing mechanism on the hatch mechanism to push off a hatch, or to retract it and keep the hatch on
      *  @param pusherExtend
@@ -189,6 +193,11 @@ public class SK19Lift extends Subsystem
         {
             RobotHatch.retractHatchPiston();
         }
+    }
+
+    public boolean isHatchPusherExtended()
+    {
+        return RobotHatch.isHatchPistonExtended();
     }
 
     /**

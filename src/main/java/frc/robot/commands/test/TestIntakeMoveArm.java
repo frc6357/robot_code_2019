@@ -30,12 +30,16 @@ public class TestIntakeMoveArm extends Command
         this.moveOut = moveOut;
         this.startMotor = startMotor;
         this.setMode = setMode;
-
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize()
+    {   
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute()
     {
         if (this.setMode == Robot.oi.getMode())
         {
@@ -44,13 +48,7 @@ public class TestIntakeMoveArm extends Command
                 newSpeed = moveOut ? TuningParams.intakeArmMotorSpeed : -TuningParams.intakeArmMotorSpeed;
             }
             Robot.Intake.testSetArmMotorSpeed(newSpeed);
-        }   
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
-
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

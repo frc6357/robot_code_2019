@@ -78,8 +78,6 @@ public class OI
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
 
-    private static TestIntakeArmMotorToggle IntakeArmRollerMotor = new TestIntakeArmMotorToggle(OI.Mode.TEST, true);
-
     //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
@@ -117,15 +115,24 @@ public class OI
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
 
         // Test mode command bindings.
-        //buttonOperatorRightBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, true));
-        //buttonOperatorRightBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
         //buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
         //buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
-        buttonOperatorRightBumper.whileHeld(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
-        buttonOperatorB.whileHeld(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
-        buttonOperatorX.whenPressed(new TestIntakeArmMotorToggle(OI.Mode.TEST, true));
+        buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
+        buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
+        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.TEST, false, true));
+        buttonOperatorB.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
+        buttonOperatorB.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, false, false));
+        buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.TEST, false));
+        buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
+        buttonOperatorLeftBumper.whenPressed(new TestGrabHatchToggle(OI.Mode.TEST));
+        buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
 
-
+        // TODO: Right stick button, toggle transport rollers (when fitted)
+        // TODO: Left stick Y axis, control lift arm speed.
+        // TODO: Right trigger -ve, set octopus motor speed forwards.
+        // TODO: Right stick Y axis, set climb motor speed.
+        // TODO: Button 7, toggle climb tilt mechanism.
+        
         // Manual mode command bindings.
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));

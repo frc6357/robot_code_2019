@@ -56,6 +56,14 @@ public class BaseHatchMechanism
     }
 
     /**
+     * Query the current state of the hatch deploy piston. Returns True if extended, false otherwise.
+     */
+    public boolean isHatchPistonExtended()
+    {
+        return ((hatchDeploySolenoid.get() == DoubleSolenoid.Value.kForward) ? true : false);
+    }
+
+    /**
      *  Opens the latch gripper to lock the hatch onto the mechanism.
      */
     public void latchHatch()
@@ -69,6 +77,14 @@ public class BaseHatchMechanism
     public void unlatchHatch()
     {
         hatchLatchSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    /**
+     * Query the current state of the hatch latch. Returns True if locked, false otherwise.
+     */
+    public boolean isHatchLatched()
+    {
+        return ((hatchLatchSolenoid.get() == DoubleSolenoid.Value.kForward) ? true : false);
     }
 
     /**

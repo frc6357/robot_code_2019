@@ -209,20 +209,6 @@ public class Robot extends TimedRobot {
         // Intake.periodic();
         armSystem.periodic();
         // Intake.setArmAngle(operatorLeft);
-
-        // if (OI.buttonCameraShifter.get() && !cameraPrev)
-        // {
-        // //NetworkTableInstance.getDefault().getTable("").//.putString("Camera
-        // Selection", cameraRear.getName());
-        // //Server.setSource(cameraRear);
-        // System.out.println("This should be rear camera");
-        // }
-        // else if (!OI.buttonCameraShifter.get() && cameraPrev)
-        // {
-        // //Server.setSource(camera);
-        // System.out.println("This should be front camera");
-        // }
-        // cameraPrev = OI.buttonCameraShifter.get();
     }
 
     void UpdateSmartDashboard(OI.Mode mode) {
