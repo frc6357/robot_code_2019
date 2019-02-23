@@ -5,7 +5,7 @@ package frc.robot;
 
 /**
  *
- * This class defines all tunable software parameters related to the robot. 
+ * This class defines all tunable software parameters related to the robot.
  * Note that any hardware-connection-related parameters must be in Ports.java.
  * Values in this file include PID coefficients, filter settings, etc.
  *
@@ -44,6 +44,11 @@ public class TuningParams
     public static final double ArmPostionCargo1          = 10.0;   // Cargo Position for level 1
     public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
     public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
+
+    public static final String liftPositionStow          = "STOW";
+    public static final String liftPositionLower         = "LOWER";
+    public static final String liftPositionMiddle        = "MIDDLE";
+    public static final String liftPositionUpper         = "UPPER";
 
     // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
     // during bringup!

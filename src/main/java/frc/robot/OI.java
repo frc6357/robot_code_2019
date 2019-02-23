@@ -72,6 +72,7 @@ public class OI
 
     public static enum Mode { NONE, TEST, NORMAL, MANUAL };
 
+
     private static Mode oiMode = Mode.NONE;
 
     private static ModeSelect modeToggle = new ModeSelect();
@@ -133,7 +134,7 @@ public class OI
         // TODO: Right trigger -ve, set octopus motor speed forwards.
         // TODO: Right stick Y axis, set climb motor speed.
         // TODO: Button 7, toggle climb tilt mechanism.
-        
+
         // Manual mode command bindings.
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
@@ -151,6 +152,15 @@ public class OI
 
         buttonOperatorStart.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorStart.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
+
+        // Nornmal mode command bindings
+        buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
+
+        buttonOperatorB.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionMiddle));
+
+        buttonOperatorY.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionUpper));
+
+        buttonOperatorRightBumper.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionStow));
     }
 
     /**

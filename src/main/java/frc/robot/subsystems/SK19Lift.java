@@ -127,6 +127,26 @@ public class SK19Lift extends Subsystem
         RobotElevator.setPosition(setPosition);
     }
 
+    public void setPositionTarget(String targetPosition)
+    {
+        switch(targetPosition)
+        {
+            case TuningParams.liftPositionStow:
+                setArmPosition(0);
+                break;
+            case TuningParams.liftPositionLower:
+                setArmPosition(1);
+                break;
+            case TuningParams.liftPositionMiddle:
+                setArmPosition(2);
+                break;
+            case TuningParams.liftPositionUpper:
+                setArmPosition(3);
+                break;
+        }
+    }
+
+
     /**
      *  This method that takes a double value and sets the arm motor controller to a specific speed to be moving at.
      *  @param speed
