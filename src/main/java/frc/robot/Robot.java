@@ -232,48 +232,59 @@ public class Robot extends TimedRobot {
         if ((m_DisplayUpdateCounter % DASHBOARD_UPDATE_INTERVAL) != 0)
             return;
 
-        switch (mode) {
-        case NONE:
-            break;
+        switch (mode) 
+        {
+            case NONE:
+                break;
 
-        case TEST: {
-            // Drive subsystem parameters
-            SmartDashboard.putNumber("Left Actual Speed", Drive.baseDrive.getLeftSpeed());
-            SmartDashboard.putNumber("Right Actual Speed", Drive.baseDrive.getRightSpeed());
+            case TEST:
+            {
+                // Drive subsystem parameters
+                SmartDashboard.putNumber("Left Actual Speed", Drive.baseDrive.getLeftSpeed());
+                SmartDashboard.putNumber("Right Actual Speed", Drive.baseDrive.getRightSpeed());
 
-            // Intake subsystem parameters.
-            SmartDashboard.putNumber("Intake Set", Intake.RollerArm.getArmSetpoint());
-            SmartDashboard.putNumber("Intake Angle", Intake.RollerArm.getArmPosition());
-            SmartDashboard.putNumber("Intake Motor", Intake.ArmMotor.get());
-            SmartDashboard.putNumber("Intake Roller", Intake.RollerMotor.get());
-            SmartDashboard.putBoolean("Intake Cargo", Intake.isCargoInIntake());
+                // Intake subsystem parameters.
+                SmartDashboard.putNumber("Intake Set", Intake.RollerArm.getArmSetpoint());
+                SmartDashboard.putNumber("Intake Angle", Intake.RollerArm.getArmPosition());
+                SmartDashboard.putNumber("Intake Motor", Intake.ArmMotor.get());
+                SmartDashboard.putNumber("Intake Roller", Intake.RollerMotor.get());
+                SmartDashboard.putBoolean("Intake Cargo", Intake.isCargoInIntake());
 
-            // Lift subsystem parameters.
-            SmartDashboard.putNumber("Arm Set", Lift.getArmSetpointDegrees());
-            SmartDashboard.putNumber("Arm Angle", Lift.getArmPositionDegrees());
-            SmartDashboard.putNumber("Arm Speed", Lift.testGetArmPositionMotorSpeed());
-            SmartDashboard.putBoolean("Arm Top", Lift.isArmAtTop());
-            SmartDashboard.putBoolean("Arm Bottom", Lift.isArmAtBottom());
-            SmartDashboard.putNumber("Cargo Rollers", Lift.OctopusRoller.testGetSpeed());
-            SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
-            SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
-            SmartDashboard.putBoolean("Hatch Locked", Lift.isHatchGripperLocked());
-            SmartDashboard.putBoolean("Hatch Pusher", Lift.isHatchPusherExtended());
-            SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
-            SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
-            SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
-        }
-            break;
+                // Lift subsystem parameters.
+                SmartDashboard.putNumber("Arm Set", Lift.getArmSetpointDegrees());
+                SmartDashboard.putNumber("Arm Angle", Lift.getArmPositionDegrees());
+                SmartDashboard.putNumber("Arm Speed", Lift.testGetArmPositionMotorSpeed());
+                SmartDashboard.putBoolean("Arm Top", Lift.isArmAtTop());
+                SmartDashboard.putBoolean("Arm Bottom", Lift.isArmAtBottom());
+                SmartDashboard.putNumber("Cargo Rollers", Lift.OctopusRoller.testGetSpeed());
+                SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
+                SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
+                SmartDashboard.putBoolean("Hatch Locked", Lift.isHatchGripperLocked());
+                SmartDashboard.putBoolean("Hatch Pusher", Lift.isHatchPusherExtended());
+                SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
+                SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
+                SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
+                break;
+            }
 
-        case MANUAL: {
-            // TODO: Send back top level info to the smart dashboard in override mode.
-        }
-            break;
+            case MANUAL:
+            case NORMAL:
+            {
+                // Drive subsystem parameters
+                SmartDashboard.putNumber("Left Actual Speed", Drive.baseDrive.getLeftSpeed());
+                SmartDashboard.putNumber("Right Actual Speed", Drive.baseDrive.getRightSpeed());
 
-        case NORMAL: {
-            // TODO: Send back top level info to the smart dashboard in normal mode.
-        }
-            break;
+                SmartDashboard.putNumber("Intake Angle", Intake.RollerArm.getArmPosition());
+                SmartDashboard.putBoolean("Intake Cargo", Intake.isCargoInIntake());
+
+                SmartDashboard.putNumber("Arm Set", Lift.getArmSetpointDegrees());
+                SmartDashboard.putNumber("Arm Angle", Lift.getArmPositionDegrees());
+                SmartDashboard.putNumber("Cargo Rollers", Lift.OctopusRoller.testGetSpeed());
+                SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
+
+                SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
+                break;
+            }
         }
     }
 }
