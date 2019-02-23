@@ -277,6 +277,22 @@ public class SK19Lift extends Subsystem
     }
 
     /**
+     * Determine whether or not the arm top limit switch has been triggered.
+     */
+    public boolean isArmAtTop()
+    {
+        return this.robotArmMotorized.getTopLimitTriggered();
+    }
+
+    /**
+     * Determine whether or not the arm bottom limit switch has been triggered.
+     */
+    public boolean isArmAtBottom()
+    {
+        return this.robotArmMotorized.getBottomLimitTriggered();
+    }
+
+    /**
      *  This method sets the cargo roller into one of three state forwards, stopped or backwards.
      *  If cargoSpeed is 0, motor is stopped, if it's positive, it runs forwards at a fixed speed
      *  defined in TuningParams, and if negtive, it runs backwards.
