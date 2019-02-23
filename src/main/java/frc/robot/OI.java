@@ -161,6 +161,8 @@ public class OI
         buttonOperatorY.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionUpper));
 
         buttonOperatorRightBumper.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionStow));
+
+        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
     }
 
     /**

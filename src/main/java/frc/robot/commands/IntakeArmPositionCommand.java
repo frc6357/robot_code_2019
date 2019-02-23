@@ -7,25 +7,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Drive the intake arm to a given angle.
  */
-/*public class IntakeArmPositionCommand extends Command
-{   
+public class IntakeArmPositionCommand extends Command
+{
     private OI.Mode mode;
     private double  setAngle;
 
     /**
-     * 
+     *
      * @param mode - the operating mode in which this command must run.
      * @param angleDegrees - the angle that the arm will be moved to when this command runs.
-     *    
-     *   */
-    /*public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees)
+     **/
+    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees)
     {
         requires(Robot.Intake);
 
         this.mode     = mode;
         this.setAngle = angleDegrees;
     }
-  
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -58,4 +56,4 @@ import edu.wpi.first.wpilibj.command.Command;
     protected void interrupted()
     {
     }
-}*/
+}

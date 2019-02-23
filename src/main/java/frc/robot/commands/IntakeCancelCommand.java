@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-//import frc.robot.Robot;
-//import frc.robot.OI;
-//import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.OI;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * A command group implementing the sequence necessary to pull cargo into the robot.
  */
-/*public class IntakeCancelCommand extends Command
+public class IntakeCancelCommand extends Command
 {
     private OI.Mode mode;
 
@@ -15,7 +15,7 @@ package frc.robot.commands;
      *
      *
      **/
-    /*public IntakeCancelCommand(OI.Mode mode)
+    public IntakeCancelCommand(OI.Mode mode)
     {
         requires(Robot.Intake);
         this.mode   = mode;
@@ -50,4 +50,4 @@ package frc.robot.commands;
     protected void interrupted()
     {
     }
-}*/
+}

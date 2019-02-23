@@ -1,14 +1,15 @@
 package frc.robot.commands;
 
-//import frc.robot.Robot;
-//import frc.robot.OI;
-//import frc.robot.TuningParams;
-//import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
+import frc.robot.OI;
+import frc.robot.Ports;
+import frc.robot.TuningParams;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * A command group implementing the sequence necessary to pull cargo into the robot.
  */
-/*public class IntakeCommandGroup extends CommandGroup
+public class IntakeCommandGroup extends CommandGroup
 {
     private OI.Mode mode;
 
@@ -16,10 +17,14 @@ package frc.robot.commands;
      *
      *
      **/
-    /*public IntakeCommandGroup(OI.Mode mode)
+    public IntakeCommandGroup(OI.Mode mode)
     {
         requires(Robot.Intake);
+        requires(Robot.Lift);
         this.mode   = mode;
+
+        if (Robot.Lift.isElevatorUp())
+            return;
 
         addSequential(new IntakeRollersCommand(mode, true, false));
         addSequential(new IntakeArmPositionCommand(mode, TuningParams.intakeArmDeployedAngle));
@@ -32,4 +37,4 @@ package frc.robot.commands;
     {
         return true;
     }
-}*/
+}

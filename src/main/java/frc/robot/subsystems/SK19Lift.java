@@ -199,7 +199,7 @@ public class SK19Lift extends Subsystem
     }
 
     /**
-     * Determine the position the elevator has been commanded to. Returns true if 
+     * Determine the position the elevator has been commanded to. Returns true if
      * it has been commanded to the up position, false for down. Note that this does not
      * indicate that the elevator has reached the commanded position, merely that it has been
      * told to go there.
@@ -208,7 +208,7 @@ public class SK19Lift extends Subsystem
     {
         return RobotElevator.getCommandedUp();
     }
-    
+
     public void initDefaultCommand()
     {
 
@@ -236,6 +236,7 @@ public class SK19Lift extends Subsystem
     {
         return RobotHatch.isHatchLatched();
     }
+
     /**
      *  This method takes a boolean value and decides whether to extend the pushing mechanism on the hatch mechanism to push off a hatch, or to retract it and keep the hatch on
      *  @param pusherExtend
@@ -279,7 +280,7 @@ public class SK19Lift extends Subsystem
      *  This method sets the cargo roller into one of three state forwards, stopped or backwards.
      *  If cargoSpeed is 0, motor is stopped, if it's positive, it runs forwards at a fixed speed
      *  defined in TuningParams, and if negtive, it runs backwards.
-     * 
+     *
      *  @param cargoSpeed
      *      - Type double:
      *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value
@@ -302,7 +303,7 @@ public class SK19Lift extends Subsystem
 
     /**
      *  This method sets the cargo roller into one of three states; forwards, stopped or backwards.
-     * 
+     *
      *  @param direction - STOPPED to stop the roller, FORWARDS to run the roller forwards or BACKWARDS
      *                     to run it backwards. When commanded to start, the speed is that defined when
      *                     the roller was created.
@@ -352,7 +353,7 @@ public class SK19Lift extends Subsystem
         return RobotArmAngled.getArmSetpoint();
     }
 
-    // Call this from the periodic callback(s) in the robot class to ensure that 
+    // Call this from the periodic callback(s) in the robot class to ensure that
     // all housekeeping (limit switch checks, etc) is performed.
     public void periodic()
     {
