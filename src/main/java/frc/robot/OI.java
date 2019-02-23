@@ -52,7 +52,6 @@ public class OI
     private static FilteredJoystick joystickDriver;
     private static ExponentialFilter driveJoystickFilter;
 
-    private static Button buttonCameraShifter;
     private static Button buttonShifter;
     private static Button buttonSlowMode;
 
@@ -62,12 +61,14 @@ public class OI
     private static Button buttonOperatorB;
     private static Button buttonOperatorX;
     private static Button buttonOperatorY;
-    private static Button buttonOperatorLeftStick;
-    private static Button buttonOperatorRightStick;
     private static Button buttonOperatorLeftBumper;
     public static Button buttonOperatorRightBumper;
-    private static Button buttonOperatorBack;
     private static Button buttonOperatorStart;
+
+    // Currently unused...
+    //private static Button buttonOperatorLeftStick;
+    //private static Button buttonOperatorRightStick;
+    //private static Button buttonOperatorBack;
 
     public static enum Mode { NONE, TEST, NORMAL, MANUAL };
 
@@ -107,16 +108,16 @@ public class OI
         buttonOperatorB           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonB);
         buttonOperatorX           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonX);
         buttonOperatorY           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonY);
-        buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
-        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
         buttonOperatorLeftBumper  = new JoystickButton(joystickOperator, Ports.OIOperatorLeftBumper);
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
-        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
 
+        // Currently unused.
+        //buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
+        //buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        //buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
+
         // Test mode command bindings.
-        //buttonOperatorLeftBumper.whenPressed(new TestMoveRobotArm(OI.Mode.TEST, false));
-        //buttonOperatorLeftBumper.whenReleased(new TestStopRobotArm(OI.Mode.TEST));
         buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
         buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
         buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.TEST, false, true));
