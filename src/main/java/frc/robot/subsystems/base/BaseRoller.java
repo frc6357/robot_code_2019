@@ -11,7 +11,8 @@ public class BaseRoller
     private SpeedController motorController;
     private double speed = 1.0;
     private double currentSpeed = 0.0;
-    private int directionReader;
+    public static enum Direction { BACKWARD, STOPPED, FORWARD };
+    private Direction directionReader;
 
     /**
      *  Constructor:
@@ -59,7 +60,7 @@ public class BaseRoller
             currentSpeed = speed;
             motorController.set(currentSpeed);
         }
-        directionReader = 1;
+        directionReader = Direction.FORWARD;
     }
 
     /**
@@ -72,7 +73,7 @@ public class BaseRoller
             currentSpeed = -speed;
             motorController.set(currentSpeed);
         }
-        directionReader = -1;
+        directionReader = Direction.BACKWARD;
     }
 
     /**
@@ -85,7 +86,7 @@ public class BaseRoller
             currentSpeed = 0.0;
             motorController.set(0.0);
         }
-        directionReader = 0;
+        directionReader = Direction.STOPPED;
     }
 
     /**
@@ -95,7 +96,7 @@ public class BaseRoller
      *      - Values of -1, 0, 1
      *      - Used to check whether motor is stopped, moving forwards or backwards
      */
-    public int getDirection()
+    public BaseRoller.Direction getDirection()
     {
         return directionReader;
     }
@@ -120,5 +121,24 @@ public class BaseRoller
     public double returnSpeed()
     {
         return this.speed;
+    }
+
+    /**
+     * Function for test use only. This sets the motor to run at the commanded speed,
+     * regardless of the speed set during initialization.
+     */
+    public void testSetSpeed(double speed)
+    {
+        motorController.set(speed);
+        currentSpeed = speed;
+        directionReader = (speed > 0.0) ? Direction.FORWARD : ((speed == 0.0) ? Direction.STOPPED : Direction.BACKWARD);
+    }
+
+    /**
+     * Retrieve the current speed of the roller.
+     */
+    public double testGetSpeed()
+    {
+        return currentSpeed;
     }
 }

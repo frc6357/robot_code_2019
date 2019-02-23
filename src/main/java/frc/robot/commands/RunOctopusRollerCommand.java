@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.OI;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -40,7 +41,7 @@ public class RunOctopusRollerCommand extends Command
         // Yes, this is a weird method. The speed parameter is positive
         // to move the motor forwards, zero to stop it, or negative to move
         // it backwards.
-        Robot.Lift.cargoSystem(on ? 1.0 : 0.0);
+        Robot.Lift.setCargoRollerSpeed(on ? TuningParams.octopusMotorSpeed : 0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

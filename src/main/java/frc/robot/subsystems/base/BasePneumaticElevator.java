@@ -14,6 +14,10 @@ public class BasePneumaticElevator
     private final BaseLimitSensor elevatorUpperLimit;
     private final BaseLimitSensor elevatorLowerLimit;
 
+    public enum State {DOWN, UNKNOWN, UP};
+
+    private boolean commandedUp;
+
     /**
      *  Constructor:
      *
@@ -33,9 +37,10 @@ public class BasePneumaticElevator
      */
     public BasePneumaticElevator(Solenoid elevatorSolenoid, BaseLimitSensor elevatorUpperLimit, BaseLimitSensor elevatorLowerLimit)
     {
-        this.elevatorSolenoid = elevatorSolenoid;
+        this.elevatorSolenoid   = elevatorSolenoid;
         this.elevatorUpperLimit = elevatorUpperLimit;
         this.elevatorLowerLimit = elevatorLowerLimit;
+        this.commandedUp        = false;
     }
 
     /**
@@ -44,6 +49,7 @@ public class BasePneumaticElevator
     public void setToUp()
     {
         elevatorSolenoid.set(true);
+        commandedUp = true;
     }
 
     /**
@@ -52,10 +58,12 @@ public class BasePneumaticElevator
     public void setToDown()
     {
         elevatorSolenoid.set(false);
+        commandedUp = false;
     }
 
     public void setPosition(boolean bUp)
     {
+        commandedUp = bUp;
         if (bUp == true && elevatorUpperLimit.getIsTriggered() != true)
         {
             elevatorSolenoid.set(false);
@@ -89,5 +97,34 @@ public class BasePneumaticElevator
     public boolean getIsUp()
     {
         return elevatorUpperLimit.getIsTriggered();
+    }
+
+    public State getPosition()
+    {
+        boolean bDown = elevatorLowerLimit.getIsTriggered();
+        boolean bUp   = elevatorUpperLimit.getIsTriggered();
+
+        if(bDown)
+        {
+            return State.DOWN;
+        }
+        else if(bUp)
+        {
+            return State.UP;
+        }
+        else
+        {
+            return State.UNKNOWN;
+        }
+    }
+    
+    /**
+     * Determine whether the elevator has been commanded to the up position or not.
+     * Note that this is not the same as actually being in the up position which is 
+     * queried via getIsUp().
+     */
+    public boolean getCommandedUp()
+    {
+        return commandedUp;
     }
 }

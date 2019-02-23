@@ -47,8 +47,7 @@ public class BaseMotorizedArm
         armState = ArmStates.STOPPED;
 
         this.armRotateMotor = armRotateMotor;
-
-        this.armLimitTop = armLimitTop;
+        this.armLimitTop    = armLimitTop;
         this.armLimitBottom = armLimitBottom;
     }
 
@@ -77,6 +76,14 @@ public class BaseMotorizedArm
         handleIsTriggered();
     }
 
+    /**
+     * Returns the currently commanded speed of the motor.
+     */
+    public double getSpeed()
+    {
+        return currentSpeed;
+    }
+    
     /**
      *  Set the speed of the arm
      *

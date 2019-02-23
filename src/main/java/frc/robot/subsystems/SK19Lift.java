@@ -28,7 +28,7 @@ public class SK19Lift extends Subsystem
     private BaseProximitySensor                 ArmDownLimitSensor;
     private BaseProximitySensor                 ArmUpLimitSensor;
     private Solenoid                            ElevatorSolenoid;
-    private BaseOctopusRoller                   OctopusRoller;
+    public  BaseOctopusRoller                   OctopusRoller;
     private BaseHatchMechanism                  RobotHatch;
     private DoubleSolenoid                      HatchLockSolenoid;
     private DoubleSolenoid                      HatchDeploySolenoid;
@@ -156,7 +156,17 @@ public class SK19Lift extends Subsystem
     public void testSetArmPositionMotorSpeed(double speed)
     {
         this.ArmMotor.set(speed);
-        //robotArmMotorized.setSpeed(speed);
+    }
+
+        /**
+     *  This method that takes a double value and sets the arm motor controller to a specific speed to be moving at.
+     *  @param speed
+     *      - Type: double
+     *      - This double value if positive up to 1.0 sets the motor to run forwards at that speed. If the value is negative then the motor will turn backwards at that set speed.
+     */
+    public double testGetArmPositionMotorSpeed()
+    {
+        return this.ArmMotor.get();
     }
 
     /**
@@ -170,6 +180,35 @@ public class SK19Lift extends Subsystem
         RobotElevator.setPosition(ElevUp);
     }
 
+    /**
+     * Determine whether the elevator is currently in the up position. Returns true if it is,
+     * false otherwise.
+     */
+    public boolean isElevatorUp()
+    {
+        return RobotElevator.getIsDown();
+    }
+
+    /**
+     * Determine whether the elevator is currently in the down position. Returns true if it is,
+     * false otherwise.
+     */
+    public boolean isElevatorDown()
+    {
+        return RobotElevator.getIsUp();
+    }
+
+    /**
+     * Determine the position the elevator has been commanded to. Returns true if 
+     * it has been commanded to the up position, false for down. Note that this does not
+     * indicate that the elevator has reached the commanded position, merely that it has been
+     * told to go there.
+     */
+    public boolean getElevatorCommandedPosition()
+    {
+        return RobotElevator.getCommandedUp();
+    }
+    
     public void initDefaultCommand()
     {
 
@@ -221,12 +260,31 @@ public class SK19Lift extends Subsystem
     }
 
     /**
-     *  This method takes a double value and runs a comparison on it to see if it's greater than, less than or equal to zero
+     * Query whether or not cargo is present in the octopus. Returns true if present, false if not present.
+     */
+    public boolean isCargoPresent()
+    {
+        return this.BallSensor.getIsTriggered();
+    }
+
+    /**
+     * Query whether or not a hatch is present on the gripper. Returns true if present, false if not present.
+     */
+    public boolean isHatchPresent()
+    {
+        return this.HatchSensor.getIsTriggered();
+    }
+
+    /**
+     *  This method sets the cargo roller into one of three state forwards, stopped or backwards.
+     *  If cargoSpeed is 0, motor is stopped, if it's positive, it runs forwards at a fixed speed
+     *  defined in TuningParams, and if negtive, it runs backwards.
+     * 
      *  @param cargoSpeed
      *      - Type double:
      *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value
      */
-    public void cargoSystem(double cargoSpeed)
+    public void setCargoRollerSpeed(double cargoSpeed)
     {
         if (cargoSpeed > 0)
         {
@@ -239,6 +297,23 @@ public class SK19Lift extends Subsystem
         else
         {
             OctopusRoller.setStop();
+        }
+    }
+
+    /**
+     *  This method sets the cargo roller into one of three states; forwards, stopped or backwards.
+     * 
+     *  @param direction - STOPPED to stop the roller, FORWARDS to run the roller forwards or BACKWARDS
+     *                     to run it backwards. When commanded to start, the speed is that defined when
+     *                     the roller was created.
+     */
+    public void setCargoRollerDirection(BaseRoller.Direction direction)
+    {
+        switch(direction)
+        {
+            case STOPPED:  OctopusRoller.setStop(); break;
+            case FORWARD:  OctopusRoller.setForwards(); break;
+            case BACKWARD: OctopusRoller.setBackwards(); break;
         }
     }
 
@@ -260,9 +335,21 @@ public class SK19Lift extends Subsystem
     }
 
     // Move the arm to a specific angle.
-    public void SetArmPositionDegrees(double angle)
+    public void setArmPositionDegrees(double angle)
     {
         RobotArmAngled.moveToAngleDegrees(angle);
+    }
+
+    // Get the current arm position as reported by the encoder.
+    public double getArmPositionDegrees()
+    {
+        return RobotArmAngled.getArmPosition();
+    }
+
+    // Get the current arm position setpoint.
+    public double getArmSetpointDegrees()
+    {
+        return RobotArmAngled.getArmSetpoint();
     }
 
     // Call this from the periodic callback(s) in the robot class to ensure that 
