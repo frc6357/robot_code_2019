@@ -14,10 +14,11 @@ public class GrabHatchCommand extends Command
 
     public GrabHatchCommand(OI.Mode mode, boolean lock)
     {
+        requires(Robot.Lift);
         this.mode = mode;
         this.lock = lock;
     }
-  
+
     // Called just before this Command runs the first time
     protected void initialize()
     {
@@ -29,7 +30,7 @@ public class GrabHatchCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-        
+
         Robot.Lift.HatchGripper(lock);
     }
 

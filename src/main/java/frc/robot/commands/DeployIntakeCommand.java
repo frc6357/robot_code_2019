@@ -14,10 +14,12 @@ public class DeployIntakeCommand extends Command
 
     public DeployIntakeCommand(OI.Mode mode, boolean deploy)
     {
+        requires(Robot.Intake);
+
         this.mode   = mode;
         this.deploy = deploy;
     }
-  
+
     // Called just before this Command runs the first time
     protected void initialize()
     {
@@ -29,7 +31,7 @@ public class DeployIntakeCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-        
+
         if(deploy)
         {
             Robot.Intake.deployCargoIntake();

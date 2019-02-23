@@ -125,16 +125,22 @@ public class OI
         buttonOperatorB.whileHeld(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
         buttonOperatorX.whenPressed(new TestIntakeArmMotorToggle(OI.Mode.TEST, true));
 
+
         // Manual mode command bindings.
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+
         buttonOperatorB.whenPressed(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
         buttonOperatorB.whenReleased(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
+
         buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, false));
+
         buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
+
         buttonOperatorLeftBumper.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
+
         buttonOperatorStart.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorStart.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
     }

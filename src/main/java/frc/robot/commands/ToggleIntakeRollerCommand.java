@@ -14,9 +14,10 @@ public class ToggleIntakeRollerCommand extends Command
 
     public ToggleIntakeRollerCommand(OI.Mode mode)
     {
+        requires(Robot.Intake);
         this.mode = mode;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -29,8 +30,8 @@ public class ToggleIntakeRollerCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-        
-        if(Robot.Intake.getRollerSpeed() != 0)
+
+        if(Robot.Intake.getRollerSpeed() == 0)
         {
             Robot.Intake.setRollerSpeed(TuningParams.intakeIngestMotorSpeed);
         }

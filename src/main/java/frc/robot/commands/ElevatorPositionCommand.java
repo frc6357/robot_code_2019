@@ -8,20 +8,21 @@ import edu.wpi.first.wpilibj.command.Command;
  * A class supporting the setting of the Elevators position
  */
 public class ElevatorPositionCommand extends Command
-{   
+{
     private OI.Mode mode;
     private boolean up;
 
     /**
-     * 
+     *
      * @param Up sets the Elevator to up or down based on a boolean variable
      */
     public ElevatorPositionCommand(OI.Mode mode, boolean up)
     {
+        requires(Robot.Lift);
         this.mode = mode;
         this.up   = up;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()

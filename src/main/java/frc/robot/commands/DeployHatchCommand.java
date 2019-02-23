@@ -14,6 +14,7 @@ public class DeployHatchCommand extends Command
 
     public DeployHatchCommand(OI.Mode mode, boolean deploy)
     {
+        requires(Robot.Lift);
         this.mode   = mode;
         this.deploy = deploy;
     }
@@ -30,14 +31,7 @@ public class DeployHatchCommand extends Command
         if(mode != Robot.oi.getMode())
             return;
 
-        if(deploy)
-        {
-            Robot.Lift.HatchPusher(true);
-        }
-        else
-        {
-            Robot.Lift.HatchPusher(false);
-        }
+        Robot.Lift.HatchPusher(deploy);
     }
 
     // Make this return true when this Command no longer needs to run execute()

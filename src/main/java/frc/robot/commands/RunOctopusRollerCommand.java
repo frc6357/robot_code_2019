@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
  * A class supporting the setting of the Elevators position
  */
 public class RunOctopusRollerCommand extends Command
-{   
+{
     private OI.Mode mode;
     private boolean on;
 
     /**
-     * 
+     *
      * @param on If true, this command turns the roller motor on, if
      *           false, it turns the motor off.
      */
@@ -23,7 +23,7 @@ public class RunOctopusRollerCommand extends Command
         this.mode = mode;
         this.on   = on;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
