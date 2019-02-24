@@ -28,8 +28,8 @@ public class SK19CargoIntake extends Subsystem
     public BaseAngleControlledArm RollerArm;
     public BaseProximitySensor    CargoPresentAtIntake;
     public BaseProximitySensor    CargoPresentAtTransfer;
-    public SpeedController        TransferMotorLeft;
-    public SpeedController        TransferMotorRight;
+    //public SpeedController        TransferMotorLeft;
+    //public SpeedController        TransferMotorRight;
     public ScaledEncoder          ArmEncoder;
 
     double                 TransferMotorSpeed = 0.0;
@@ -42,8 +42,8 @@ public class SK19CargoIntake extends Subsystem
     {
         // TODO: Which motor controllers are we using here? We assume TalonSRX for now.
         this.RollerMotor        = new WPI_VictorSPX(Ports.intakeRollerMotor);
-        this.TransferMotorLeft  = new WPI_VictorSPX(Ports.intakeTransferMotorLeft);
-        this.TransferMotorRight = new WPI_VictorSPX(Ports.intakeTransferMotorRight);
+        //this.TransferMotorLeft  = new WPI_VictorSPX(Ports.intakeTransferMotorLeft);
+        //this.TransferMotorRight = new WPI_VictorSPX(Ports.intakeTransferMotorRight);
         this.ArmMotor           = new WPI_VictorSPX(Ports.intakeArmMotor);
 
         // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
@@ -51,11 +51,11 @@ public class SK19CargoIntake extends Subsystem
                                                         Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
 
         // TODO: Verify that the transfer motors do need to run in opposite directions.
-        TransferMotorLeft.setInverted(false);
-        TransferMotorRight.setInverted(true);
+        //TransferMotorLeft.setInverted(false);
+        //TransferMotorRight.setInverted(true);
 
         // Set the right transfer motor to follow control input from the left.
-        ((WPI_VictorSPX) TransferMotorRight).set(ControlMode.Follower, ((WPI_VictorSPX) TransferMotorLeft).getDeviceID());
+        //((WPI_VictorSPX) TransferMotorRight).set(ControlMode.Follower, ((WPI_VictorSPX) TransferMotorLeft).getDeviceID());
 
         this.RollerArm              = new BaseAngleControlledArm(new BaseMotorizedArm(ArmMotor), this.ArmEncoder,
                                                                 TuningParams.intakeArmPValue, TuningParams.intakeArmIValue,
