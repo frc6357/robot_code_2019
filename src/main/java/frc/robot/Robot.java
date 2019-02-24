@@ -16,6 +16,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.base.BaseTankDrive;
 import frc.robot.subsystems.base.BaseTankDrive2Motor;
 import frc.robot.subsystems.SmoothDrive;
+import frc.robot.utils.ScaledEncoder;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,10 +43,24 @@ public class Robot extends TimedRobot
   public static BaseTankDrive BaseDrive = new BaseTankDrive2Motor();
   public static SmoothDrive   teleopDrive = new SmoothDrive(BaseDrive, Ports.driveMaxAccelForward, Ports.driveMaxAccelBackwards);
  
+  // Create basic controllers for every subsystem motor on the robot. We're going to control
+  // these directly purely to allow us to verify that they are connected and operating
+  // correctly before we start trying to debug the main robot application.
+  public static WPI_VictorSPX IntakeArmMotor    = new WPI_VictorSPX(Ports.intakeArmMotor);
+  public static WPI_VictorSPX IntakeRollerMotor = new WPI_VictorSPX(Ports.intakeRollerMotor);
+  public static CANSparkMax   LiftArmMotor      = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
+  public static WPI_TalonSRX  LiftRollerMotor   = new WPI_TalonSRX(Ports.octopusMotor);
+
+  // Assorted encoders and sensors.
+  public static ScaledEncoder IntakeArmEncoder  = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB,
+                                                                    Ports.intakeArmEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
+  public static ScaledEncoder LiftArmEncoder    = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB,
+                                                                    Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
+
   // This is the number of periodic callbacks to skip between each update
-  // of the smart dashboard data. With a value of 10, we update the smart dashboard
-  // 5 times per second (based on a 20mS periodic callback).
-  private static final int DASHBOARD_UPDATE_INTERVAL = 10;
+  // of the smart dashboard data. With a value of 5, we update the smart dashboard
+  // 10 times per second (based on a 20mS periodic callback).
+  private static final int DASHBOARD_UPDATE_INTERVAL = 5;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -55,11 +75,11 @@ public class Robot extends TimedRobot
     oi = new OI();
     
     camera=CameraServer.getInstance().startAutomaticCapture("Driver Front Camera", 0);
-    //cameraRear=CameraServer.getInstance().startAutomaticCapture("Rear Camera", 1);
-    //cameraRear.setResolution(640, 480);
     camera.setResolution(240, 240);
     camera.setFPS(15);
-    //Server = new MjpegServer("cameraServer", 1);
+
+    IntakeArmEncoder.reset();
+    LiftArmEncoder.reset();
   }
 
 
@@ -71,7 +91,6 @@ public class Robot extends TimedRobot
     {
         BaseDrive.setLeftSpeed(0);
         BaseDrive.setRightSpeed(0);
-        // TODO: Do anything else needed to safe the robot when it is disabled.
     }
 
   /**
@@ -85,7 +104,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
-    UpdateSmartDashboard(oi.getMode());
+    UpdateSmartDashboard();
   }
 
   /**
@@ -101,7 +120,7 @@ public class Robot extends TimedRobot
    */
   @Override
   public void autonomousInit() {
-    oi.setMode(OI.Mode.NORMAL);
+
   }
 
   /**
@@ -145,9 +164,7 @@ public class Robot extends TimedRobot
   @Override
   public void testInit()
   {
-        //CameraServer camServer = CameraServer.getInstance();
-        //camServer.addServer(Server);
-        oi.setMode(OI.Mode.TEST);
+
   }
 
   /**
@@ -157,6 +174,8 @@ public class Robot extends TimedRobot
   public void testPeriodic()
   {
     double driveLeft, driveRight;
+    double intakeRoller, liftRoller;
+    double intakeArm, liftArm;
 
     Scheduler.getInstance().run();
 
@@ -166,59 +185,35 @@ public class Robot extends TimedRobot
     BaseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
     BaseDrive.setRightSpeed(driveRight);
     
-    //if (OI.buttonCameraShifter.get() && !cameraPrev)
-    //{
-    //    //NetworkTableInstance.getDefault().getTable("").//.putString("Camera Selection", cameraRear.getName());
-    //    //Server.setSource(cameraRear);
-    //    System.out.println("This should be rear camera");
-    //}
-    //else if (!OI.buttonCameraShifter.get() && cameraPrev)
-    //{
-    //    //Server.setSource(camera);
-    //    System.out.println("This should be front camera");
-    //}
-    //cameraPrev = OI.buttonCameraShifter.get();
+    // Set each accessory motor speed based on one of the operator joystick values.
+    intakeRoller = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX);
+    intakeArm    = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY);
+    liftRoller   = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX);
+    liftArm      = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY);
+
+    IntakeArmMotor.set(intakeArm);
+    IntakeRollerMotor.set(intakeRoller);
+    LiftArmMotor.set(liftArm);
+    LiftRollerMotor.set(liftRoller);
   }
 
-  void UpdateSmartDashboard(OI.Mode mode)
+  void UpdateSmartDashboard()
   {
     m_DisplayUpdateCounter++;
 
     if((m_DisplayUpdateCounter % DASHBOARD_UPDATE_INTERVAL) != 0)
       return;
 
-    switch(mode)
-    {
-      case NONE: break;
-
-      case TEST:
-      {
-        // TODO: Send back additional test mode information for the smart dashboard.
-        SmartDashboard.putNumber("Left Commanded Speed", driveLeft);
-        SmartDashboard.putNumber("Right Commanded Speed", driveRight);
-        SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
-        SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
-        SmartDashboard.putNumber("Left Encoder Raw", BaseDrive.getLeftEncoderRaw());
-        SmartDashboard.putNumber("Right Encoder Raw", BaseDrive.getRightEncoderRaw());
-        SmartDashboard.putNumber("Left Encoder Dist", BaseDrive.getLeftEncoderDistance());
-        SmartDashboard.putNumber("Right Encoder Dist", BaseDrive.getRightEncoderDistance());
-        //SmartDashboard.putNumber("Front RangeFinder Distance mm", forwardRange.getDistanceMm());
-        //SmartDashboard.putNumber("Front RangeFinder Voltage", forwardRange.getVoltage());
-      }
-      break;
-
-      case MANUAL:
-      {
-        // TODO: Send back top level info to the smart dashboard in override mode.
-      }
-      break;
-
-      case NORMAL:
-      {
-        // TODO: Send back top level info to the smart dashboard in normal mode.
-      }
-      break;
-    }
+    SmartDashboard.putNumber("Left Actual Speed", BaseDrive.getLeftSpeed());
+    SmartDashboard.putNumber("Right Actual Speed", BaseDrive.getRightSpeed());
+    SmartDashboard.putNumber("Intake Roller Speed", IntakeRollerMotor.get());
+    SmartDashboard.putNumber("Intake Arm Speed", IntakeArmMotor.get());
+    SmartDashboard.putNumber("Intake Angle", IntakeArmEncoder.getAngleDegrees());
+    SmartDashboard.putNumber("Intake Encoder Raw", IntakeArmEncoder.get());
+    SmartDashboard.putNumber("Lift Roller Speed", LiftRollerMotor.get());
+    SmartDashboard.putNumber("Lift Arm Speed", LiftArmMotor.get());
+    SmartDashboard.putNumber("Lift Angle", LiftArmEncoder.getAngleDegrees());
+    SmartDashboard.putNumber("Lift Encoder Raw", LiftArmEncoder.get());
   }
 }
 

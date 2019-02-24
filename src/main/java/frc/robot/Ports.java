@@ -3,8 +3,6 @@
  */
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
-
 /**
  *
  * This class defines the connections of all actuators and controllers to the
@@ -99,7 +97,9 @@ public class Ports
     //
     public static final int armRotateMotor               = 21;   // CAN ID 21
 
-    public static final SPI.Port armEncoderSPI           = SPI.Port.kOnboardCS0; 
+    public static final int armEncoderA                  = 14;    // DIO input 14
+    public static final int armEncoderB                  = 15;    // DIO input 15
+    public static final double armEncoderDiameter        = 0.25;
     public static final int armEncoderPulsesPerRev       = 1024;
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
@@ -128,10 +128,9 @@ public class Ports
     public static final int intakeRollerMotor            = 20;   // CAN ID 20
     public static final int intakeArmMotor               = 25;   // CAN ID 25
 
-    // TODO: We're using an SSI-based absolute encoder on the arm so change
-    //       these to indicate SSI port and CS number instead of DIOs.
-    public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1; 
-    public static final int intakeEncoderPulsesPerRev    = 1024;
+    public static final int intakeArmEncoderA            = 8;   // DIO input 8
+    public static final int intakeArmEncoderB            = 9;   // DIO input 9
+    public static final double intakeArmEncoderDiameter  = 0.25;
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
@@ -231,9 +230,12 @@ public class Ports
     public static final int OIOperatorButtonY            = 4;    // Y Button
     public static final int OIOperatorButtonX            = 3;    // X Button
 
-    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
+    public static final int OIOperatorTrigger            = 3;    // Left & Right Trigger
 
-    public static final int OIOperatorJoystickLY         = 2;    // Up D-Pad, Joystick axis 2
+    public static final int OIOperatorJoystickLY         = 2;    // Left stick Y, axis 2
+    public static final int OIOperatorJoystickLX         = 1;    // Left stick X, axis 1
+    public static final int OIOperatorJoystickRY         = 2;    // Right stick Y, axis 5
+    public static final int OIOperatorJoystickRX         = 1;    // Right stick X, axis 4
 
     public static final int OIOperatorBack               = 7;    // Back/Select Button
     public static final int OIOperatorStart              = 8;    // Start Button
