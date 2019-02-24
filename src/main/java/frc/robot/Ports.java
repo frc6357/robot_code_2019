@@ -89,7 +89,7 @@ public class Ports
 
     public static final int armEncoderA                  = 14;    // DIO input 14
     public static final int armEncoderB                  = 15;    // DIO input 15
-    public static final double armEncoderDiameter  = 0.25;
+    public static final double armEncoderDiameter        = 0.25;
     public static final int armEncoderPulsesPerRev       = 1024;
 
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
