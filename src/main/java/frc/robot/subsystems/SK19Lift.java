@@ -3,15 +3,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Ports;
-import frc.robot.utils.ScaledEncoder;
+//import frc.robot.utils.ScaledEncoder;
 import frc.robot.subsystems.base.*;
 import frc.robot.TuningParams;
+import frc.robot.subsystems.base.BaseAngleCANControlledArm;
 
 /**
  *  The SK19Lift subsystem is responsible for both the elevator and arm systems that
@@ -20,11 +22,11 @@ import frc.robot.TuningParams;
 public class SK19Lift extends Subsystem
 {
     private SpeedController                     octopusMotor;
-    private SpeedController                     ArmMotor;
+    private CANSparkMax                         ArmMotor;
     private BasePneumaticElevator               RobotElevator;
     private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
     private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
-    private ScaledEncoder                       ArmEncoder;
+    //private ScaledEncoder                       ArmEncoder;
     private BaseProximitySensor                 ArmDownLimitSensor;
     private BaseProximitySensor                 ArmUpLimitSensor;
     private Solenoid                            ElevatorSolenoid;
@@ -33,6 +35,7 @@ public class SK19Lift extends Subsystem
     private DoubleSolenoid                      HatchLockSolenoid;
     private DoubleSolenoid                      HatchDeploySolenoid;
     private BaseMotorizedArm                    robotArmMotorized;
+    private CANEncoder                          armEncoder;
 
     private int                                 lastPosition;
     private double                              octopusScaler;
@@ -41,7 +44,7 @@ public class SK19Lift extends Subsystem
 
     public BaseProximitySensor                  HatchSensor;
     public BaseProximitySensor                  BallSensor;
-    public BaseAngleControlledArm               RobotArmAngled;
+    public BaseAngleCANControlledArm            RobotArmAngled;
 
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
@@ -63,7 +66,6 @@ public class SK19Lift extends Subsystem
     public SK19Lift()
     {
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
-        // TODO: Check if we are using A Talon SRX for the motor controller for the Arm
         this.octopusScaler = 0.6;
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
@@ -73,7 +75,10 @@ public class SK19Lift extends Subsystem
         this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperLock, Ports.hatchGripperUnlock);
 
         // This is the decleration for all of the required sensors
-        this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
+        //this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
+        this.armEncoder                  = new CANEncoder(ArmMotor);
+        this.armEncoder.setPositionConversionFactor((200 * 20) / 18);
+        this.armEncoder.setPosition(0.0);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop);
         this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
@@ -84,7 +89,7 @@ public class SK19Lift extends Subsystem
         // This is the decleration for the two base subsytems that we're using, BaseAngledControlledArm
         // As well as BasePneumaticElevator
         this.robotArmMotorized           = new BaseMotorizedArm(this.ArmMotor, this.ArmUpLimitSensor, this.ArmDownLimitSensor);
-        this.RobotArmAngled              = new BaseAngleControlledArm(this.robotArmMotorized, ArmEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
+        this.RobotArmAngled              = new BaseAngleCANControlledArm(this.robotArmMotorized, armEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
         this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
