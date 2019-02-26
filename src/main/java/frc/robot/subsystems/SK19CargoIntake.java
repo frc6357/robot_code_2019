@@ -61,8 +61,8 @@ public class SK19CargoIntake extends Subsystem
                                                                 TuningParams.intakeArmPValue, TuningParams.intakeArmIValue,
                                                                 TuningParams.intakeArmDValue, TuningParams.intakeArmToleranceValue,
                                                                 TuningParams.intakeArmInvertMotor);
-        this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, TuningParams.intakeIngestDetectState);
-        this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, TuningParams.intakeTransferDetectState);
+        this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectPresent);
+        // this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectPresent);
 
         stopCargoIntake();
     }

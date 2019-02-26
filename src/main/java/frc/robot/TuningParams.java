@@ -90,11 +90,6 @@ public class TuningParams
     public static final double intakeArmDeployedAngle    = 90.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
-    // The triggered states of the ingest and transfer proximity sensors.
-    // TODO: Set these states according to the way the sensor is wired.
-    public static final boolean intakeIngestDetectState   = true;
-    public static final boolean intakeTransferDetectState = true;
-
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************

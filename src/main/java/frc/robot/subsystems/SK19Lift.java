@@ -79,12 +79,12 @@ public class SK19Lift extends Subsystem
         this.armEncoder                  = new CANEncoder(ArmMotor);
         this.armEncoder.setPositionConversionFactor((200 * 20) / 18);
         this.armEncoder.setPosition(0.0);
-        this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom);
-        this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop);
+        this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom, Ports.armLimitBottomOn);
+        this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop, Ports.armLimitTopOn);
         this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
         this.ElevatorDownProximitySensor = new BaseGroveIRProximitySensor(Ports.elevatorProximityDown);
-        this.HatchSensor                 = new BaseProximitySensor(Ports.hatchContactSwitch);
-        this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect);
+        this.HatchSensor                 = new BaseProximitySensor(Ports.hatchContactSwitch, Ports.hatchContactSwitchOn);
+        this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect, Ports.octopusCargoDetectPresent);
 
         // This is the decleration for the two base subsytems that we're using, BaseAngledControlledArm
         // As well as BasePneumaticElevator

@@ -68,6 +68,7 @@ public class Ports
     public static final int hatchGripperUnlock           = 5;    // PCM 1 output 5
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
+    public static final boolean hatchContactSwitchOn     = false; // State when pressed
 
     // **************
     // Lift Subsystem
@@ -80,6 +81,7 @@ public class Ports
     public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
     public static final int elevatorProximityUp          = 5;    // DIO input 5
+
     public static final int elevatorProximityDown        = 6;    // DIO input 6
 
     //
@@ -95,7 +97,10 @@ public class Ports
     // TODO: Verify whether we connect these to roboRIO or directly to the motor
     //       controller.
     public static final int armLimitTop                  = 7;    // DIO input 7
+    public static final boolean armLimitTopOn            = false;// State when pressed
+
     public static final int armLimitBottom               = 10;   // DIO input 10
+    public static final boolean armLimitBottomOn         = false;// State when pressed
 
     public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
     public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
@@ -124,7 +129,6 @@ public class Ports
     public static final int intakeArmEncoderPulsesPerRev = 1024;
 
     // IR proximity detector to detect presence of ball immediately after ingest.
-    public static final int intakeIngestDetect           = 11;   // DIO input 11
 
     // TODO: The mechanism to move the cargo from the initial intake to the
     // "octopus" must be finalized! The following definitions are likely
@@ -134,13 +138,20 @@ public class Ports
 
     // This is an IR proximity sensor detecting the presence of cargo between the transfer
     // rollers.
-    public static final int intakeTransferDetect         = 12;   // DIO input 12
+
+    public static final int intakeIngestDetect           = 11;   // DIO input 11
+    public static final boolean intakeIngestDetectPresent   = true;
+
+    // public static final int intakeTransferDetect         = 12;   // DIO input 12
+    // public static final boolean intakeTransferDetectPresent = true;
 
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
     public static final int octopusMotor                 = 30;   // CAN ID 30
+
     public static final int octopusCargoDetect           = 13;   // DIO input 13
+    public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
     // Climb Subsystem
