@@ -34,13 +34,9 @@ public class TestCommandGroup extends CommandGroup
     {
         addSequential(new GearShiftCommand(false));
         addSequential(new TestDriveCommand(mode, 0.5));
-        addSequential(new DelayCommand(5000));
         addSequential(new TestDriveCommand(mode, 0.0));
-        addSequential(new DelayCommand(5000));
         addSequential(new TestDriveCommand(mode, 0.5));
-        addSequential(new DelayCommand(2000));
         addSequential(new TestDriveCommand(mode, 0.0));
-
     }
 
     // Make this return true when this Command no longer needs to run execute()

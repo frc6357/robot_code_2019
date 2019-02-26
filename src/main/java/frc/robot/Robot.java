@@ -7,18 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import frc.robot.subsystems.base.BaseMotorizedArm;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
@@ -38,9 +33,6 @@ public class Robot extends TimedRobot {
     public static boolean cameraPrev = false;
     public static MjpegServer Server;
     private int m_DisplayUpdateCounter = 0;
-
-    public static SpeedController armMotorController;
-    public static BaseMotorizedArm armSystem;
 
     public static SK19Drive Drive = new SK19Drive();
     public static SK19CargoIntake Intake = new SK19CargoIntake();
@@ -208,7 +200,7 @@ public class Robot extends TimedRobot {
 
         Scheduler.getInstance().run();
 
-        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive); 
+        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
         driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
@@ -232,7 +224,7 @@ public class Robot extends TimedRobot {
         if ((m_DisplayUpdateCounter % DASHBOARD_UPDATE_INTERVAL) != 0)
             return;
 
-        switch (mode) 
+        switch (mode)
         {
             case NONE:
                 break;
