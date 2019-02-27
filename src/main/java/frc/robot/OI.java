@@ -7,7 +7,6 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.test.*;
-import frc.robot.commands.util.*;
 import frc.robot.utils.FilteredJoystick;
 import frc.robot.utils.filters.*;
 
@@ -75,7 +74,7 @@ public class OI
 
     private static Mode oiMode = Mode.NONE;
 
-    private static ModeSelect modeToggle = new ModeSelect();
+    //private static ModeSelect modeToggle = new ModeSelect();
 
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
@@ -128,12 +127,6 @@ public class OI
         buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
         buttonOperatorLeftBumper.whenPressed(new TestGrabHatchToggle(OI.Mode.TEST));
         buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
-
-        // TODO: Right stick button, toggle transport rollers (when fitted)
-        // TODO: Left stick Y axis, control lift arm speed.
-        // TODO: Right trigger -ve, set octopus motor speed forwards.
-        // TODO: Right stick Y axis, set climb motor speed.
-        // TODO: Button 7, toggle climb tilt mechanism.
 
         // Manual mode command bindings.
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));

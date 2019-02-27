@@ -10,13 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TestGrabHatchToggle extends Command
 {
     private OI.Mode mode;
-    private boolean lock;
 
     public TestGrabHatchToggle(OI.Mode mode)
     {
         requires(Robot.Lift);
         this.mode = mode;
-        this.lock = lock;
     }
   
     // Called just before this Command runs the first time

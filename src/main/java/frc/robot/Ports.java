@@ -94,8 +94,6 @@ public class Ports
     public static final double armEncoderDiameter        = 0.25;
     public static final int armEncoderPulsesPerRev       = 1024;
 
-    // TODO: Verify whether we connect these to roboRIO or directly to the motor
-    //       controller.
     public static final int armLimitTop                  = 7;    // DIO input 7
     public static final boolean armLimitTopOn            = false;// State when pressed
 
@@ -161,14 +159,6 @@ public class Ports
     public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
     public static final int climbMotor                   = 40;   // CAN ID 40
-
-    // ******************
-    // Additional sensors
-    // ******************
-
-    // TODO: Will these be fitted?
-    public static final int driveFrontRangefinder        = 0;    // ADC channel 0
-    public static final int driveRearRangefinder         = 1;    // ADC channel 1
 
     //
     // Driver's and operator's OI channel assignments

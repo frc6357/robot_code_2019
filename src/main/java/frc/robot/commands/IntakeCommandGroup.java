@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.OI;
-import frc.robot.Ports;
 import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,8 +10,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class IntakeCommandGroup extends CommandGroup
 {
-    private OI.Mode mode;
-
     /**
      *
      *
@@ -21,10 +18,6 @@ public class IntakeCommandGroup extends CommandGroup
     {
         requires(Robot.Intake);
         requires(Robot.Lift);
-        this.mode   = mode;
-
-        if (Robot.Lift.isElevatorUp())
-            return;
 
         addSequential(new IntakeRollersCommand(mode, true, false));
         addSequential(new IntakeArmPositionCommand(mode, TuningParams.intakeArmDeployedAngle));

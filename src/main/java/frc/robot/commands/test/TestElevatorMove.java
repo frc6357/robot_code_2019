@@ -27,16 +27,15 @@ public class TestElevatorMove extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        // Only execute this if we're in the correct mode.
-        if(mode != Robot.oi.getMode())
-            return;
-
-        // TODO: Code the TestElevatorMove command!
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+            
         Robot.Lift.SetElevatorPosition(up);
     }
 

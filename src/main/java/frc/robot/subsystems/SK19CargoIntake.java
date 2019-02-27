@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.SpeedController;
@@ -40,17 +39,14 @@ public class SK19CargoIntake extends Subsystem
      */
     public SK19CargoIntake()
     {
-        // TODO: Which motor controllers are we using here? We assume TalonSRX for now.
         this.RollerMotor        = new WPI_VictorSPX(Ports.intakeRollerMotor);
         //this.TransferMotorLeft  = new WPI_VictorSPX(Ports.intakeTransferMotorLeft);
         //this.TransferMotorRight = new WPI_VictorSPX(Ports.intakeTransferMotorRight);
         this.ArmMotor           = new WPI_VictorSPX(Ports.intakeArmMotor);
 
-        // TODO: CHANGE VALUES TO NOT BE HARD CODED, TEST ONLY
         this.ArmEncoder             = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB,
                                                         Ports.intakeEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
 
-        // TODO: Verify that the transfer motors do need to run in opposite directions.
         //TransferMotorLeft.setInverted(false);
         //TransferMotorRight.setInverted(true);
 
