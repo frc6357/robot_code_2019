@@ -111,9 +111,10 @@ public class Robot extends TimedRobot {
         {
             Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
-            PIDSEnabled = true;   
+            PIDSEnabled = true;
+            Lift.setZero();
+   
         }
-        Lift.setZero();
     }
 
     /**
@@ -135,6 +136,7 @@ public class Robot extends TimedRobot {
             Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
+            Lift.setZero();
         }
 
         oi.setMode(OI.Mode.MANUAL);
