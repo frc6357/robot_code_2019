@@ -215,6 +215,14 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Lift Arm Speed", LiftArmMotor.get());
     //SmartDashboard.putNumber("Lift Angle", LiftArmEncoder.getAngleDegrees());
     SmartDashboard.putNumber("Lift Encoder Raw", LiftArmEncoder.getPosition());
+
+    SmartDashboard.putNumber("Joystick axis 0", oi.getOperatorJoystickValue(0));
+    SmartDashboard.putNumber("Joystick axis 1", oi.getOperatorJoystickValue(1));
+    SmartDashboard.putNumber("Joystick axis 2", oi.getOperatorJoystickValue(2));
+    SmartDashboard.putNumber("Joystick axis 3", oi.getOperatorJoystickValue(3));
+    SmartDashboard.putNumber("Joystick axis 4", oi.getOperatorJoystickValue(4));
+    SmartDashboard.putNumber("Joystick axis 5", oi.getOperatorJoystickValue(5));
+    SmartDashboard.putNumber("Joystick axis 6", oi.getOperatorJoystickValue(6));
   }
 }
 
