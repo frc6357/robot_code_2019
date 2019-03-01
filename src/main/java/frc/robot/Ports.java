@@ -218,7 +218,7 @@ public class Ports
     // *********************
     // Operator Controller
     // *********************
-    public static final int OIOperatorJoystick           = 0;        
+    public static final int OIOperatorJoystick           = 1;        
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick
@@ -234,8 +234,8 @@ public class Ports
 
     public static final int OIOperatorJoystickLY         = 2;    // Left stick Y, axis 2
     public static final int OIOperatorJoystickLX         = 1;    // Left stick X, axis 1
-    public static final int OIOperatorJoystickRY         = 2;    // Right stick Y, axis 5
-    public static final int OIOperatorJoystickRX         = 1;    // Right stick X, axis 4
+    public static final int OIOperatorJoystickRY         = 5;    // Right stick Y, axis 5
+    public static final int OIOperatorJoystickRX         = 4;    // Right stick X, axis 4
 
     public static final int OIOperatorBack               = 7;    // Back/Select Button
     public static final int OIOperatorStart              = 8;    // Start Button

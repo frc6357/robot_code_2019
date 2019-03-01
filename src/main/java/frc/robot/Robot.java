@@ -22,6 +22,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -54,8 +55,7 @@ public class Robot extends TimedRobot
   // Assorted encoders and sensors.
   public static ScaledEncoder IntakeArmEncoder  = new ScaledEncoder(Ports.intakeArmEncoderA, Ports.intakeArmEncoderB,
                                                                     Ports.intakeArmEncoderPulsesPerRev, Ports.intakeArmEncoderDiameter);
-  public static ScaledEncoder LiftArmEncoder    = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB,
-                                                                    Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
+  public static CANEncoder LiftArmEncoder    = new CANEncoder(LiftArmMotor);
 
   // This is the number of periodic callbacks to skip between each update
   // of the smart dashboard data. With a value of 5, we update the smart dashboard
@@ -79,7 +79,8 @@ public class Robot extends TimedRobot
     camera.setFPS(15);
 
     IntakeArmEncoder.reset();
-    LiftArmEncoder.reset();
+    LiftArmEncoder.setPosition(0.0);
+    LiftArmEncoder.setPositionConversionFactor(2*((1/54) * 90));
   }
 
 
@@ -212,8 +213,8 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Intake Encoder Raw", IntakeArmEncoder.get());
     SmartDashboard.putNumber("Lift Roller Speed", LiftRollerMotor.get());
     SmartDashboard.putNumber("Lift Arm Speed", LiftArmMotor.get());
-    SmartDashboard.putNumber("Lift Angle", LiftArmEncoder.getAngleDegrees());
-    SmartDashboard.putNumber("Lift Encoder Raw", LiftArmEncoder.get());
+    //SmartDashboard.putNumber("Lift Angle", LiftArmEncoder.getAngleDegrees());
+    SmartDashboard.putNumber("Lift Encoder Raw", LiftArmEncoder.getPosition());
   }
 }
 
