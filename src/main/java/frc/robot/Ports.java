@@ -230,10 +230,11 @@ public class Ports
     public static final int OIOperatorButtonY            = 4;    // Y Button
     public static final int OIOperatorButtonX            = 3;    // X Button
 
-    public static final int OIOperatorTrigger            = 3;    // Left & Right Trigger
+    public static final int OIOperatorLTrigger           = 2;    // Left & Right Trigger
+    public static final int OIOperatorRTrigger           = 3;    // Left & Right Trigger
 
-    public static final int OIOperatorJoystickLY         = 2;    // Left stick Y, axis 2
-    public static final int OIOperatorJoystickLX         = 1;    // Left stick X, axis 1
+    public static final int OIOperatorJoystickLY         = 1;    // Left stick Y, axis 2
+    public static final int OIOperatorJoystickLX         = 0;    // Left stick X, axis 1
     public static final int OIOperatorJoystickRY         = 5;    // Right stick Y, axis 5
     public static final int OIOperatorJoystickRX         = 4;    // Right stick X, axis 4
 

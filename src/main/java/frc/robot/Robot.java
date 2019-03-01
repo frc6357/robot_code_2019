@@ -194,7 +194,7 @@ public class Robot extends TimedRobot
 
     IntakeArmMotor.set(intakeArm);
     IntakeRollerMotor.set(intakeRoller);
-    LiftArmMotor.set(liftArm);
+    //LiftArmMotor.set(liftArm);
     LiftRollerMotor.set(liftRoller);
   }
 
@@ -222,7 +222,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Joystick axis 3", oi.getOperatorJoystickValue(3));
     SmartDashboard.putNumber("Joystick axis 4", oi.getOperatorJoystickValue(4));
     SmartDashboard.putNumber("Joystick axis 5", oi.getOperatorJoystickValue(5));
-    SmartDashboard.putNumber("Joystick axis 6", oi.getOperatorJoystickValue(6));
+    //SmartDashboard.putNumber("Joystick axis 6", oi.getOperatorJoystickValue(6));
   }
 }
 
