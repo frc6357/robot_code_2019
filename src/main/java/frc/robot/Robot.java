@@ -107,11 +107,13 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         oi.setMode(OI.Mode.MANUAL);
 
-        if (!PIDSEnabled) {
+        if (!PIDSEnabled) 
+        {
             Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
-            PIDSEnabled = true;
+            PIDSEnabled = true;   
         }
+        Lift.setZero();
     }
 
     /**
@@ -188,6 +190,8 @@ public class Robot extends TimedRobot {
         //Lift.RobotArmAngled.enable();
 
         oi.setMode(OI.Mode.TEST);
+
+        Lift.setZero();
     }
 
     /**
@@ -213,6 +217,7 @@ public class Robot extends TimedRobot {
 
         Lift.setCargoRollerSpeed(operatorRightY);
         Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
+
 
         // Perform housekeeping.
         Lift.periodic();

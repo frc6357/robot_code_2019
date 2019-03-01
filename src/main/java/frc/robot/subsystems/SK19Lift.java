@@ -77,7 +77,6 @@ public class SK19Lift extends Subsystem
         // This is the decleration for all of the required sensors
         //this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
         this.armEncoder                  = new CANEncoder(ArmMotor);
-        this.armEncoder.setPositionConversionFactor((200 * 20) / 18);
         this.armEncoder.setPosition(0.0);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom, Ports.armLimitBottomOn);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop, Ports.armLimitTopOn);
@@ -372,6 +371,11 @@ public class SK19Lift extends Subsystem
     public double getArmSetpointDegrees()
     {
         return RobotArmAngled.getArmSetpoint();
+    }
+
+    public void setZero()
+    {
+        armEncoder.setPosition(0.0);
     }
 
     // Call this from the periodic callback(s) in the robot class to ensure that
