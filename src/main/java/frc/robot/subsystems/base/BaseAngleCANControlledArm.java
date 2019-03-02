@@ -71,11 +71,13 @@ public class BaseAngleCANControlledArm extends PIDSubsystem {
 
     public double getArmPosition()
     {
+        // TODO: Maybe this should be read directly from the arm encoder, the interface is there to read directly
         return getPosition();
     }
 
     public double getArmSetpoint()
     {
+        // TODO: May need to directly call returnPIDInput to be able to fully test and get the get method working
         return getSetpoint();
     }
 
@@ -83,7 +85,9 @@ public class BaseAngleCANControlledArm extends PIDSubsystem {
     protected double returnPIDInput()
     {
         double encoderAngle = armEncoder.getPosition();
+        System.out.println("The encoder angle prior to math is: " + encoderAngle);
         encoderAngle *= (1/54) * 90;
+        System.out.println("The encoder angle after math is: " + encoderAngle);
         return Math.max(encoderAngle, 0.0);
     }
 
