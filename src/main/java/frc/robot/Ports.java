@@ -62,10 +62,10 @@ public class Ports
 
     // The hatch gripper and deploy mechanism uses double solenoids so we need
     // two PCM channels per piston.
-    public static final int hatchGripperOut              = 2;    // PCM 1 output 2
-    public static final int hatchGripperIn               = 4;    // PCM 1 output 4
-    public static final int hatchGripperLock             = 3;    // PCM 1 output 3
-    public static final int hatchGripperUnlock           = 5;    // PCM 1 output 5
+    public static final int hatchGripperOut              = 5;    // PCM 1 output 2
+    public static final int hatchGripperIn               = 3;    // PCM 1 output 4
+    public static final int hatchGripperLock             = 4;    // PCM 1 output 3
+    public static final int hatchGripperUnlock           = 2;    // PCM 1 output 5
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
     public static final boolean hatchContactSwitchOn     = false; // State when pressed
@@ -183,8 +183,9 @@ public class Ports
     // *********************
     public static final int OIOperatorJoystick           = 1;
 
-    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
-    public static final int OIOperatorJoystickLY         = 2;    // Left stick, Y axis
+    public static final int OIOperatorTriggerLJoystick   = 2;    // Left Trigger
+    public static final int OIOperatorTriggerRJoystick   = 3;    // Right Trigger
+    public static final int OIOperatorJoystickLY         = 1;    // Left stick, Y axis
     public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joystick button

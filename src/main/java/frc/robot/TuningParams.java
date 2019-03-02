@@ -52,8 +52,8 @@ public class TuningParams
 
     // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
     // during bringup!
-    public static final double LiftArmPValue             = 0.0001;
-    public static final double LiftArmIValue             = 0.000001;
+    public static final double LiftArmPValue             = 0.005;
+    public static final double LiftArmIValue             = 0.00005;
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
 
