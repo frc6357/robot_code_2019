@@ -100,18 +100,6 @@ public class Ports
     public static final int armLimitBottom               = 10;   // DIO input 10
     public static final boolean armLimitBottomOn         = false;// State when pressed
 
-    public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
-    public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
-    public static final boolean ElevatorPosition2        = true;  // Elevator Position for level 2
-    public static final boolean ElevatorPosition3        = true;  // Elevator Position for level 3
-    public static final double ArmPosition0              = 0.0;   // Arm Positiom for level 0
-    public static final double ArmPositionHatch1         = 5.0;   // Hatch Position for level 1
-    public static final double ArmPositionHatch2         = 5.0;   // Hatch Position for level 2
-    public static final double ArmPositionHatch3         = 50.0;  // Hatch Position for level 3
-    public static final double ArmPostionCargo1          = 10.0;   // Cargo Position for level 1
-    public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
-    public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
-
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************

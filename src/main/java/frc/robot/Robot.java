@@ -291,6 +291,7 @@ public class Robot extends TimedRobot {
 
                 SmartDashboard.putNumber("Arm Set", Lift.getArmSetpointDegrees());
                 SmartDashboard.putNumber("Arm Angle", Lift.getArmPositionDegrees());
+                SmartDashboard.putNumber("Arm Raw Value", Lift.armEncoder.getPosition());
                 SmartDashboard.putNumber("Cargo Rollers", Lift.OctopusRoller.testGetSpeed());
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 

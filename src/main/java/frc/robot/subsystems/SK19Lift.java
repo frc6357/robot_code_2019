@@ -36,7 +36,7 @@ public class SK19Lift extends Subsystem
     private DoubleSolenoid                      HatchLockSolenoid;
     private DoubleSolenoid                      HatchDeploySolenoid;
     private BaseMotorizedArm                    robotArmMotorized;
-    private CANEncoder                          armEncoder;
+    public CANEncoder                           armEncoder;
 
     private int                                 lastPosition;
     private double                              octopusScaler;
@@ -54,10 +54,10 @@ public class SK19Lift extends Subsystem
     */
         private final SK19LiftLookup[][] lookupTable =
         {
-            {new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0), new SK19LiftLookup(Ports.ElevatorPosition0, Ports.ArmPosition0)},
-            {new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPositionHatch1), new SK19LiftLookup(Ports.ElevatorPosition1, Ports.ArmPostionCargo1)},
-            {new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionHatch2), new SK19LiftLookup(Ports.ElevatorPosition2, Ports.ArmPositionCargo2)},
-            {new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionHatch3), new SK19LiftLookup(Ports.ElevatorPosition3, Ports.ArmPositionCargo3)}
+            {new SK19LiftLookup(TuningParams.ElevatorPosition0, TuningParams.ArmPosition0), new SK19LiftLookup(TuningParams.ElevatorPosition0, TuningParams.ArmPosition0)},
+            {new SK19LiftLookup(TuningParams.ElevatorPosition1, TuningParams.ArmPositionHatch1), new SK19LiftLookup(TuningParams.ElevatorPosition1, TuningParams.ArmPostionCargo1)},
+            {new SK19LiftLookup(TuningParams.ElevatorPositionHatch2, TuningParams.ArmPositionHatch2), new SK19LiftLookup(TuningParams.ElevatorPositionCargo2, TuningParams.ArmPositionCargo2)},
+            {new SK19LiftLookup(TuningParams.ElevatorPosition3, TuningParams.ArmPositionHatch3), new SK19LiftLookup(TuningParams.ElevatorPosition3, TuningParams.ArmPositionCargo3)}
         };
     /**
      *  Creates the Arm and elevator base classes and seamlessly melds them together so that no matter
