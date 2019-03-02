@@ -7,6 +7,7 @@ import com.revrobotics.CANEncoder;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Ports;
@@ -77,7 +78,6 @@ public class SK19Lift extends Subsystem
         // This is the decleration for all of the required sensors
         //this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
         this.armEncoder                  = new CANEncoder(ArmMotor);
-        this.armEncoder.setPosition(0.0);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom, Ports.armLimitBottomOn);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop, Ports.armLimitTopOn);
         this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
@@ -92,6 +92,10 @@ public class SK19Lift extends Subsystem
         this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
+        RobotArmAngled.moveToAngleDegrees(0.0);
+        this.armEncoder.setPosition(0.0);
+        HatchGripper(true);
+
     }
 
     /**
@@ -383,5 +387,7 @@ public class SK19Lift extends Subsystem
     public void periodic()
     {
         RobotArmAngled.periodic();
+        SmartDashboard.putNumber("ARM ENCODER !", armEncoder.getPosition());
+        SmartDashboard.putNumber("ARM SET POINT", getArmSetpointDegrees());
     }
 }

@@ -115,8 +115,8 @@ public class Ports
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
-    public static final int intakeRollerMotor            = 20;   // CAN ID 20
-    public static final int intakeArmMotor               = 25;   // CAN ID 25
+    public static final int intakeRollerMotor            = 25;   // CAN ID 20
+    public static final int intakeArmMotor               = 20;   // CAN ID 25
 
     public static final int intakeArmEncoderA            = 8;   // DIO input 8
     public static final int intakeArmEncoderB            = 9;   // DIO input 9
@@ -186,6 +186,7 @@ public class Ports
     public static final int OIOperatorTriggerLJoystick   = 2;    // Left Trigger
     public static final int OIOperatorTriggerRJoystick   = 3;    // Right Trigger
     public static final int OIOperatorJoystickLY         = 1;    // Left stick, Y axis
+    public static final int OIOperatorJoystickLX         = 0;    // Left stick, X axis
     public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joystick button

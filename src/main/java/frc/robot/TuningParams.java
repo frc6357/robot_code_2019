@@ -26,7 +26,7 @@ public class TuningParams
 
     // Set this to determine the maximum speed of the robot. 0.5 means that
     // full joystick will drive the motors at 50% of their maximum rate.
-    public static final double driveJoystickCoefficient   = -1.0;
+    public static final double driveJoystickCoefficient   = 1.0;
 
     // **************
     // Lift Subsystem
@@ -52,8 +52,8 @@ public class TuningParams
 
     // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
     // during bringup!
-    public static final double LiftArmPValue             = 0.005;
-    public static final double LiftArmIValue             = 0.00005;
+    public static final double LiftArmPValue             = 0.02;
+    public static final double LiftArmIValue             = 0.0;
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
 
@@ -67,7 +67,7 @@ public class TuningParams
 
     // In test mode, when we set the arm motor speed directly from the joystick, this
     // is the value we divide the joystick by before setting the motor speed.
-    public static final double LiftArmTestSpeedDivider   = 20.0;
+    public static final double LiftArmTestSpeedDivider   = 2.0;
 
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
@@ -87,7 +87,7 @@ public class TuningParams
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
     //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 90.0;
+    public static final double intakeArmDeployedAngle    = 120.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
     // **************************************

@@ -66,7 +66,14 @@ public class BaseAngleCANControlledArm extends PIDSubsystem {
      */
     public void moveToAngleDegrees(double angle)
     {
-        setSetpoint(angle);
+        if(angle >= 70)
+        {
+            setSetpoint(70);
+        }
+        else
+        {
+            setSetpoint(angle);
+        }
     }
 
     public double getArmPosition()
@@ -83,7 +90,7 @@ public class BaseAngleCANControlledArm extends PIDSubsystem {
     protected double returnPIDInput()
     {
         double encoderAngle = armEncoder.getPosition();
-        encoderAngle *= (1/54) * 90;
+        // encoderAngle *= (1/54) * 90;
         return Math.max(encoderAngle, 0.0);
     }
 

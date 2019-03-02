@@ -75,6 +75,7 @@ public class Robot extends TimedRobot {
         Drive.baseDrive.setRightSpeed(0);
         Intake.RollerArm.disable();
         Lift.RobotArmAngled.disable();
+        PIDSEnabled = false;
     }
 
     /**
@@ -152,8 +153,8 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
 
         // Driver updates
-        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
-        driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
+        driveLeft = -1 * oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
+        driveRight = -1 * oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
         Drive.Drive.setLeftSpeed(driveLeft);
         Drive.Drive.setRightSpeed(driveRight);
@@ -164,7 +165,7 @@ public class Robot extends TimedRobot {
         {
             double armPosAngle;
             double operatorLeftY;
-
+            
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
@@ -173,7 +174,16 @@ public class Robot extends TimedRobot {
                 armPosAngle -= 1.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
-            Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            if (armPosAngle >= 69)
+            {
+                Lift.RobotArmAngled.setSetpoint(65);
+            }
+            else
+            {
+                Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            }
+            // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
+
         }
 
         // Housekeeping
@@ -202,7 +212,7 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        double operatorLeftY, operatorRightY;
+        double operatorLeftY, operatorRightY, operatorLeftX;
 
         Scheduler.getInstance().run();
 
@@ -211,13 +221,16 @@ public class Robot extends TimedRobot {
 
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
         operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
+        operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);
 
         UpdateSmartDashboard(OI.Mode.TEST);
 
-        Lift.setCargoRollerSpeed(operatorRightY);
+        //Lift.testSetArmPositionMotorSpeed(operatorRightY);
+        //Intake.testSetArmMotorSpeed(operatorLeftX);
+        Intake.TestSetRollerSpeed(operatorRightY);
         Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
 
 
