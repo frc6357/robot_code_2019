@@ -311,6 +311,8 @@ public class SK19Lift extends Subsystem
      */
     public void setCargoRollerSpeed(double cargoSpeed)
     {
+        octopusMotor.set(cargoSpeed);
+        /*
         if (cargoSpeed > 0)
         {
             OctopusRoller.setForwards();
@@ -323,6 +325,7 @@ public class SK19Lift extends Subsystem
         {
             OctopusRoller.setStop();
         }
+        */
     }
 
     /**

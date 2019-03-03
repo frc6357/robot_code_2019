@@ -74,7 +74,7 @@ public class TuningParams
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
     public static final double intakeArmPValue           = 0.005;
-    public static final double intakeArmIValue           = 0.00005;
+    public static final double intakeArmIValue           = 0.0;
     public static final double intakeArmDValue           = 0;
     public static final double intakeArmToleranceValue   = 0;
 

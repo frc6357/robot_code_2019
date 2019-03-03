@@ -59,8 +59,6 @@ public class SK19CargoIntake extends Subsystem
                                                                 TuningParams.intakeArmInvertMotor);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectPresent);
         // this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectPresent);
-        ArmMotor.stopMotor();
-        stopCargoIntake();
     }
 
     /**
@@ -158,7 +156,7 @@ public class SK19CargoIntake extends Subsystem
      */
     public void testSetArmMotorSpeed(double speed)
     {
-        RollerMotor.set(speed);
+        ArmMotor.set(speed);
     }
 
     public double getRollerSpeed()
@@ -173,6 +171,6 @@ public class SK19CargoIntake extends Subsystem
 
     public void TestSetRollerSpeed(double rollerSpeed)
     {
-        ArmMotor.set(rollerSpeed);
+        RollerMotor.set(rollerSpeed);
     }
 }
