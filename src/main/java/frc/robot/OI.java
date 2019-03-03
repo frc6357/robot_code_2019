@@ -147,7 +147,7 @@ public class OI
         buttonOperatorB.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
         // Nornmal mode command bindings
-        buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
+        /*buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
 
         buttonOperatorB.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionMiddle));
 
@@ -155,7 +155,7 @@ public class OI
 
         buttonOperatorRightBumper.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionStow));
 
-        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
+        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));*/
     }
 
     /**

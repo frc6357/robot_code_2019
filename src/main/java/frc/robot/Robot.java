@@ -164,9 +164,10 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY;
+            double operatorLeftY, operatorRBumper;
             
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
+
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
                 armPosAngle += 1.0;

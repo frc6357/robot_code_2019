@@ -32,6 +32,7 @@ public class DeployHatchCommand extends Command
             return;
 
         Robot.Lift.HatchPusher(deploy);
+        System.out.println("We should be pushing");
     }
 
     // Make this return true when this Command no longer needs to run execute()
