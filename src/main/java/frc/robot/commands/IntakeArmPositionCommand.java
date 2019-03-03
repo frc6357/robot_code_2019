@@ -11,18 +11,20 @@ public class IntakeArmPositionCommand extends Command
 {
     private OI.Mode mode;
     private double  setAngle;
+    private boolean rollerMove;
 
     /**
      *
      * @param mode - the operating mode in which this command must run.
      * @param angleDegrees - the angle that the arm will be moved to when this command runs.
      **/
-    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees)
+    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees, boolean rollerMove)
     {
         requires(Robot.Intake);
 
         this.mode     = mode;
         this.setAngle = angleDegrees;
+        this.rollerMove = rollerMove;
     }
 
     // Called just before this Command runs the first time
@@ -38,6 +40,8 @@ public class IntakeArmPositionCommand extends Command
             return;
 
         Robot.Intake.setArmAngle(setAngle);
+        double rollerSpeed = rollerMove ? 1.0: 0.0;
+        Robot.Intake.TestSetRollerSpeed(rollerSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

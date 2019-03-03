@@ -192,7 +192,6 @@ public class Robot extends TimedRobot {
             //     Intake.RollerArm.setSetpoint(90);
             // else
             //     Intake.RollerArm.setSetpoint(intakePosAngle);
-            Intake.TestSetRollerSpeed(-1 * operatorLBumper);
             SmartDashboard.putNumber("Roller Speed", operatorLBumper);
             SmartDashboard.putNumber("Intake Arm Position", operatorRY);
             // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
