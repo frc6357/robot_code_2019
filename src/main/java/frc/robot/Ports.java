@@ -28,6 +28,8 @@ public class Ports
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
 
+    private static final int _5 = 5;
+
     // ***************************
     // Pneumatic Control Module(s)
     // ***************************
@@ -80,8 +82,7 @@ public class Ports
     public static final int elevatorPCM                  = pcm1;
     public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
-    public static final int elevatorProximityUp          = 5;    // DIO input 5
-
+    public static final int elevatorProximityUp          = 47;
     public static final int elevatorProximityDown        = 6;    // DIO input 6
 
     //
@@ -134,9 +135,9 @@ public class Ports
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
-    public static final int octopusMotor                 = 30;   // CAN ID 30
+    public static final int octopusMotor                 = 30; // CAN ID 30
 
-    public static final int octopusCargoDetect           = 13;   // DIO input 13
+    public static final int octopusCargoDetect           = 5;   // DIO input 13
     public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
@@ -176,6 +177,7 @@ public class Ports
     public static final int OIOperatorJoystickLY         = 1;    // Left stick, Y axis
     public static final int OIOperatorJoystickLX         = 0;    // Left stick, X axis
     public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
+    public static final int OIOperatorJoystickRX          = 4;
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joystick button
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick button

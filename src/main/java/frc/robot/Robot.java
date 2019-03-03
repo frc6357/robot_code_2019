@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
 
         if (!PIDSEnabled) 
         {
-            Intake.RollerArm.enable();
+            //Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
         // must NOT do anything to change the state of the robot!
 
         if (!PIDSEnabled) {
-            Intake.RollerArm.enable();
+            //Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -165,12 +165,13 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY, operatorLTrigger;
+            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY, operatorRX;
             
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
             operatorRBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
-            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, true);
+            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
             operatorRY = 90 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
+            operatorRX = 0.25 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
                 armPosAngle += 1.0;
@@ -187,7 +188,9 @@ public class Robot extends TimedRobot {
                 Lift.RobotArmAngled.setSetpoint(armPosAngle);
             }
 
+            Intake.ArmMotor.set(operatorRX);
             Lift.setCargoRollerSpeed(operatorRBumper);
+            Intake.TestSetRollerSpeed(operatorLBumper);
             // if (intakePosAngle >= 90)
             //     Intake.RollerArm.setSetpoint(90);
             // else

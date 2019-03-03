@@ -141,14 +141,14 @@ public class OI
         // buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
         // buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
 
-        //buttonOperatorLeftBumper.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
+        buttonOperatorB.whenPressed(new DelayStopCargoCommand(OI.Mode.MANUAL));
 
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorA.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 80, true));
+        //buttonOperatorA.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 80, true));
 
-        buttonOperatorY.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 0, false));
+        //buttonOperatorY.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 0, false));
 
         // Nornmal mode command bindings
         /*buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * A command which executes until cargo either detected in or removed from the intake area.
  */
-public class IntakeWaitForCargoCommand extends Command
+public class DelayStopCargoCommand extends Command
 {
     private OI.Mode mode;
     private boolean isPresent;
@@ -20,12 +20,12 @@ public class IntakeWaitForCargoCommand extends Command
      *               For example, setting this to true, means that the command exits when cargo
      *               is present.
      *   */
-    public IntakeWaitForCargoCommand(OI.Mode mode)
+    public DelayStopCargoCommand(OI.Mode mode)
     {
         requires(Robot.Lift);
 
         this.mode       = mode;
-        this.isFinished = true;
+        this.isFinished = false;
     }
 
 

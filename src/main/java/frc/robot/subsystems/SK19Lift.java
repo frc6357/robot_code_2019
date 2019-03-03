@@ -25,8 +25,8 @@ public class SK19Lift extends Subsystem
     private SpeedController                     octopusMotor;
     private CANSparkMax                         ArmMotor;
     private BasePneumaticElevator               RobotElevator;
-    private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
-    private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
+    //private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
+    //private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
     //private ScaledEncoder                       ArmEncoder;
     private BaseProximitySensor                 ArmDownLimitSensor;
     private BaseProximitySensor                 ArmUpLimitSensor;
@@ -46,6 +46,7 @@ public class SK19Lift extends Subsystem
     public BaseProximitySensor                  HatchSensor;
     public BaseProximitySensor                  BallSensor;
     public BaseAngleCANControlledArm            RobotArmAngled;
+    public boolean                             ballOveride;
 
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
@@ -80,21 +81,22 @@ public class SK19Lift extends Subsystem
         this.armEncoder                  = new CANEncoder(ArmMotor);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom, Ports.armLimitBottomOn);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop, Ports.armLimitTopOn);
-        this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
-        this.ElevatorDownProximitySensor = new BaseGroveIRProximitySensor(Ports.elevatorProximityDown);
+        //this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
+        //this.ElevatorDownProximitySensor = new BaseGroveIRProximitySensor(Ports.elevatorProximityDown);
         this.HatchSensor                 = new BaseProximitySensor(Ports.hatchContactSwitch, Ports.hatchContactSwitchOn);
-        this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect, Ports.octopusCargoDetectPresent);
+        this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect);
 
         // This is the decleration for the two base subsytems that we're using, BaseAngledControlledArm
         // As well as BasePneumaticElevator
         this.robotArmMotorized           = new BaseMotorizedArm(this.ArmMotor, this.ArmUpLimitSensor, this.ArmDownLimitSensor);
         this.RobotArmAngled              = new BaseAngleCANControlledArm(this.robotArmMotorized, armEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
-        this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
+        //this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
         RobotArmAngled.moveToAngleDegrees(0.0);
         this.armEncoder.setPosition(0.0);
         HatchGripper(true);
+        ballOveride = false;
 
     }
 
@@ -311,7 +313,22 @@ public class SK19Lift extends Subsystem
      */
     public void setCargoRollerSpeed(double cargoSpeed)
     {
-        octopusMotor.set(cargoSpeed);
+        if(!BallSensor.getIsTriggered() || ballOveride)
+            octopusMotor.set(cargoSpeed);
+        else
+        {
+            new Thread (() -> {
+                
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                octopusMotor.set(0.0);
+            }
+            ).start();
+        }
         /*
         if (cargoSpeed > 0)
         {
@@ -392,5 +409,12 @@ public class SK19Lift extends Subsystem
         RobotArmAngled.periodic();
         SmartDashboard.putNumber("ARM ENCODER !", armEncoder.getPosition());
         SmartDashboard.putNumber("ARM SET POINT", getArmSetpointDegrees());
+        SmartDashboard.putBoolean("BALL IS IN!!!", BallSensor.getIsTriggered());
+        SmartDashboard.putBoolean("OVERIDE BALL", ballOveride);
+    }
+
+    public void setBallOveride(boolean state)
+    {
+        ballOveride = state;
     }
 }
