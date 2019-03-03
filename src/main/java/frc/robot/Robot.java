@@ -164,10 +164,12 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY, operatorRBumper;
+            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY;
             
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-
+            operatorRBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
+            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
+            operatorRY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
                 armPosAngle += 1.0;
@@ -183,6 +185,9 @@ public class Robot extends TimedRobot {
             {
                 Lift.RobotArmAngled.setSetpoint(armPosAngle);
             }
+            Lift.setCargoRollerSpeed(operatorRBumper);
+            Intake.testSetArmMotorSpeed(operatorRY);
+            Intake.TestSetRollerSpeed(operatorLBumper);
             // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
 
         }
