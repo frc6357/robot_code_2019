@@ -29,5 +29,6 @@ hs_err_pid*
 *.so
 build/*
 .gradle/buildOutputCleanup/cache.properties
+*.gradle
 *.bin
 *.bin

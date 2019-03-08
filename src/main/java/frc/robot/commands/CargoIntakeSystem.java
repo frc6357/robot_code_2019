@@ -14,7 +14,13 @@ import frc.robot.*;
 public class CargoIntakeSystem extends CommandGroup 
 {
      /**
-     * Add your docs here.
+     *  When called it extends the cargo systems and enables all of the rollers. It then checks the cargo sensors in the octopus system and when they're triggered it pulls
+     *  the cargo intake system in and holds for one half second and stops the octopus rollers as well as the cargo rollers
+     *  Will need to be tested as it may be completely wrong as we may never pull in a cargo if we don't pull up the intake with it in it. The intake system will have to guarantee
+     *  which may require a new sensor to check if we have a piece of cargo in the cargo intake system. May be able to be a Grove IR sensor, but it may have to be one of the 12
+     *  volt reflective IR sensors.
+     *  TODO: Check on our out of bag day if we can get around needing a new sensor or if we need a new sensor to be able to reliably pull cargo in.
+     *  TODO: Note at this point this code will only work in manual mode and will have to have the set mode modified before it would be able to work in normal mode.
      */
     public CargoIntakeSystem() 
     {
@@ -31,13 +37,16 @@ public class CargoIntakeSystem extends CommandGroup
 
         new Thread (() -> {
                 
-            try {
+            try 
+            {
                 Thread.sleep(500);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
+            }
+            catch (InterruptedException e) 
+            {
                 e.printStackTrace();
             }
         }).start();
+
         addParallel(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
         addParallel(new DeployIntakeCommand(OI.Mode.MANUAL, false));
         addParallel(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
