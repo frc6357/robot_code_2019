@@ -319,10 +319,12 @@ public class SK19Lift extends Subsystem
         {
             new Thread (() -> {
                 
-                try {
+                try 
+                {
                     Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
+                } 
+                catch (InterruptedException e) 
+                {
                     e.printStackTrace();
                 }
                 octopusMotor.set(0.0);

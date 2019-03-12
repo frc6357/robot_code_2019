@@ -51,8 +51,7 @@ public class TuningParams
     public static final String liftPositionMiddle        = "MIDDLE";
     public static final String liftPositionUpper         = "UPPER";
 
-    // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
-    // during bringup!
+    // PID values for the arm
     public static final double LiftArmPValue             = 0.02;
     public static final double LiftArmIValue             = 0.0;
     public static final double LiftArmDValue             = 0;
@@ -87,8 +86,8 @@ public class TuningParams
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
-    //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 120.0;
+    // TODO: Set deployed back to 120 when working again, set to 100 for now as a safety measure
+    public static final double intakeArmDeployedAngle    = 100.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
     // **************************************
@@ -100,6 +99,5 @@ public class TuningParams
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25;
+    public static final double octopusMotorSpeed         = 0.50;
 }

@@ -10,16 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DelayStopCargoCommand extends Command
 {
     private OI.Mode mode;
-    private boolean isPresent;
     private boolean isFinished;
 
     /**
      *
      * @param mode - the operating mode in which this command must run.
-     * @param isPresent - the command completes when the cargo intake sensor is in this state.
-     *               For example, setting this to true, means that the command exits when cargo
-     *               is present.
-     *   */
+     */
     public DelayStopCargoCommand(OI.Mode mode)
     {
         requires(Robot.Lift);

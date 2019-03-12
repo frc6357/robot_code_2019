@@ -227,7 +227,7 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        double operatorLeftY, operatorRightY, operatorLeftX;
+        double operatorLeftY, operatorRightY, operatorLeftX, operatorRightX;
 
         Scheduler.getInstance().run();
 
@@ -237,6 +237,7 @@ public class Robot extends TimedRobot {
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
         operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
         operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
+        operatorRightX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);

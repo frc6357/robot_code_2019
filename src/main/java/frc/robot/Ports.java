@@ -27,8 +27,9 @@ public class Ports
     //
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
-
-    private static final int _5 = 5;
+    
+    // TODO: Verify the purpose of this private value
+    //private static final int _5 = 5;
 
     // ***************************
     // Pneumatic Control Module(s)
