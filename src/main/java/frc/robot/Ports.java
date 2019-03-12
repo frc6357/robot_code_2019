@@ -146,9 +146,12 @@ public class Ports
     // ***************
     public static final int climbPCM                     = pcm1;
 
-    public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
-    public static final int climbMotor                   = 40;   // CAN ID 40
+    public static final int climbLiftFront               = 7;    // PCM 1 channel 7
+    public static final int climbLiftBack                = 6;    // PCM 1 channel 6
+
+    public static final int climbMoveMotor1              = 40;   // CAN ID 40
+    public static final int climbMoveMotor2              = 41;   // CAN ID 41
 
     //
     // Driver's and operator's OI channel assignments

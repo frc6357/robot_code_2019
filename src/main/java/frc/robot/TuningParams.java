@@ -57,8 +57,6 @@ public class TuningParams
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
 
-    // TODO: Check this when we wire up the motor. If the PID controller diverges,
-    // set this to true and continue debug.
     public static final boolean LiftArmInvertMotor       = false;
 
     // In manual override mode, these are the angle setpoint limits for the arm.
