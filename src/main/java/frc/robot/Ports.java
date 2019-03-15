@@ -150,8 +150,13 @@ public class Ports
     public static final int climbLiftFront               = 7;    // PCM 1 channel 7
     public static final int climbLiftBack                = 6;    // PCM 1 channel 6
 
-    public static final int climbMoveMotor1              = 40;   // CAN ID 40
-    public static final int climbMoveMotor2              = 41;   // CAN ID 41
+    // Front wedge motors
+    public static final int climbMoveMotorL              = 40;   // CAN ID 40
+    public static final int climbMoveMotorR              = 41;   // CAN ID 41
+
+    // Front wedge mover motor
+    public static final int climbWedgeMoveMotorL          = 42;   // CAN ID 42
+    public static final int climbWedgeMoveMotorR          = 43;   // CAN ID 43
 
     //
     // Driver's and operator's OI channel assignments
