@@ -10,22 +10,17 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeWaitForCargoCommand extends Command
 {
     private OI.Mode mode;
-    private boolean isPresent;
     private boolean isFinished;
 
     /**
      *
      * @param mode - the operating mode in which this command must run.
-     * @param isPresent - the command completes when the cargo intake sensor is in this state.
-     *               For example, setting this to true, means that the command exits when cargo
-     *               is present.
-     *   */
-    public IntakeWaitForCargoCommand(OI.Mode mode, boolean isPresent)
+     */
+    public IntakeWaitForCargoCommand(OI.Mode mode)
     {
-        requires(Robot.Intake);
+        requires(Robot.Lift);
 
         this.mode       = mode;
-        this.isPresent  = isPresent;
         this.isFinished = true;
     }
 
@@ -42,16 +37,14 @@ public class IntakeWaitForCargoCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
+        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
 
-        // End the command if the intake presence sensor is in the state we are
-        // looking for.
-        isFinished = (Robot.Intake.isCargoInIntake() == isPresent);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return isFinished;
+        return true;
     }
 
     // Called once after isFinished returns true

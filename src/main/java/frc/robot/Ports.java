@@ -27,6 +27,9 @@ public class Ports
     //
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
+    
+    // TODO: Verify the purpose of this private value
+    //private static final int _5 = 5;
 
     // ***************************
     // Pneumatic Control Module(s)
@@ -62,10 +65,10 @@ public class Ports
 
     // The hatch gripper and deploy mechanism uses double solenoids so we need
     // two PCM channels per piston.
-    public static final int hatchGripperOut              = 2;    // PCM 1 output 2
-    public static final int hatchGripperIn               = 4;    // PCM 1 output 4
-    public static final int hatchGripperLock             = 3;    // PCM 1 output 3
-    public static final int hatchGripperUnlock           = 5;    // PCM 1 output 5
+    public static final int hatchGripperOut              = 5;    // PCM 1 output 2
+    public static final int hatchGripperIn               = 3;    // PCM 1 output 4
+    public static final int hatchGripperLock             = 4;    // PCM 1 output 3
+    public static final int hatchGripperUnlock           = 2;    // PCM 1 output 5
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
     public static final boolean hatchContactSwitchOn     = false; // State when pressed
@@ -80,8 +83,7 @@ public class Ports
     public static final int elevatorPCM                  = pcm1;
     public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
-    public static final int elevatorProximityUp          = 5;    // DIO input 5
-
+    public static final int elevatorProximityUp          = 47;
     public static final int elevatorProximityDown        = 6;    // DIO input 6
 
     //
@@ -100,23 +102,11 @@ public class Ports
     public static final int armLimitBottom               = 10;   // DIO input 10
     public static final boolean armLimitBottomOn         = false;// State when pressed
 
-    public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
-    public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
-    public static final boolean ElevatorPosition2        = true;  // Elevator Position for level 2
-    public static final boolean ElevatorPosition3        = true;  // Elevator Position for level 3
-    public static final double ArmPosition0              = 0.0;   // Arm Positiom for level 0
-    public static final double ArmPositionHatch1         = 5.0;   // Hatch Position for level 1
-    public static final double ArmPositionHatch2         = 5.0;   // Hatch Position for level 2
-    public static final double ArmPositionHatch3         = 50.0;  // Hatch Position for level 3
-    public static final double ArmPostionCargo1          = 10.0;   // Cargo Position for level 1
-    public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
-    public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
-
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
-    public static final int intakeRollerMotor            = 20;   // CAN ID 20
-    public static final int intakeArmMotor               = 25;   // CAN ID 25
+    public static final int intakeRollerMotor            = 25;   // CAN ID 20
+    public static final int intakeArmMotor               = 20;   // CAN ID 25
 
     public static final int intakeArmEncoderA            = 8;   // DIO input 8
     public static final int intakeArmEncoderB            = 9;   // DIO input 9
@@ -146,9 +136,9 @@ public class Ports
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
-    public static final int octopusMotor                 = 30;   // CAN ID 30
+    public static final int octopusMotor                 = 30; // CAN ID 30
 
-    public static final int octopusCargoDetect           = 13;   // DIO input 13
+    public static final int octopusCargoDetect           = 5;   // DIO input 13
     public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
@@ -156,9 +146,17 @@ public class Ports
     // ***************
     public static final int climbPCM                     = pcm1;
 
-    public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
-    public static final int climbMotor                   = 40;   // CAN ID 40
+    public static final int climbLiftFront               = 7;    // PCM 1 channel 7
+    public static final int climbLiftBack                = 6;    // PCM 1 channel 6
+
+    // Front wedge motors
+    public static final int climbMoveMotorL              = 40;   // CAN ID 40
+    public static final int climbMoveMotorR              = 41;   // CAN ID 41
+
+    // Front wedge mover motor
+    public static final int climbWedgeMoveMotorL          = 42;   // CAN ID 42
+    public static final int climbWedgeMoveMotorR          = 43;   // CAN ID 43
 
     //
     // Driver's and operator's OI channel assignments
@@ -183,9 +181,12 @@ public class Ports
     // *********************
     public static final int OIOperatorJoystick           = 1;
 
-    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
-    public static final int OIOperatorJoystickLY         = 2;    // Left stick, Y axis
+    public static final int OIOperatorTriggerLJoystick   = 2;    // Left Trigger
+    public static final int OIOperatorTriggerRJoystick   = 3;    // Right Trigger
+    public static final int OIOperatorJoystickLY         = 1;    // Left stick, Y axis
+    public static final int OIOperatorJoystickLX         = 0;    // Left stick, X axis
     public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
+    public static final int OIOperatorJoystickRX          = 4;
 
     public static final int OIOperatorJoystickL          = 9;    // Left Joystick button
     public static final int OIOperatorJoystickR          = 10;   // Right Joystick button

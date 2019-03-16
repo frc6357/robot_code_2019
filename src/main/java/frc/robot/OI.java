@@ -120,7 +120,7 @@ public class OI
         // Test mode command bindings.
         buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
         buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
-        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.TEST, false, true));
+        buttonOperatorX.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.TEST));
         buttonOperatorB.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
         buttonOperatorB.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, false, false));
         buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.TEST, false));
@@ -129,25 +129,29 @@ public class OI
         buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
 
         // Manual mode command bindings.
-        buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
-        buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        //buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
+        //\buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
 
-        buttonOperatorB.whenPressed(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
-        buttonOperatorB.whenReleased(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
+        //buttonOperatorB.whenPressed(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
+        //buttonOperatorB.whenReleased(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, true));
-        buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, false));
+        buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, false));
+        buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, true));
 
-        buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
-        buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
+        // buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
+        // buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorLeftBumper.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
+        buttonOperatorB.whenPressed(new DelayStopCargoCommand(OI.Mode.MANUAL));
 
-        buttonOperatorStart.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
-        buttonOperatorStart.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
+        buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
+        buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
+
+        //buttonOperatorA.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 80, true));
+
+        //buttonOperatorY.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 0, false));
 
         // Nornmal mode command bindings
-        buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
+        /*buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
 
         buttonOperatorB.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionMiddle));
 
@@ -155,7 +159,7 @@ public class OI
 
         buttonOperatorRightBumper.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionStow));
 
-        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));
+        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));*/
     }
 
     /**

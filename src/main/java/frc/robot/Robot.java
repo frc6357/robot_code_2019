@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     private static final int DASHBOARD_UPDATE_INTERVAL = 10;
 
     private boolean PIDSEnabled;
+    double intakePosAngle;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -75,6 +76,7 @@ public class Robot extends TimedRobot {
         Drive.baseDrive.setRightSpeed(0);
         Intake.RollerArm.disable();
         Lift.RobotArmAngled.disable();
+        PIDSEnabled = false;
     }
 
     /**
@@ -109,7 +111,7 @@ public class Robot extends TimedRobot {
 
         if (!PIDSEnabled) 
         {
-            Intake.RollerArm.enable();
+            //Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -133,7 +135,7 @@ public class Robot extends TimedRobot {
         // must NOT do anything to change the state of the robot!
 
         if (!PIDSEnabled) {
-            Intake.RollerArm.enable();
+            //Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -152,8 +154,8 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
 
         // Driver updates
-        driveLeft = oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
-        driveRight = oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
+        driveLeft = -1 * oi.getDriverJoystickValue(Ports.OIDriverLeftDrive);
+        driveRight = -1 * oi.getDriverJoystickValue(Ports.OIDriverRightDrive);
 
         Drive.Drive.setLeftSpeed(driveLeft);
         Drive.Drive.setRightSpeed(driveRight);
@@ -163,9 +165,13 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY;
-
+            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY, operatorRX;
+            
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
+            operatorRBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
+            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
+            operatorRY = 90 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
+            operatorRX = 0.25 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
                 armPosAngle += 1.0;
@@ -173,7 +179,26 @@ public class Robot extends TimedRobot {
                 armPosAngle -= 1.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
-            Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            if (armPosAngle >= 69)
+            {
+                Lift.RobotArmAngled.setSetpoint(65);
+            }
+            else
+            {
+                Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            }
+
+            Intake.ArmMotor.set(operatorRX);
+            Lift.setCargoRollerSpeed(operatorRBumper);
+            Intake.TestSetRollerSpeed(operatorLBumper);
+            // if (intakePosAngle >= 90)
+            //     Intake.RollerArm.setSetpoint(90);
+            // else
+            //     Intake.RollerArm.setSetpoint(intakePosAngle);
+            SmartDashboard.putNumber("Roller Speed", operatorLBumper);
+            SmartDashboard.putNumber("Intake Arm Position", operatorRY);
+            // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
+
         }
 
         // Housekeeping
@@ -202,7 +227,7 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        double operatorLeftY, operatorRightY;
+        double operatorLeftY, operatorRightY, operatorLeftX, operatorRightX;
 
         Scheduler.getInstance().run();
 
@@ -211,13 +236,17 @@ public class Robot extends TimedRobot {
 
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
         operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
+        operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
+        operatorRightX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);
 
         UpdateSmartDashboard(OI.Mode.TEST);
 
-        Lift.setCargoRollerSpeed(operatorRightY);
+        //Lift.testSetArmPositionMotorSpeed(operatorRightY);
+        //Intake.testSetArmMotorSpeed(operatorLeftX);
+        Intake.TestSetRollerSpeed(operatorRightY);
         Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
 
 
@@ -278,6 +307,7 @@ public class Robot extends TimedRobot {
 
                 SmartDashboard.putNumber("Arm Set", Lift.getArmSetpointDegrees());
                 SmartDashboard.putNumber("Arm Angle", Lift.getArmPositionDegrees());
+                SmartDashboard.putNumber("Arm Raw Value", Lift.armEncoder.getPosition());
                 SmartDashboard.putNumber("Cargo Rollers", Lift.OctopusRoller.testGetSpeed());
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 

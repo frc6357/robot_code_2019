@@ -26,7 +26,7 @@ public class TuningParams
 
     // Set this to determine the maximum speed of the robot. 0.5 means that
     // full joystick will drive the motors at 50% of their maximum rate.
-    public static final double driveJoystickCoefficient   = -1.0;
+    public static final double driveJoystickCoefficient   = 1.0;
 
     // **************
     // Lift Subsystem
@@ -34,31 +34,29 @@ public class TuningParams
 
     public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
     public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
-    public static final boolean ElevatorPosition2        = true;  // Elevator Position for level 2
+    public static final boolean ElevatorPositionHatch2   = false; // Elevator Position for level 2
+    public static final boolean ElevatorPositionCargo2   = true;  // Elevator Position for cargo level 2
     public static final boolean ElevatorPosition3        = true;  // Elevator Position for level 3
 
     public static final double ArmPosition0              = 0.0;   // Arm Positiom for level 0
-    public static final double ArmPositionHatch1         = 5.0;   // Hatch Position for level 1
-    public static final double ArmPositionHatch2         = 5.0;   // Hatch Position for level 2
-    public static final double ArmPositionHatch3         = 50.0;  // Hatch Position for level 3
-    public static final double ArmPostionCargo1          = 10.0;  // Cargo Position for level 1
-    public static final double ArmPositionCargo2         = 10.0;  // Cargo Position for level 2
-    public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
+    public static final double ArmPositionHatch1         = 11.0;  // Hatch Position for level 1
+    public static final double ArmPositionHatch2         = 45.0;  // Hatch Position for level 2
+    public static final double ArmPositionHatch3         = 45.0;  // Hatch Position for level 3
+    public static final double ArmPostionCargo1          = 16.0;  // Cargo Position for level 1
+    public static final double ArmPositionCargo2         = 50.0;  // Cargo Position for level 2
+    public static final double ArmPositionCargo3         = 50.0;  // Cargo Postion for level 3
 
     public static final String liftPositionStow          = "STOW";
     public static final String liftPositionLower         = "LOWER";
     public static final String liftPositionMiddle        = "MIDDLE";
     public static final String liftPositionUpper         = "UPPER";
 
-    // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
-    // during bringup!
-    public static final double LiftArmPValue             = 0.0001;
-    public static final double LiftArmIValue             = 0.000001;
+    // PID values for the arm
+    public static final double LiftArmPValue             = 0.02;
+    public static final double LiftArmIValue             = 0.0;
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
 
-    // TODO: Check this when we wire up the motor. If the PID controller diverges,
-    // set this to true and continue debug.
     public static final boolean LiftArmInvertMotor       = false;
 
     // In manual override mode, these are the angle setpoint limits for the arm.
@@ -67,13 +65,13 @@ public class TuningParams
 
     // In test mode, when we set the arm motor speed directly from the joystick, this
     // is the value we divide the joystick by before setting the motor speed.
-    public static final double LiftArmTestSpeedDivider   = 20.0;
+    public static final double LiftArmTestSpeedDivider   = 2.0;
 
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
     public static final double intakeArmPValue           = 0.005;
-    public static final double intakeArmIValue           = 0.00005;
+    public static final double intakeArmIValue           = 0.0;
     public static final double intakeArmDValue           = 0;
     public static final double intakeArmToleranceValue   = 0;
 
@@ -86,8 +84,8 @@ public class TuningParams
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
-    //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 90.0;
+    // TODO: Set deployed back to 120 when working again, set to 100 for now as a safety measure
+    public static final double intakeArmDeployedAngle    = 100.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
     // **************************************
@@ -99,6 +97,5 @@ public class TuningParams
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25;
+    public static final double octopusMotorSpeed         = 0.50;
 }

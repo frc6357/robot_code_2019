@@ -31,8 +31,8 @@ public class SK19CargoIntake extends Subsystem
     //public SpeedController        TransferMotorRight;
     public ScaledEncoder          ArmEncoder;
 
-    double                 TransferMotorSpeed = 0.0;
-    double                 RollerSpeed        = 0.0;
+    double                        TransferMotorSpeed = 0.0;
+    double                        RollerSpeed        = 0.0;
 
     /**
      * Constructor for the cargo intake mechanism.
@@ -59,8 +59,6 @@ public class SK19CargoIntake extends Subsystem
                                                                 TuningParams.intakeArmInvertMotor);
         this.CargoPresentAtIntake   = new BaseProximitySensor(Ports.intakeIngestDetect, Ports.intakeIngestDetectPresent);
         // this.CargoPresentAtTransfer = new BaseProximitySensor(Ports.intakeTransferDetect, Ports.intakeTransferDetectPresent);
-
-        stopCargoIntake();
     }
 
     /**
@@ -169,5 +167,10 @@ public class SK19CargoIntake extends Subsystem
     public void initDefaultCommand()
     {
 
+    }
+
+    public void TestSetRollerSpeed(double rollerSpeed)
+    {
+        RollerMotor.set(rollerSpeed);
     }
 }
