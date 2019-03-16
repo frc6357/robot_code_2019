@@ -7,48 +7,99 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.RunOctopusRollerCommand;
-import frc.robot.*;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.TuningParams;
+import frc.robot.OI;
 
-public class CargoIntakeSystem extends CommandGroup 
+public class CargoIntakeSystem extends Command 
 {
-     /**
-     *  When called it extends the cargo systems and enables all of the rollers. It then checks the cargo sensors in the octopus system and when they're triggered it pulls
-     *  the cargo intake system in and holds for one half second and stops the octopus rollers as well as the cargo rollers
-     *  Will need to be tested as it may be completely wrong as we may never pull in a cargo if we don't pull up the intake with it in it. The intake system will have to guarantee
-     *  which may require a new sensor to check if we have a piece of cargo in the cargo intake system. May be able to be a Grove IR sensor, but it may have to be one of the 12
-     *  volt reflective IR sensors.
-     *  TODO: Check on our out of bag day if we can get around needing a new sensor or if we need a new sensor to be able to reliably pull cargo in.
-     *  TODO: Note at this point this code will only work in manual mode and will have to have the set mode modified before it would be able to work in normal mode.
-     */
-    public CargoIntakeSystem() 
+    private static enum states {INIT, WAIT, CAPTURED};
+    private static states currentState;
+    private static OI.Mode setMode;
+
+    public CargoIntakeSystem(OI.Mode setMode) 
     {
-        
-        requires(Robot.Lift);
         requires(Robot.Intake);
-        
-        addParallel(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
-        addParallel(new DeployIntakeCommand(OI.Mode.MANUAL, true));
-        addParallel(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
-        
-        while(!Robot.Lift.BallSensor.getIsTriggered())
-        {}
+        requires(Robot.Lift);
+        this.setMode = setMode;
+    }
 
-        new Thread (() -> {
-                
-            try 
-            {
-                Thread.sleep(500);
-            }
-            catch (InterruptedException e) 
-            {
-                e.printStackTrace();
-            }
-        }).start();
+    // Called just before this Command runs the first time
+    protected void initialize() 
+    {
+        currentState = states.INIT;
+    }
 
-        addParallel(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
-        addParallel(new DeployIntakeCommand(OI.Mode.MANUAL, false));
-        addParallel(new ToggleIntakeRollerCommand(OI.Mode.MANUAL));
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() 
+    {
+        if (setMode != Robot.oi.getMode())
+            return;
+        switch (currentState)
+        {
+            case INIT:
+            {
+                if (Robot.Lift.armEncoder.getPosition() >= TuningParams.armCargoDeadband)
+                {
+                    Robot.Lift.RobotArmAngled.setSetpoint(0.0);
+                    return;
+                }
+                Robot.Intake.RollerArm.moveToAngleDegrees(TuningParams.intakeArmDeployedAngle);
+                Robot.Intake.RollerMotor.set(TuningParams.intakeIngestMotorSpeed);
+                Robot.Lift.OctopusRoller.setForwards();
+                currentState = states.WAIT;
+            }
+            break;
+            case WAIT:
+            {
+                currentState = Robot.Lift.BallSensor.getIsTriggered() ? states.CAPTURED: states.WAIT;
+                if (currentState == states.CAPTURED)
+                {
+                    setTimeout(TuningParams.cargoIntakeDownLimit);
+                }
+            }
+            break;
+            case CAPTURED:
+            {
+                if (isTimedOut())
+                {
+                    cleanUp();
+                    currentState = states.INIT;
+                }
+            }
+            break;
+        }
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() 
+    {
+        boolean returnValue = false;
+        if (currentState == states.INIT || Robot.oi.getMode() != setMode)
+        {
+            returnValue = true;
+        }
+        return returnValue;
+    }
+
+    // Called once after isFinished returns true
+    protected void end() 
+    {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() 
+    {
+        cleanUp();
+        currentState = states.INIT;
+    }
+
+    private void cleanUp()
+    {
+        Robot.Intake.RollerArm.moveToAngleDegrees(TuningParams.intakeArmStowedAngle);
+        Robot.Intake.RollerMotor.set(0.0);
+        Robot.Lift.OctopusRoller.setStop();
     }
 }

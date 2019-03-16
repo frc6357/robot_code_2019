@@ -78,9 +78,12 @@ public class TuningParams
     public static final boolean intakeArmInvertMotor     = true;
 
     // The speed of the intake and transfer roller motors when enabled.
-    public static final double intakeTransferMotorSpeed  = 0.25;
+    public static final double intakeTransferMotorSpeed  = 1.0;
     public static final double intakeIngestMotorSpeed    = 0.5;
     public static final double intakeArmMotorSpeed       = 0.25;
+
+    public static final double cargoIntakeDownLimit        = 0.5;
+    public static final double armCargoDeadband          = 5.0;
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
@@ -97,5 +100,5 @@ public class TuningParams
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    public static final double octopusMotorSpeed         = 0.50;
+    public static final double octopusMotorSpeed         = 1;
 }

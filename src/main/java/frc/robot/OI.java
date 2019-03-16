@@ -141,7 +141,9 @@ public class OI
         // buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
         // buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorB.whenPressed(new DelayStopCargoCommand(OI.Mode.MANUAL));
+        //buttonOperatorB.whenPressed(new DelayStopCargoCommand(OI.Mode.MANUAL));
+
+        buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
 
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
