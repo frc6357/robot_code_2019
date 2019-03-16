@@ -137,6 +137,8 @@ public class OI
         buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
         buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
 
+        buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
+
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
     }
