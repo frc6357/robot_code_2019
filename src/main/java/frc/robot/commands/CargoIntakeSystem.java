@@ -14,7 +14,7 @@ import frc.robot.OI;
 
 public class CargoIntakeSystem extends Command 
 {
-    private static enum states {INIT, WAIT, CAPTURED};
+    private static enum states {INIT, WAIT, CAPTURED, ARMWAIT, STARTMOTORS};
     private static states currentState;
     private static OI.Mode setMode;
 
@@ -43,8 +43,25 @@ public class CargoIntakeSystem extends Command
                 if (Robot.Lift.armEncoder.getPosition() >= TuningParams.armCargoDeadband)
                 {
                     Robot.Lift.RobotArmAngled.setSetpoint(0.0);
-                    return;
+                    currentState = states.ARMWAIT;
                 }
+                else
+                {
+                    currentState = states.STARTMOTORS;
+                } 
+            }
+            break;
+            case ARMWAIT:
+            {
+                if (Robot.Lift.armEncoder.getPosition() <= TuningParams.armCargoDeadband)
+                {
+                    currentState = states.STARTMOTORS;;
+                }
+                
+            }
+            break;
+            case STARTMOTORS:
+            {
                 Robot.Intake.RollerArm.moveToAngleDegrees(TuningParams.intakeArmDeployedAngle);
                 Robot.Intake.RollerMotor.set(TuningParams.intakeIngestMotorSpeed);
                 Robot.Lift.OctopusRoller.setForwards();

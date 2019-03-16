@@ -52,7 +52,7 @@ public class TuningParams
     public static final String liftPositionUpper         = "UPPER";
 
     // PID values for the arm
-    public static final double LiftArmPValue             = 0.02;
+    public static final double LiftArmPValue             = 0.01;
     public static final double LiftArmIValue             = 0.0;
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
@@ -60,7 +60,7 @@ public class TuningParams
     public static final boolean LiftArmInvertMotor       = false;
 
     // In manual override mode, these are the angle setpoint limits for the arm.
-    public static final double LiftArmAngleMax           = 135.0;
+    public static final double LiftArmAngleMax           = 120.0;
     public static final double LiftArmAngleMin           = 0.0;
 
     // In test mode, when we set the arm motor speed directly from the joystick, this
@@ -79,16 +79,16 @@ public class TuningParams
 
     // The speed of the intake and transfer roller motors when enabled.
     public static final double intakeTransferMotorSpeed  = 1.0;
-    public static final double intakeIngestMotorSpeed    = 0.5;
+    public static final double intakeIngestMotorSpeed    = 1.0;
     public static final double intakeArmMotorSpeed       = 0.25;
 
-    public static final double cargoIntakeDownLimit        = 0.5;
+    public static final double cargoIntakeDownLimit      = 1.0;
     public static final double armCargoDeadband          = 5.0;
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
     // TODO: Set deployed back to 120 when working again, set to 100 for now as a safety measure
-    public static final double intakeArmDeployedAngle    = 100.0;
+    public static final double intakeArmDeployedAngle    = 90.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
     // **************************************
@@ -100,5 +100,5 @@ public class TuningParams
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    public static final double octopusMotorSpeed         = 1;
+    public static final double octopusMotorSpeed         = -1.0;
 }

@@ -39,7 +39,6 @@ public class SK19Lift extends Subsystem
     public CANEncoder                           armEncoder;
 
     private int                                 lastPosition;
-    private double                              octopusScaler;
     private int                                 cargoIndexSearch = 0;
     private int                                 hatchIndexSearch = 1;
 
@@ -68,7 +67,7 @@ public class SK19Lift extends Subsystem
     public SK19Lift()
     {
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
-        this.octopusScaler = 0.6;
+
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
@@ -92,7 +91,7 @@ public class SK19Lift extends Subsystem
         this.RobotArmAngled              = new BaseAngleCANControlledArm(this.robotArmMotorized, armEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
         //this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
-        this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, this.octopusScaler);
+        this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, TuningParams.octopusMotorSpeed);
         RobotArmAngled.moveToAngleDegrees(0.0);
         this.armEncoder.setPosition(0.0);
         HatchGripper(true);
@@ -410,7 +409,7 @@ public class SK19Lift extends Subsystem
     {
         RobotArmAngled.periodic();
         SmartDashboard.putNumber("ARM ENCODER !", armEncoder.getPosition());
-        SmartDashboard.putNumber("ARM SET POINT", getArmSetpointDegrees());
+        SmartDashboard.putNumber("ARM SET POINT", RobotArmAngled.getArmSetpoint());
         SmartDashboard.putBoolean("BALL IS IN!!!", BallSensor.getIsTriggered());
         SmartDashboard.putBoolean("OVERIDE BALL", ballOveride);
     }

@@ -93,7 +93,7 @@ public class BaseAngleCANControlledArm extends PIDSubsystem {
     {
         double encoderAngle = armEncoder.getPosition();
 
-        encoderAngle *= (1/54) * 90;
+        encoderAngle *= (1.0/54.0) * 90.0;
         return Math.max(encoderAngle, 0.0);
     }
 

@@ -120,6 +120,7 @@ public class OI
         //buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
         // Test mode command bindings.
+        /*
         buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
         buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
         buttonOperatorX.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.TEST));
@@ -129,6 +130,7 @@ public class OI
         buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
         buttonOperatorLeftBumper.whenPressed(new TestGrabHatchToggle(OI.Mode.TEST));
         buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
+        */
 
         // Manual mode command bindings.
         buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, false));

@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
         // must NOT do anything to change the state of the robot!
 
         if (!PIDSEnabled) {
-            //Intake.RollerArm.enable();
+            Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -165,40 +165,17 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY, operatorRX;
+            double operatorLeftY;
             
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-            operatorRBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
-            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
-            operatorRY = 90 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
-            operatorRX = 0.25 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
-                armPosAngle += 1.0;
+                armPosAngle += 2.0;
             if(operatorLeftY < -0.9)
-                armPosAngle -= 1.0;
+                armPosAngle -= 2.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
-            if (armPosAngle >= 69)
-            {
-                Lift.RobotArmAngled.setSetpoint(65);
-            }
-            else
-            {
-                Lift.RobotArmAngled.setSetpoint(armPosAngle);
-            }
-
-            Intake.ArmMotor.set(operatorRX);
-            Lift.setCargoRollerSpeed(operatorRBumper);
-            Intake.TestSetRollerSpeed(operatorLBumper);
-            // if (intakePosAngle >= 90)
-            //     Intake.RollerArm.setSetpoint(90);
-            // else
-            //     Intake.RollerArm.setSetpoint(intakePosAngle);
-            SmartDashboard.putNumber("Roller Speed", operatorLBumper);
-            SmartDashboard.putNumber("Intake Arm Position", operatorRY);
-            // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
-
+            Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 
         // Housekeeping
