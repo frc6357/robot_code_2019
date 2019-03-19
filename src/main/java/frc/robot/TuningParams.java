@@ -91,6 +91,9 @@ public class TuningParams
     public static final double intakeArmDeployedAngle    = 90.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
+    public static final double intakeRollerFullSpeed     = 1.0;
+    public static final double intakeRollerStop          = 0.0;
+
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
@@ -101,4 +104,5 @@ public class TuningParams
 
     // The fixed speed at which the octopus motor will run when turned on.
     public static final double octopusMotorSpeed         = -1.0;
+    public static final double cargoPullInWaitTime       = 1.0;
 }

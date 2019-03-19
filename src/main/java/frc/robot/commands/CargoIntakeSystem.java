@@ -14,7 +14,7 @@ import frc.robot.OI;
 
 public class CargoIntakeSystem extends Command 
 {
-    private static enum states {INIT, WAIT, CAPTURED, ARMWAIT, STARTMOTORS};
+    private static enum states {INIT, WAIT, ARMWAIT, STARTMOTORS};
     private static states currentState;
     private static OI.Mode setMode;
 
@@ -70,20 +70,7 @@ public class CargoIntakeSystem extends Command
             break;
             case WAIT:
             {
-                currentState = Robot.Lift.BallSensor.getIsTriggered() ? states.CAPTURED: states.WAIT;
-                if (currentState == states.CAPTURED)
-                {
-                    setTimeout(TuningParams.cargoIntakeDownLimit);
-                }
-            }
-            break;
-            case CAPTURED:
-            {
-                if (isTimedOut())
-                {
-                    cleanUp();
-                    currentState = states.INIT;
-                }
+                // TODO: Check if this actually needs to do anything, as far as I can tell it doesn't need to do anything other than sit and then be interrupted
             }
             break;
         }
@@ -116,7 +103,7 @@ public class CargoIntakeSystem extends Command
     private void cleanUp()
     {
         Robot.Intake.RollerArm.moveToAngleDegrees(TuningParams.intakeArmStowedAngle);
-        Robot.Intake.RollerMotor.set(0.0);
-        Robot.Lift.OctopusRoller.setStop();
+        Robot.Intake.RollerMotor.set(1.0);
+        Robot.Lift.OctopusRoller.setForwards();
     }
 }
