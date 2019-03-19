@@ -64,6 +64,7 @@ public class OI
     public static Button buttonOperatorRightBumper;
     private static Button buttonOperatorStart;
     private static Button buttonOperatorLeftStick;
+    private static Button buttonOperatorRightStick;
 
     // Currently unused...
     //private static Button buttonOperatorLeftStick;
@@ -113,6 +114,7 @@ public class OI
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
         buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
         // Currently unused.
         //buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
@@ -138,6 +140,8 @@ public class OI
 
         buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
         buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
+
+        buttonOperatorRightStick.whenPressed(new CargoTransferPullIn(OI.Mode.MANUAL));
 
         buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
 
