@@ -106,7 +106,7 @@ public class SK19CargoIntake extends Subsystem
      */
     public void stowCargoIntake()
     {
-        RollerArm.moveToAngleDegrees(0.0);
+        RollerArm.moveToAngleDegrees(TuningParams.intakeArmStowedAngle);
         RollerSpeed = 0.0;
         RollerMotor.set(RollerSpeed);
     }

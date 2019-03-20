@@ -166,7 +166,8 @@ public class Robot extends TimedRobot {
         if(mode == OI.Mode.MANUAL)
         {
             double armPosAngle;
-            double operatorLeftY;
+            double operatorLeftY, operatorLeftTrigger, operatorRTrigger;
+            double intakeSpeed;
 
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
@@ -176,6 +177,13 @@ public class Robot extends TimedRobot {
                 armPosAngle -= 2.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
+            operatorLeftTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
+            operatorRTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, false);
+
+            intakeSpeed = (operatorLeftTrigger - operatorRTrigger);
+            System.out.println("Intake Speed" + intakeSpeed);
+            
+            //Lift.OctopusRoller.setSpeed(intakeSpeed);
             Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 

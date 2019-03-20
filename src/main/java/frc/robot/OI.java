@@ -147,6 +147,9 @@ public class OI
 
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
+
+        buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
     }
 
     /**

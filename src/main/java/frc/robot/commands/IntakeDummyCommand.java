@@ -14,6 +14,7 @@ public class IntakeDummyCommand extends Command
     public IntakeDummyCommand(OI.Mode mode)
     {
         requires(Robot.Intake);
+        requires(Robot.Lift);
         this.mode   = mode;
     }
 
