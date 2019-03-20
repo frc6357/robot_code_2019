@@ -1,5 +1,8 @@
 sudo: false
 language: java
+before_install:
+  - wget http://www.revrobotics.com/content/sw/max/sdk/SPARK-MAX-roboRIO-SDK-1.1.9.zip
+  - unzip SPARK-MAX-roboRIO-SDK-1.1.9.zip
 install: true
 script: ./gradlew build
 jdk: oraclejdk8
