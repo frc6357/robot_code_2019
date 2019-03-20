@@ -70,7 +70,6 @@ public class CargoIntakeSystem extends Command
             break;
             case WAIT:
             {
-                // TODO: Check if this actually needs to do anything, as far as I can tell it doesn't need to do anything other than sit and then be interrupted
             }
             break;
         }
@@ -94,16 +93,11 @@ public class CargoIntakeSystem extends Command
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() 
-    {
-        cleanUp();
-        currentState = states.INIT;
-    }
-
-    private void cleanUp()
+    protected void interrupted()
     {
         Robot.Intake.RollerArm.moveToAngleDegrees(TuningParams.intakeArmStowedAngle);
-        Robot.Intake.RollerMotor.set(1.0);
-        Robot.Lift.OctopusRoller.setForwards();
+        Robot.Intake.RollerMotor.set(0.0);
+        Robot.Lift.OctopusRoller.setStop();
+        currentState = states.INIT;
     }
 }

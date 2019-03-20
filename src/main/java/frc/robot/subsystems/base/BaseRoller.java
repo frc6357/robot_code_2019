@@ -12,7 +12,7 @@ public class BaseRoller
     private double speed = 1.0;
     private double currentSpeed = 0.0;
     public static enum Direction { BACKWARD, STOPPED, FORWARD };
-    private Direction directionReader;
+    public Direction directionReader;
 
     /**
      *  Constructor:
