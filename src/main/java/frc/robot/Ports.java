@@ -27,7 +27,7 @@ public class Ports
     //
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
-    
+
     // TODO: Verify the purpose of this private value
     //private static final int _5 = 5;
 
@@ -150,13 +150,11 @@ public class Ports
     public static final int climbLiftFront               = 7;    // PCM 1 channel 7
     public static final int climbLiftBack                = 6;    // PCM 1 channel 6
 
-    // Front wedge motors
-    public static final int climbMoveMotorL              = 40;   // CAN ID 40
-    public static final int climbMoveMotorR              = 41;   // CAN ID 41
+    public static final int climbWedgeLockServo          = 7;    // DIO 7
 
-    // Front wedge mover motor
-    public static final int climbWedgeMoveMotorL          = 42;   // CAN ID 42
-    public static final int climbWedgeMoveMotorR          = 43;   // CAN ID 43
+    // Front wedge motors
+    public static final int climbWedgeWheelMotorRight     = 40;   // CAN ID 40
+    public static final int climbWedgeWheelMotorLeft      = 41;   // CAN ID 41
 
     //
     // Driver's and operator's OI channel assignments

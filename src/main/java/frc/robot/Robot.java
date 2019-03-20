@@ -15,6 +15,7 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Climb;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
 
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
     public static SK19Drive Drive = new SK19Drive();
     public static SK19CargoIntake Intake = new SK19CargoIntake();
     public static SK19Lift Lift = new SK19Lift();
+    public static SK19Climb Climb = new SK19Climb();
 
     // This is the number of periodic callbacks to skip between each update
     // of the smart dashboard data. With a value of 10, we update the smart
@@ -109,13 +111,12 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         oi.setMode(OI.Mode.MANUAL);
 
-        if (!PIDSEnabled) 
+        if (!PIDSEnabled)
         {
             //Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
-   
         }
     }
 
@@ -166,7 +167,7 @@ public class Robot extends TimedRobot {
         {
             double armPosAngle;
             double operatorLeftY;
-            
+
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)

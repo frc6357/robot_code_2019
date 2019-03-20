@@ -103,6 +103,14 @@ public class TuningParams
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    public static final double octopusMotorSpeed         = -1.0;
     public static final double cargoPullInWaitTime       = 1.0;
+    public static final double octopusMotorSpeed         = -1.0;
+
+    // ***************************************
+    // Climb System
+    // ***************************************
+
+    public static final double climbWedgeServoLockPosition = 0.0;
+
+    public static final double climbWedgeServoUnlockPosition = 1.0;
 }
