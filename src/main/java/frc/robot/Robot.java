@@ -18,6 +18,7 @@ import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Climb;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
+import frc.robot.subsystems.base.BaseRoller.Direction;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -182,8 +183,12 @@ public class Robot extends TimedRobot {
 
             intakeSpeed = (operatorLeftTrigger - operatorRTrigger);
             System.out.println("Intake Speed" + intakeSpeed);
-            
-            //Lift.OctopusRoller.setSpeed(intakeSpeed);
+
+            if(intakeSpeed != 0 && Lift.OctopusRoller.getDirection() == Direction.STOPPED)
+            {
+                Lift.OctopusRoller.setSpeed(intakeSpeed);
+            }
+
             Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 
