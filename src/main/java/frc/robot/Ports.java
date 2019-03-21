@@ -84,7 +84,7 @@ public class Ports
     public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
     public static final int elevatorProximityUp          = 47;
-    public static final int elevatorProximityDown        = 6;    // DIO input 6
+    public static final int elevatorProximityDown        = 5;    // DIO input 5
 
     //
     // Arm components
@@ -138,7 +138,7 @@ public class Ports
     // **************************************
     public static final int octopusMotor                 = 30; // CAN ID 30
 
-    public static final int octopusCargoDetect           = 5;   // DIO input 13
+    public static final int octopusCargoDetect           = 6;   // DIO input 6
     public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
