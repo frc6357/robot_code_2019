@@ -121,8 +121,8 @@ public class Ports
     // TODO: The mechanism to move the cargo from the initial intake to the
     // "octopus" must be finalized! The following definitions are likely
     // incorrect.
-    public static final int intakeTransferMotorLeft      = 22;   // CAN ID 22
-    public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
+    public static final int intakeTransferMotor          = 22;   // CAN ID 22
+    //public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
 
     // This is an IR proximity sensor detecting the presence of cargo between the transfer
     // rollers.

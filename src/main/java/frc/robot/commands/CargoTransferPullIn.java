@@ -57,6 +57,7 @@ public class CargoTransferPullIn extends Command
                 Robot.Intake.RollerMotor.set(TuningParams.intakeRollerFullSpeed);
                 Robot.Intake.RollerArm.setSetpoint(TuningParams.intakeArmStowedAngle);
                 Robot.Lift.OctopusRoller.setForwards();
+                Robot.Lift.transferRoller.setForwards();
                 currentMode = cargoModes.WAIT;
             }
             break;
@@ -110,5 +111,6 @@ public class CargoTransferPullIn extends Command
     {
         Robot.Lift.OctopusRoller.setStop();
         Robot.Intake.RollerMotor.set(TuningParams.intakeRollerStop);
+        Robot.Lift.transferRoller.setStop();
     }
 }

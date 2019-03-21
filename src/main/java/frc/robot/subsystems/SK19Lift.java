@@ -23,6 +23,7 @@ import frc.robot.subsystems.base.BaseAngleCANControlledArm;
 public class SK19Lift extends Subsystem
 {
     private SpeedController                     octopusMotor;
+    private SpeedController                     transferController;
     private CANSparkMax                         ArmMotor;
     private BasePneumaticElevator               RobotElevator;
     //private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
@@ -46,6 +47,7 @@ public class SK19Lift extends Subsystem
     public BaseProximitySensor                  BallSensor;
     public BaseAngleCANControlledArm            RobotArmAngled;
     public boolean                             ballOveride;
+    public BaseRoller                           transferRoller;
 
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
@@ -71,9 +73,11 @@ public class SK19Lift extends Subsystem
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
+        this.transferController          = new WPI_TalonSRX(Ports.intakeTransferMotor);
         this.ElevatorSolenoid            = new Solenoid(Ports.elevatorPCM, Ports.elevatorUp);
         this.HatchDeploySolenoid         = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperOut, Ports.hatchGripperIn);
         this.HatchLockSolenoid           = new DoubleSolenoid(Ports.hatchGripperPCM, Ports.hatchGripperLock, Ports.hatchGripperUnlock);
+        this.transferRoller              = new BaseRoller(this.transferController);
 
         // This is the decleration for all of the required sensors
         //this.ArmEncoder                  = new ScaledEncoder(Ports.armEncoderA, Ports.armEncoderB, Ports.intakeArmEncoderPulsesPerRev, Ports.armEncoderDiameter);
