@@ -150,6 +150,8 @@ public class OI
 
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
+
+        buttonOperatorStart.whileHeld(new IntakePullThrough(OI.Mode.MANUAL));
     }
 
     /**
