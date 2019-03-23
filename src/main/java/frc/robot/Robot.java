@@ -27,13 +27,14 @@ import frc.robot.subsystems.base.BaseRoller.Direction;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
     private double driveLeft;
     private double driveRight;
     public static OI oi;
     public static UsbCamera camera;
     public static boolean cameraPrev = false;
-    public static MjpegServer Server;
+    //public static MjpegServer Server;
     private int m_DisplayUpdateCounter = 0;
 
     public static SK19Drive Drive = new SK19Drive();
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
         Drive.baseDrive.setLeftSpeed(0);
         Drive.baseDrive.setRightSpeed(0);
         Intake.RollerArm.disable();
-        Lift.RobotArmAngled.disable();
+        // Lift.RobotArmAngled.disable();
         PIDSEnabled = false;
     }
 
@@ -114,10 +115,10 @@ public class Robot extends TimedRobot {
 
         if (!PIDSEnabled)
         {
-            //Intake.RollerArm.enable();
-            Lift.RobotArmAngled.enable();
+            Intake.RollerArm.enable();
+            //Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
-            Lift.setZero();
+            // Lift.setZero();
         }
     }
 
@@ -138,9 +139,9 @@ public class Robot extends TimedRobot {
 
         if (!PIDSEnabled) {
             Intake.RollerArm.enable();
-            Lift.RobotArmAngled.enable();
+            //Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
-            Lift.setZero();
+            // Lift.setZero();
         }
 
         oi.setMode(OI.Mode.MANUAL);
@@ -172,28 +173,31 @@ public class Robot extends TimedRobot {
 
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
             armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
-            if(operatorLeftY > 0.9)
+            /*/if(operatorLeftY > 0.9)
                 armPosAngle += 2.0;
             if(operatorLeftY < -0.9)
                 armPosAngle -= 2.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
+            */
             operatorLeftTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
             operatorRTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, false);
 
             intakeSpeed = (operatorLeftTrigger - operatorRTrigger);
             System.out.println("Intake Speed" + intakeSpeed);
 
-            if(intakeSpeed != 0 && Lift.OctopusRoller.getDirection() == Direction.STOPPED)
+            Lift.testSetArmPositionMotorSpeed(operatorLeftY / 4);
+
+            /*if(intakeSpeed != 0 && Lift.OctopusRoller.getDirection() == Direction.STOPPED)
             {
                 Lift.OctopusRoller.setSpeed(intakeSpeed);
-            }
+            }*/
 
-            Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            // Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 
         // Housekeeping
-        Lift.periodic();
+        // Lift.periodic();
     }
 
     /**
