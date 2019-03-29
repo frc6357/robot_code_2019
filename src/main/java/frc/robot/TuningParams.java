@@ -87,7 +87,7 @@ public class TuningParams
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
-    // TODO: Set deployed back to 120 when working again, set to 100 for now as a safety measure
+    // TODO: Set deployed back to 120 when working again, set to 90 for now as a safety measure
     public static final double intakeArmDeployedAngle    = 90.0;
     public static final double intakeArmStowedAngle      = 0.0;
 
@@ -99,7 +99,6 @@ public class TuningParams
     // **************************************
 
     // The triggered state of the cargo detect sensor.
-    // TODO: Set this state according to the way the sensor is wired.
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.

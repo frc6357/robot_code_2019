@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.cscore.MjpegServer;
+// import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Climb;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
-import frc.robot.subsystems.base.BaseRoller.Direction;
+// import frc.robot.subsystems.base.BaseRoller.Direction;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -167,12 +167,12 @@ public class Robot extends TimedRobot
         // Operator updates. Left Y joystick controls the arm angle in MANUAL mode.
         if(mode == OI.Mode.MANUAL)
         {
-            double armPosAngle;
+            // double armPosAngle;
             double operatorLeftY, operatorLeftTrigger, operatorRTrigger;
             double intakeSpeed;
 
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-            armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
+            // armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             /*/if(operatorLeftY > 0.9)
                 armPosAngle += 2.0;
             if(operatorLeftY < -0.9)
@@ -208,7 +208,6 @@ public class Robot extends TimedRobot
     {
         Intake.RollerArm.enable();
 
-        // TODO: Add this when we want to enable the PID controller on the arm motor.
         //Lift.RobotArmAngled.enable();
 
         oi.setMode(OI.Mode.TEST);
@@ -222,7 +221,7 @@ public class Robot extends TimedRobot
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        double operatorLeftY, operatorRightY, operatorLeftX, operatorRightX;
+        double operatorLeftY, operatorRightY;
 
         Scheduler.getInstance().run();
 
@@ -231,8 +230,8 @@ public class Robot extends TimedRobot
 
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
         operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-        operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
-        operatorRightX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
+        // operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
+        // operatorRightX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);

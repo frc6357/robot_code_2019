@@ -24,9 +24,9 @@ public class CargoTransferPullIn extends Command
      *      - Type: OI.Mode<br>
      *      - The mode that this command should be running in
      */
-    public CargoTransferPullIn(OI.Mode setMode) 
+    public CargoTransferPullIn(OI.Mode passedMode) 
     {
-        this.setMode = setMode;
+        setMode = passedMode;
         requires(Robot.Intake);
         requires(Robot.Lift);
     }

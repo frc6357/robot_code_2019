@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DelayStopCargoCommand extends Command
 {
     private OI.Mode mode;
-    private boolean isFinished;
 
     /**
      *
@@ -21,14 +20,12 @@ public class DelayStopCargoCommand extends Command
         requires(Robot.Lift);
 
         this.mode       = mode;
-        this.isFinished = false;
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        isFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -56,6 +53,5 @@ public class DelayStopCargoCommand extends Command
     // subsystems is scheduled to run
     protected void interrupted()
     {
-        isFinished = true;
     }
 }

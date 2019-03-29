@@ -18,11 +18,11 @@ public class CargoIntakeSystem extends Command
     private static states currentState;
     private static OI.Mode setMode;
 
-    public CargoIntakeSystem(OI.Mode setMode) 
+    public CargoIntakeSystem(OI.Mode passedMode) 
     {
         requires(Robot.Intake);
         requires(Robot.Lift);
-        this.setMode = setMode;
+        setMode = passedMode;
     }
 
     // Called just before this Command runs the first time
