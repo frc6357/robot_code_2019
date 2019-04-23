@@ -149,16 +149,15 @@ public class OI
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
-<<<<<<< Updated upstream
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
-=======
+
         // buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
         // buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
 
         //buttonOperatorStart.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, true));
         //buttonOperatorBack.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, false));
->>>>>>> Stashed changes
+
     }
 
     /**
