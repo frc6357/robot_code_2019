@@ -140,9 +140,9 @@ public class Robot extends TimedRobot
 
         if (!PIDSEnabled) {
             Intake.RollerArm.enable();
-            //Lift.RobotArmAngled.enable();
+            Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
-            // Lift.setZero();
+            Lift.setZero();
         }
 
         oi.setMode(OI.Mode.MANUAL);
@@ -284,9 +284,9 @@ public class Robot extends TimedRobot
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
                 SmartDashboard.putBoolean("Hatch Locked", Lift.isHatchGripperLocked());
                 SmartDashboard.putBoolean("Hatch Pusher", Lift.isHatchPusherExtended());
-                SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
-                SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
-                SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
+                //SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
+                //SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
+                //SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
                 break;
             }
 

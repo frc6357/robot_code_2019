@@ -14,7 +14,6 @@ import frc.robot.Ports;
 //import frc.robot.utils.ScaledEncoder;
 import frc.robot.subsystems.base.*;
 import frc.robot.TuningParams;
-import frc.robot.subsystems.base.BaseAngleCANControlledArm;
 
 /**
  *  The SK19Lift subsystem is responsible for both the elevator and arm systems that
@@ -22,12 +21,12 @@ import frc.robot.subsystems.base.BaseAngleCANControlledArm;
  */
 public class SK19Lift extends Subsystem
 {
-    private SpeedController                     octopusMotor;
+    public SpeedController                     octopusMotor;
     private SpeedController                     transferController;
     private CANSparkMax                         ArmMotor;
     private BasePneumaticElevator               RobotElevator;
-    //private BaseGroveIRProximitySensor          ElevatorDownProximitySensor;
-    //private BaseGroveIRProximitySensor          ElevatorUpProximitySensor;
+    private BaseLimitSensor          ElevatorDownProximitySensor;
+    private BaseLimitSensor          ElevatorUpProximitySensor;
     //private ScaledEncoder                       ArmEncoder;
     private BaseProximitySensor                 ArmDownLimitSensor;
     private BaseProximitySensor                 ArmUpLimitSensor;
@@ -84,8 +83,8 @@ public class SK19Lift extends Subsystem
         this.armEncoder                  = new CANEncoder(ArmMotor);
         this.ArmDownLimitSensor          = new BaseProximitySensor(Ports.armLimitBottom, Ports.armLimitBottomOn);
         this.ArmUpLimitSensor            = new BaseProximitySensor(Ports.armLimitTop, Ports.armLimitTopOn);
-        //this.ElevatorUpProximitySensor   = new BaseGroveIRProximitySensor(Ports.elevatorProximityUp);
-        //this.ElevatorDownProximitySensor = new BaseGroveIRProximitySensor(Ports.elevatorProximityDown);
+        this.ElevatorUpProximitySensor   = new DummyLimitSensor(false);
+        this.ElevatorDownProximitySensor = new DummyLimitSensor(false);
         this.HatchSensor                 = new BaseProximitySensor(Ports.hatchContactSwitch, Ports.hatchContactSwitchOn);
         this.BallSensor                  = new BaseProximitySensor(Ports.octopusCargoDetect);
 
@@ -93,7 +92,6 @@ public class SK19Lift extends Subsystem
         // As well as BasePneumaticElevator
         this.robotArmMotorized           = new BaseMotorizedArm(this.ArmMotor, this.ArmUpLimitSensor, this.ArmDownLimitSensor);
         this.RobotArmAngled              = new BaseAngleCANControlledArm(this.robotArmMotorized, armEncoder, TuningParams.LiftArmPValue, TuningParams.LiftArmIValue, TuningParams.LiftArmDValue, TuningParams.LiftArmToleranceValue, TuningParams.LiftArmInvertMotor);
-        //this.RobotElevator               = new BasePneumaticElevator(this.ElevatorSolenoid, this.ElevatorUpProximitySensor, this.ElevatorDownProximitySensor);
         this.RobotHatch                  = new BaseHatchMechanism(this.HatchDeploySolenoid, this.HatchLockSolenoid, this.HatchSensor);
         this.OctopusRoller               = new BaseOctopusRoller(this.BallSensor, this.octopusMotor, TuningParams.octopusMotorSpeed);
         RobotArmAngled.moveToAngleDegrees(0.0);
@@ -137,7 +135,7 @@ public class SK19Lift extends Subsystem
             posIndex = 0;
         }
         RobotArmAngled.moveToAngleDegrees(setAngle);
-        RobotElevator.setPosition(setPosition);
+        // RobotElevator.setPosition(setPosition);
     }
 
     public void setPositionTarget(String targetPosition)
@@ -190,26 +188,27 @@ public class SK19Lift extends Subsystem
      */
     public void SetElevatorPosition(boolean ElevUp)
     {
-        RobotElevator.setPosition(ElevUp);
+        // RobotElevator.setPosition(ElevUp);
+        ElevatorSolenoid.set(ElevUp);
     }
 
     /**
      * Determine whether the elevator is currently in the up position. Returns true if it is,
      * false otherwise.
      */
-    public boolean isElevatorUp()
+    /*public boolean isElevatorUp()
     {
         return RobotElevator.getIsDown();
-    }
+    }*/
 
     /**
      * Determine whether the elevator is currently in the down position. Returns true if it is,
      * false otherwise.
      */
-    public boolean isElevatorDown()
+    /*public boolean isElevatorDown()
     {
         return RobotElevator.getIsUp();
-    }
+    }*/
 
     /**
      * Determine the position the elevator has been commanded to. Returns true if
@@ -217,10 +216,10 @@ public class SK19Lift extends Subsystem
      * indicate that the elevator has reached the commanded position, merely that it has been
      * told to go there.
      */
-    public boolean getElevatorCommandedPosition()
+    /*public boolean getElevatorCommandedPosition()
     {
         return RobotElevator.getCommandedUp();
-    }
+    }*/
 
     public void initDefaultCommand()
     {

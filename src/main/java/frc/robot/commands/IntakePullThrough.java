@@ -14,12 +14,14 @@ import frc.robot.OI;
 public class IntakePullThrough extends Command 
 {
     private static OI.Mode setMode;
-    public IntakePullThrough(OI.Mode passedMode) 
+    private static boolean forwardsActive;
+    public IntakePullThrough(OI.Mode passedMode, boolean isForwards) 
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.Lift);
         setMode = passedMode;
+        forwardsActive = isForwards;
     }
 
     // Called just before this Command runs the first time
@@ -32,7 +34,14 @@ public class IntakePullThrough extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-        Robot.Lift.OctopusRoller.setForwards();
+        if(forwardsActive)
+        {
+            Robot.Lift.octopusMotor.set(1.0);
+        }
+        else
+        {
+            Robot.Lift.octopusMotor.set(0.0);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

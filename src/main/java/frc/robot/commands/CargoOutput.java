@@ -39,7 +39,7 @@ public class CargoOutput extends Command
             return;
         if (firstStartUp)
         {
-            setTimeout(3.0);
+            setTimeout(0.1);
             Robot.Lift.OctopusRoller.setForwards();
             firstStartUp = false;
         }

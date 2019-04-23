@@ -65,6 +65,7 @@ public class OI
     private static Button buttonOperatorStart;
     private static Button buttonOperatorLeftStick;
     private static Button buttonOperatorRightStick;
+    private static Button buttonOperatorBack;
 
     // Currently unused...
     //private static Button buttonOperatorLeftStick;
@@ -117,7 +118,7 @@ public class OI
         buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
         // Currently unused.
-        //buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
+        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         //buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
         //buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
@@ -138,18 +139,26 @@ public class OI
         buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, false));
         buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, true));
 
-        buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
-        buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
+        // buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
+        // buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
 
-        buttonOperatorRightStick.whenPressed(new CargoTransferPullIn(OI.Mode.MANUAL));
+        // buttonOperatorRightStick.whenPressed(new CargoTransferPullIn(OI.Mode.MANUAL));
 
-        buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
+        // buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
 
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
+<<<<<<< Updated upstream
         buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
         buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
+=======
+        // buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        // buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
+
+        //buttonOperatorStart.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, true));
+        //buttonOperatorBack.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, false));
+>>>>>>> Stashed changes
     }
 
     /**
