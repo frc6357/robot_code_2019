@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.commands.util.CompressorToggle;
 import frc.robot.subsystems.SK19CargoIntake;
 import frc.robot.subsystems.SK19Climb;
 import frc.robot.subsystems.SK19Drive;
@@ -306,6 +307,8 @@ public class Robot extends TimedRobot
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
+
+                SmartDashboard.putData("Compresor Shutoff", new CompressorToggle());
                 break;
             }
         }
