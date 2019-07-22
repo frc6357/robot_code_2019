@@ -5,11 +5,11 @@
 
 package frc.robot;
 
+import frc.robot.OI;
 import frc.robot.commands.*;
 // import frc.robot.commands.test.*;
 import frc.robot.utils.FilteredJoystick;
 import frc.robot.utils.filters.*;
-
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -77,12 +77,8 @@ public class OI
 
     private static Mode oiMode = Mode.NONE;
 
-    //private static ModeSelect modeToggle = new ModeSelect();
-
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
-
-    //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
     {
@@ -92,6 +88,7 @@ public class OI
         // Add an exponential filter to the driver joystick to damp the response around the zero
         // point. The coefficient here must be negative
         driveJoystickFilter = new ExponentialFilter(TuningParams.driveJoystickCoefficient);
+
         joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
         joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 
@@ -114,6 +111,7 @@ public class OI
         buttonOperatorLeftBumper  = new JoystickButton(joystickOperator, Ports.OIOperatorLeftBumper);
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+
         buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
         buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
@@ -157,6 +155,7 @@ public class OI
 
         //buttonOperatorStart.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, true));
         //buttonOperatorBack.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, false));
+
 
     }
 
@@ -278,6 +277,7 @@ public class OI
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
                 break;
+
         }
     }
 

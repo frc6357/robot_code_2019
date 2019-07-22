@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeDummyCommand extends Command
 {
+<<<<<<< HEAD:src/main/java/frc/robot/commands/IntakeDummyCommand.java
     private OI.Mode mode;
 
     public IntakeDummyCommand(OI.Mode mode)
@@ -16,10 +17,22 @@ public class IntakeDummyCommand extends Command
         requires(Robot.Intake);
         requires(Robot.Lift);
         this.mode   = mode;
+=======
+    OI.Mode mode;
+
+    public TestToggleClimbTilt(OI.Mode mode)
+    {
+        this.mode = mode;
+>>>>>>> develop:src/main/java/frc/robot/commands/TestToggleClimbTilt.java
     }
 
     protected void initialize()
     {
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+            
+        // TODO: Code the TestToggleClimbTilt command!
     }
 
     protected void execute()

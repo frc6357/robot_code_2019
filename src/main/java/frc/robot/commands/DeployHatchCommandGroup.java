@@ -4,6 +4,7 @@ import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+
 /**
  * A class supporting the command sequence used to grab a hatch.
  */
@@ -23,7 +24,7 @@ public class DeployHatchCommandGroup extends CommandGroup
         // Do not execute this command if we're not in the required mode!
         if(Robot.oi.getMode() != mode)
             return;
-
+a
     }
 
     // Called repeatedly when this Command is scheduled to run

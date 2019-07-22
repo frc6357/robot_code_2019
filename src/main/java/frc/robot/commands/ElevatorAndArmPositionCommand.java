@@ -28,6 +28,11 @@ public class ElevatorAndArmPositionCommand extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        // Do not execute this command if we're not in the required mode!
+        if(Robot.oi.getMode() != mode)
+            return;
+    
+        // TODO: Code the ClimbStartWithCheck command.
     }
 
     // Called repeatedly when this Command is scheduled to run

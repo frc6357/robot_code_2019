@@ -48,7 +48,6 @@ public class SK19Lift extends Subsystem
     public boolean                             ballOveride;
     public BaseRoller                           transferRoller;
 
-
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
     *   TODO: The actual values for the hatch and the cargo placement will need to be verified at a later point.
@@ -113,15 +112,22 @@ public class SK19Lift extends Subsystem
         double setAngle     = 0.0;
         boolean setPosition = false;
         boolean hatchSensor = this.HatchSensor.getIsTriggered();
+<<<<<<< HEAD
         boolean ballSensor  = this.BallSensor.getIsTriggered();
 
         if (hatchSensor && !ballSensor)
         {
+=======
+        boolean ballSensor = this.BallSensor.getIsTriggered();
+        
+        if (HatchSensor.getIsTriggered() && !BallSensor.getIsTriggered())
+        {   
+>>>>>>> develop
             setAngle = lookupTable[posIndex][cargoIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][cargoIndexSearch].ElevatorUp;
             lastPosition = posIndex;
         }
-        else if (ballSensor && !hatchSensor)
+        else if (BallSensor.getIsTriggered() && !HatchSensor.getIsTriggered())
         {
             setAngle = lookupTable[posIndex][hatchIndexSearch].armAngle;
             setPosition = lookupTable[posIndex][hatchIndexSearch].ElevatorUp;
@@ -157,7 +163,10 @@ public class SK19Lift extends Subsystem
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
     /**
      *  This method that takes a double value and sets the arm motor controller to a specific speed to be moving at.
      *  @param speed
@@ -169,6 +178,7 @@ public class SK19Lift extends Subsystem
         this.ArmMotor.set(speed);
     }
 
+<<<<<<< HEAD
         /**
      *  This method that takes a double value and sets the arm motor controller to a specific speed to be moving at.
      *  @param speed
@@ -176,6 +186,15 @@ public class SK19Lift extends Subsystem
      *      - This double value if positive up to 1.0 sets the motor to run forwards at that speed. If the value is negative then the motor will turn backwards at that set speed.
      */
     public double testGetArmPositionMotorSpeed()
+=======
+    /**
+     *  This sets the elevator position to either up or false based on the boolean parameter
+     *  @param ElevUp
+     *      - Type: boolean
+     *      - If this is true it sets the elevator to the highest position and if false it sets it to the lowest position
+     */
+    public void testSetElevatorPosition(boolean ElevUp)
+>>>>>>> develop
     {
         return this.ArmMotor.get();
     }
@@ -244,11 +263,14 @@ public class SK19Lift extends Subsystem
         }
     }
 
+<<<<<<< HEAD
     public boolean isHatchGripperLocked()
     {
         return RobotHatch.isHatchLatched();
     }
 
+=======
+>>>>>>> develop
     /**
      *  This method takes a boolean value and decides whether to extend the pushing mechanism on the hatch mechanism to push off a hatch, or to retract it and keep the hatch on
      *  @param pusherExtend
@@ -267,6 +289,7 @@ public class SK19Lift extends Subsystem
         }
     }
 
+<<<<<<< HEAD
     public boolean isHatchPusherExtended()
     {
         return RobotHatch.isHatchPistonExtended();
@@ -334,6 +357,16 @@ public class SK19Lift extends Subsystem
             ).start();
         }
         /*
+=======
+    /**
+     *  This method takes a double value and runs a comparison on it to see if it's greater than, less than or equal to zero
+     *  @param cargoSpeed
+     *      - Type double:
+     *      - This value should either be something greater than zero, less than zero or at zero and the cargo roller will be set to either forwards, backwards or will stop depending on the value 
+     */
+    public void cargoSystem(double cargoSpeed)
+    {
+>>>>>>> develop
         if (cargoSpeed > 0)
         {
             OctopusRoller.setForwards();
@@ -346,6 +379,7 @@ public class SK19Lift extends Subsystem
         {
             OctopusRoller.setStop();
         }
+<<<<<<< HEAD
         */
     }
 
@@ -421,4 +455,8 @@ public class SK19Lift extends Subsystem
     {
         ballOveride = state;
     }
+=======
+    }
+
+>>>>>>> develop
 }

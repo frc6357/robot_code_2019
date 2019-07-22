@@ -1,42 +1,41 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.TuningParams;
-
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting switching the drivetrain between low and high gear.
+ * A class supporting timed delays. This is intended for use in
+ * command groups where a delay is required between adjacent commands.
  */
-public class SlowModeCommand extends Command
+public class DelayCommand extends Command
 {
-    private double coeff          = TuningParams.driveJoystickCoefficient;
+    private int msDelay;
+    private int msToGo;
+    private final int msPerPeriodic = 20;
 
-    /**
-     *
-     * @param high sets the gearing to either high or low based on a boolean variable
-     */
-    public SlowModeCommand(boolean bSlow)
+    public DelayCommand(int msDelay)
     {
-        this.coeff = TuningParams.driveJoystickCoefficient / (bSlow ? 2 : 1);
+        this.msDelay = msDelay;
     }
+  
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        Robot.oi.setDriverJoystickCoefficient(coeff);
+        msToGo = msDelay;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-
+        msToGo -= msPerPeriodic;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return true;
+        return (msToGo <= 0);
     }
 
     // Called once after isFinished returns true

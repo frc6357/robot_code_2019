@@ -26,6 +26,7 @@ public class IntakeWaitForCargoCommand extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,14 +35,15 @@ public class IntakeWaitForCargoCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
 
+        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
         return true;
+
     }
 
     // Called once after isFinished returns true

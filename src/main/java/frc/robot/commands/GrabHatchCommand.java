@@ -22,6 +22,9 @@ public class GrabHatchCommand extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        if (mode != Robot.oi.getMode())
+            return;
+        Robot.Lift.HatchGripper(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
