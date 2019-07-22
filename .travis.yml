@@ -1,6 +1,5 @@
 sudo: false
 language: java
-before_install:
-  - ./travisInstall.sh
+
 script: ./frc2019/SpringKonstant/robot_code_2019/gradlew build
 jdk: oraclejdk8
