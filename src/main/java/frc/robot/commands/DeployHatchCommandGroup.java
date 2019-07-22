@@ -24,7 +24,7 @@ public class DeployHatchCommandGroup extends CommandGroup
         // Do not execute this command if we're not in the required mode!
         if(Robot.oi.getMode() != mode)
             return;
-a
+
     }
 
     // Called repeatedly when this Command is scheduled to run

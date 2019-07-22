@@ -37,15 +37,11 @@ public class TestElevatorMove extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-<<<<<<< HEAD:src/main/java/frc/robot/commands/test/TestElevatorMove.java
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
             
         Robot.Lift.SetElevatorPosition(up);
-=======
-        Robot.Lift.testSetElevatorPosition(up);
->>>>>>> develop:src/main/java/frc/robot/commands/TestElevatorMove.java
     }
 
     // Make this return true when this Command no longer needs to run execute()
