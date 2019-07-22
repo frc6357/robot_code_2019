@@ -2,4 +2,4 @@ sudo: false
 language: java
 
 script: ./frc2019/SpringKonstant/robot_code_2019/gradlew build
-jdk: oraclejdk8
+jdk: oraclejdk11
