@@ -31,4 +31,3 @@ build/*
 .gradle/buildOutputCleanup/cache.properties
 *.bin
 *.bin
-build.gradle
