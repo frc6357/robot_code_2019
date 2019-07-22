@@ -1,5 +1,5 @@
 sudo: false
 language: java
-
+dist: bionic
 script: ./gradlew build
 jdk: oraclejdk11
