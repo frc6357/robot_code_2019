@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.OI;
 import frc.robot.Ports;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -22,9 +23,9 @@ public class IntakeCommandGroup extends CommandGroup
         this.mode   = mode;
 
         addSequential(new IntakeRollersCommand(mode, true, false));
-        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmDeployedAngle));
-        addSequential(new IntakeWaitForCargoCommand(mode, true));
-        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmStowedAngle));
+        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmDeployedAngle, true));
+        addSequential(new IntakeWaitForCargoCommand(mode));
+        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmStowedAngle, false));
         addSequential(new IntakeRollersCommand(mode, false, false));
     }
 

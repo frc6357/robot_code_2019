@@ -113,10 +113,6 @@ public class Ports
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
     
-    // Stowed and deployed angles for intake arm
-    // TODO: Verify values, these were added just to fix build -- JE
-    public static final int intakeArmDeployedAngle = 300;
-    public static final int intakeArmStowedAngle = 100;
     // IR proximity detector to detect presence of ball immediately after ingest.
 
     // TODO: The mechanism to move the cargo from the initial intake to the
