@@ -1,6 +1,7 @@
 package frc.robot.commands.test;
 
 import frc.robot.Robot;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 
