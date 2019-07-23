@@ -23,9 +23,9 @@ public class IntakeCommandGroup extends CommandGroup
         this.mode   = mode;
 
         addSequential(new IntakeRollersCommand(mode, true, false));
-        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmDeployedAngle, true));
+        addSequential(new IntakeArmPositionCommand(mode, TuningParams.intakeArmDeployedAngle, true));
         addSequential(new IntakeWaitForCargoCommand(mode));
-        addSequential(new IntakeArmPositionCommand(mode, Ports.intakeArmStowedAngle, false));
+        addSequential(new IntakeArmPositionCommand(mode, TuningParams.intakeArmStowedAngle, false));
         addSequential(new IntakeRollersCommand(mode, false, false));
     }
 
