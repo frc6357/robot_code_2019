@@ -5,32 +5,33 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the command sequence used to toggle the climb
- * motor on and off in test mode.
+ * A command group implementing the sequence necessary to pull cargo into the robot.
  */
-public class TestClimbStart extends Command
+public class IntakeCancelCommand extends Command
 {
     private OI.Mode mode;
 
-    public TestClimbStart(OI.Mode mode)
+    /**
+     *
+     *
+     **/
+    public IntakeCancelCommand(OI.Mode mode)
     {
-        this.mode = mode;
+        requires(Robot.Intake);
+        this.mode   = mode;
     }
-  
-    // Called just before this Command runs the first time
+
     protected void initialize()
     {
-        // Only execute this if we're in the correct mode.
+    }
+
+    protected void execute()
+    {
         if(mode != Robot.oi.getMode())
             return;
 
-        // TODO: Code the TestClimbStart command!
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
-    
+        Robot.Intake.stowCargoIntake();
+        Robot.Intake.setRollerSpeed(0.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

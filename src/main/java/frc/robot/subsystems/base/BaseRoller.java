@@ -9,8 +9,10 @@ public class BaseRoller
 {
     // Speed Controller
     private SpeedController motorController;
-    private double speed = 1;
-    private int directionReader;
+    private double speed = 1.0;
+    private double currentSpeed = 0.0;
+    public static enum Direction { BACKWARD, STOPPED, FORWARD };
+    public Direction directionReader;
 
     /**
      *  Constructor:
@@ -33,7 +35,7 @@ public class BaseRoller
      * 
      *  Creates the base class for any rollers
      * 
-     *  @param motorController
+    //  *  @param motorController
      *      - Type: Motor Controller
      *      - Used to control the speed of the motor
      * 
@@ -45,7 +47,6 @@ public class BaseRoller
     {
         this.motorController = motorController;
         this.speed = speed;
-        setSpeed(0);
     }
 
     /**
@@ -53,8 +54,12 @@ public class BaseRoller
      */
     public void setForwards()
     {
-        motorController.set(speed);
-        directionReader = 1;
+        if(currentSpeed != speed)
+        {
+            currentSpeed = speed;
+            motorController.set(currentSpeed);
+        }
+        directionReader = Direction.FORWARD;
     }
 
     /**
@@ -62,8 +67,12 @@ public class BaseRoller
      */
     public void setBackwards()
     {
-        motorController.set(-1*speed);
-        directionReader = -1;
+        if(currentSpeed != -speed)
+        {
+            currentSpeed = -speed;
+            motorController.set(currentSpeed);
+        }
+        directionReader = Direction.BACKWARD;
     }
 
     /**
@@ -71,8 +80,12 @@ public class BaseRoller
      */
     public void setStop()
     {
-        motorController.set(0);
-        directionReader = 0;
+        if(currentSpeed != 0.0)
+        {
+            currentSpeed = 0.0;
+            motorController.set(0.0);
+        }
+        directionReader = Direction.STOPPED;
     }
 
     /**
@@ -82,7 +95,7 @@ public class BaseRoller
      *      - Values of -1, 0, 1
      *      - Used to check whether motor is stopped, moving forwards or backwards
      */
-    public int getDirection()
+    public BaseRoller.Direction getDirection()
     {
         return directionReader;
     }
@@ -107,5 +120,24 @@ public class BaseRoller
     public double returnSpeed()
     {
         return this.speed;
+    }
+
+    /**
+     * Function for test use only. This sets the motor to run at the commanded speed,
+     * regardless of the speed set during initialization.
+     */
+    public void testSetSpeed(double speed)
+    {
+        motorController.set(speed);
+        currentSpeed = speed;
+        directionReader = (speed > 0.0) ? Direction.FORWARD : ((speed == 0.0) ? Direction.STOPPED : Direction.BACKWARD);
+    }
+
+    /**
+     * Retrieve the current speed of the roller.
+     */
+    public double testGetSpeed()
+    {
+        return currentSpeed;
     }
 }

@@ -13,6 +13,7 @@ public class BaseMotorizedArm
 {
     // Rotate Speed Controller
     private final SpeedController armRotateMotor;
+    private double currentSpeed = 0.0;
 
     // Limit Sensors
     private final BaseLimitSensor armLimitTop;
@@ -45,8 +46,7 @@ public class BaseMotorizedArm
         armState = ArmStates.STOPPED;
 
         this.armRotateMotor = armRotateMotor;
-
-        this.armLimitTop = armLimitTop;
+        this.armLimitTop    = armLimitTop;
         this.armLimitBottom = armLimitBottom;
     }
 
@@ -76,6 +76,14 @@ public class BaseMotorizedArm
     }
 
     /**
+     * Returns the currently commanded speed of the motor.
+     */
+    public double getSpeed()
+    {
+        return currentSpeed;
+    }
+    
+    /**
      *  Set the speed of the arm
      *
      * @param speed
@@ -93,7 +101,11 @@ public class BaseMotorizedArm
             }
             else
             {
-                armRotateMotor.set(speed);
+                if(speed != currentSpeed)
+                {
+                    currentSpeed = speed;
+                    armRotateMotor.set(speed);
+                }
                 armState = ArmStates.MOVING_UP;
             }
         }
@@ -106,7 +118,11 @@ public class BaseMotorizedArm
             }
             else
             {
-                armRotateMotor.set(speed);
+                if(speed != currentSpeed)
+                {
+                    currentSpeed = speed;
+                    armRotateMotor.set(speed);
+                }
                 armState = ArmStates.MOVING_DOWN;
             }
         }
@@ -134,7 +150,8 @@ public class BaseMotorizedArm
      */
     public void stop()
     {
-        armRotateMotor.set(0);
+        currentSpeed = 0.0;
+        armRotateMotor.set(0.0);
     }
 
     /**

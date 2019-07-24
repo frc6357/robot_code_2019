@@ -1,37 +1,44 @@
-package frc.robot.commands;
+package frc.robot.commands.util;
 
 import frc.robot.Robot;
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting switching the drivetrain between low and high gear.
+ * A class sets the normal or override operator control mode
  */
-public class GearShiftCommand extends Command
+public class ModeSelect extends Command
 {
-    private boolean SelectHigh;
 
     /**
      *
-     * @param high sets the gearing to either high or low based on a boolean variable
+     * @param Override sets manual override mode if true, else sets normal control mode.
      */
-    public GearShiftCommand(boolean high)
+    public ModeSelect()
     {
-        requires(Robot.Drive);
-        SelectHigh = high;
+
     }
+
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        OI.Mode RobotState = Robot.oi.getMode();
+        if (RobotState == OI.Mode.NORMAL)
+        {
+            Robot.oi.setMode(OI.Mode.MANUAL);
+        }
+        else if(RobotState == OI.Mode.MANUAL)
+        {
+            Robot.oi.setMode(OI.Mode.NORMAL);
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        if(SelectHigh != Robot.Drive.baseDrive.getIsHighGear())
-        {
-            Robot.Drive.baseDrive.setHighGear(SelectHigh);
-        }
+
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -3,8 +3,6 @@
  */
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
-
 /**
  *
  * This class defines the connections of all actuators and controllers to the
@@ -29,7 +27,7 @@ public class Ports
     //
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
-    
+
     // ***************************
     // Pneumatic Control Module(s)
     // ***************************
@@ -43,7 +41,7 @@ public class Ports
 
     public static final int driveRightFrontMotor         = 16;   // CAN ID 16
     public static final int driveRightRearMotor          = 12;   // CAN ID 12
-    
+
     public static final int driveGearShiftPCM            = pcm1;
     public static final int driveGearShiftHigh           = 0;    // PCM 1 output 0
 
@@ -56,16 +54,6 @@ public class Ports
     public static final int driveEncoderPulsesPerRotation = 256;
     public static final double driveWheelDiameterInches   = 6.0;
 
-    // These values are the maximum motors speed change (where the range is [-1, 1])
-    // per 20mS. These give us a 0.2 second ramp from stopped to maximum speed in 
-    // either direction. Tune these as required.
-    public static final double driveMaxAccelForward       = 0.1;
-    public static final double driveMaxAccelBackwards     = 0.1;
-    
-    // Set this to determine the maximum speed of the robot. 0.5 means that
-    // full joystick will drive the motors at 50% of their maximum rate.
-    public static final double driveJoystickCoefficient   = -1.0;
-
     // *************
     // Hatch Gripper
     // *************
@@ -74,12 +62,13 @@ public class Ports
 
     // The hatch gripper and deploy mechanism uses double solenoids so we need
     // two PCM channels per piston.
-    public static final int hatchGripperOut              = 2;    // PCM 1 output 2
-    public static final int hatchGripperIn               = 4;    // PCM 1 output 4
-    public static final int hatchGripperLock             = 3;    // PCM 1 output 3
-    public static final int hatchGripperUnlock           = 5;    // PCM 1 output 5
+    public static final int hatchGripperOut              = 5;    // PCM 1 output 2
+    public static final int hatchGripperIn               = 3;    // PCM 1 output 4
+    public static final int hatchGripperLock             = 4;    // PCM 1 output 3
+    public static final int hatchGripperUnlock           = 2;    // PCM 1 output 5
 
     public static final int hatchContactSwitch           = 4;    // DIO 4
+    public static final boolean hatchContactSwitchOn     = false; // State when pressed
 
     // **************
     // Lift Subsystem
@@ -89,112 +78,80 @@ public class Ports
     // Elevator components
     //
     public static final int elevatorPCM                  = pcm1;
-    public static final int elevatorUp                   = 6;    // PCM 1 output 6
+    public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
-    public static final int elevatorProximityUp          = 5;    // DIO input 5
-    public static final int elevatorProximityDown        = 6;    // DIO input 6
+    public static final int elevatorProximityUp          = 47;
+    public static final int elevatorProximityDown        = 5;    // DIO input 5
 
     //
     // Arm components
     //
     public static final int armRotateMotor               = 21;   // CAN ID 21
 
-    public static final SPI.Port armEncoderSPI           = SPI.Port.kOnboardCS0; 
+    public static final int armEncoderA                  = 14;    // DIO input 14
+    public static final int armEncoderB                  = 15;    // DIO input 15
+    public static final double armEncoderDiameter        = 0.25;
     public static final int armEncoderPulsesPerRev       = 1024;
 
-    // TODO: Verify whether we connect these to roboRIO or directly to the motor
-    //       controller.
-    public static final int armLimitTop                  = 9;    // DIO input 9
+    public static final int armLimitTop                  = 7;    // DIO input 7
+    public static final boolean armLimitTopOn            = false;// State when pressed
+
     public static final int armLimitBottom               = 10;   // DIO input 10
-
-    public static final boolean ElevatorPosition0        = false; // Elevator Position for intake
-    public static final boolean ElevatorPosition1        = false; // Elevator Postion for level 1
-    public static final boolean ElevatorPosition2        = true;  // Elevator Position for level 2
-    public static final boolean ElevatorPosition3        = true;  // Elevator Position for level 3
-    public static final double ArmPosition0              = 0.0;   // Arm Positiom for level 0
-    public static final double ArmPositionHatch1         = 5.0;   // Hatch Position for level 1
-    public static final double ArmPositionHatch2         = 5.0;   // Hatch Position for level 2
-    public static final double ArmPositionHatch3         = 50.0;  // Hatch Position for level 3
-    public static final double ArmPostionCargo1          = 10.0;   // Cargo Position for level 1
-    public static final double ArmPositionCargo2         = 10.0;   // Cargo Position for level 2
-    public static final double ArmPositionCargo3         = 55.0;  // Cargo Postion for level 3
-
-
-    // TODO: Define this information once climb design is clearer.
+    public static final boolean armLimitBottomOn         = false;// State when pressed
 
     // ********************************************
     // Cargo Intake Subsystem (Intake and conveyor)
     // ********************************************
-    public static final int intakeRollerMotor            = 20;   // CAN ID 20
-    public static final int intakeArmMotor               = 25;   // CAN ID 25
+    public static final int intakeRollerMotor            = 25;   // CAN ID 20
+    public static final int intakeArmMotor               = 20;   // CAN ID 25
 
-    // TODO: We're using an SSI-based absolute encoder on the arm so change
-    //       these to indicate SSI port and CS number instead of DIOs.
-    public static final SPI.Port intakeEncoderSPI        = SPI.Port.kOnboardCS1; 
+    public static final int intakeArmEncoderA            = 8;   // DIO input 8
+    public static final int intakeArmEncoderB            = 9;   // DIO input 9
+    public static final double intakeArmEncoderDiameter  = 0.25;
     public static final int intakeEncoderPulsesPerRev    = 1024;
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
-
+    
     // IR proximity detector to detect presence of ball immediately after ingest.
-    public static final int intakeIngestDetect           = 11;   // DIO input 11
 
     // TODO: The mechanism to move the cargo from the initial intake to the
     // "octopus" must be finalized! The following definitions are likely
     // incorrect.
-    public static final int intakeTransferMotorLeft      = 22;   // CAN ID 22
-    public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
+    public static final int intakeTransferMotor          = 22;   // CAN ID 22
+    //public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
 
     // This is an IR proximity sensor detecting the presence of cargo between the transfer
     // rollers.
-    public static final int intakeTransferDetect         = 12;   // DIO input 12
 
-    // The speed of the intake and transfer roller motors when enabled.
-    public static final double intakeTransferMotorSpeed  = 0.25;
-    public static final double intakeIngestMotorSpeed    = 0.5;
-    public static final double intakeArmMotorSpeed       = 0.25;
+    public static final int intakeIngestDetect           = 11;   // DIO input 11
+    public static final boolean intakeIngestDetectPresent   = true;
 
-    // The angle (in degrees from the stowed position) to move the intake arm to
-    // when deployed.
-    //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 90.0;
-    public static final double intakeArmStowedAngle      = 0.0;
-
-    // The triggered states of the ingest and transfer proximity sensors.
-    // TODO: Set these states according to the way the sensor is wired.
-    public static final boolean intakeIngestDetectState   = true;
-    public static final boolean intakeTransferDetectState = true;
+    // public static final int intakeTransferDetect         = 12;   // DIO input 12
+    // public static final boolean intakeTransferDetectPresent = true;
 
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
-    public static final int octopusMotor                 = 30;   // CAN ID 30
-    public static final int octopusCargoDetect           = 13;   // DIO input 13
+    public static final int octopusMotor                 = 30; // CAN ID 30
 
-    // The triggered state of the cargo detect sensor.
-    // TODO: Set this state according to the way the sensor is wired.
-    public static final boolean octopusCargoDetectState  = true;
-
-    // The fixed speed at which the octopus motor will run when turned on.
-    // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25; 
+    public static final int octopusCargoDetect           = 6;   // DIO input 6
+    public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
     // Climb Subsystem
     // ***************
-    public static final int climbPCM                     = pcm1; 
+    public static final int climbPCM                     = pcm1;
 
-    public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
-    public static final int climbMotor                   = 40;   // CAN ID 40
+    public static final int climbLiftFront               = 7;    // PCM 1 channel 7
+    public static final int climbLiftBack                = 6;    // PCM 1 channel 6
 
-    // ******************
-    // Additional sensors
-    // ******************
+    public static final int climbWedgeLockServo          = 7;    // DIO 7
 
-    // TODO: Will these be fitted? 
-    public static final int driveFrontRangefinder        = 0;    // ADC channel 0
-    public static final int driveRearRangefinder         = 1;    // ADC channel 1
+    // Front wedge motors
+    public static final int climbWedgeWheelMotorRight     = 40;   // CAN ID 40
+    public static final int climbWedgeWheelMotorLeft      = 41;   // CAN ID 41
 
     //
     // Driver's and operator's OI channel assignments
@@ -212,16 +169,23 @@ public class Ports
     public static final int OIDriverRightDrive           = 5;    // Right Joystick Y
     public static final int OIDriverSlow                 = 5;    // Left bumper
 
-    public static final int IODriverGearShift            = 6;    // Button A
-    public static final int OIDriverCameraSwitcher       = 2;     // Button B
+    public static final int IODriverGearShift            = 6;    // Right Bumper
 
     // *********************
     // Operator Controller
     // *********************
-    public static final int OIOperatorJoystick           = 0;        
+    public static final int OIOperatorJoystick           = 1;
 
-    public static final int OIOperatorJoystickL          = 9;    // Left Joytsick
-    public static final int OIOperatorJoystickR          = 10;   // Right Joystick
+    public static final int OIOperatorTriggerLJoystick   = 2;    // Left Trigger
+    public static final int OIOperatorTriggerRJoystick   = 3;    // Right Trigger
+    public static final int OIOperatorJoystickLY         = 1;    // Left stick, Y axis
+    public static final int OIOperatorJoystickLX         = 0;    // Left stick, X axis
+    public static final int OIOperatorJoystickRY         = 5;    // Right stick, Y axis
+    public static final int OIOperatorJoystickRX          = 4;
+
+    public static final int OIOperatorJoystickL          = 9;    // Left Joystick button
+    public static final int OIOperatorJoystickR          = 10;   // Right Joystick button
+
     public static final int OIOperatorLeftBumper         = 5;    // Left Bumper
     public static final int OIOperatorRightBumper        = 6;    // Right Bumper
 
@@ -229,10 +193,6 @@ public class Ports
     public static final int OIOperatorButtonB            = 2;    // B Button
     public static final int OIOperatorButtonY            = 4;    // Y Button
     public static final int OIOperatorButtonX            = 3;    // X Button
-
-    public static final int OIOperatorTriggerJoystick    = 3;    // Left & Right Trigger
-
-    public static final int OIOperatorJoystickLY         = 2;    // Up D-Pad, Joystick axis 2
 
     public static final int OIOperatorBack               = 7;    // Back/Select Button
     public static final int OIOperatorStart              = 8;    // Start Button

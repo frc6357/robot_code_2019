@@ -7,6 +7,7 @@ package frc.robot;
 
 import frc.robot.OI;
 import frc.robot.commands.*;
+// import frc.robot.commands.test.*;
 import frc.robot.utils.FilteredJoystick;
 import frc.robot.utils.filters.*;
 
@@ -50,7 +51,6 @@ public class OI
     private static FilteredJoystick joystickDriver;
     private static ExponentialFilter driveJoystickFilter;
 
-    private static Button buttonCameraShifter;
     private static Button buttonShifter;
     private static Button buttonSlowMode;
 
@@ -60,18 +60,22 @@ public class OI
     private static Button buttonOperatorB;
     private static Button buttonOperatorX;
     private static Button buttonOperatorY;
+    private static Button buttonOperatorLeftBumper;
+    public static Button buttonOperatorRightBumper;
+    private static Button buttonOperatorStart;
     private static Button buttonOperatorLeftStick;
     private static Button buttonOperatorRightStick;
-    private static Button buttonOperatorLeftBumper;
-    private static Button buttonOperatorRightBumper;
     private static Button buttonOperatorBack;
-    private static Button buttonOperatorStart;
-    
-    public enum Mode { NONE, TEST, NORMAL, MANUAL };
+
+    // Currently unused...
+    //private static Button buttonOperatorLeftStick;
+    //private static Button buttonOperatorRightStick;
+    //private static Button buttonOperatorBack;
+
+    public static enum Mode { NONE, TEST, NORMAL, MANUAL };
+
 
     private static Mode oiMode = Mode.NONE;
-
-    private static ModeSelect modeToggle = new ModeSelect();
 
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
@@ -83,7 +87,8 @@ public class OI
 
         // Add an exponential filter to the driver joystick to damp the response around the zero
         // point. The coefficient here must be negative
-        driveJoystickFilter = new ExponentialFilter(Ports.driveJoystickCoefficient);
+        driveJoystickFilter = new ExponentialFilter(TuningParams.driveJoystickCoefficient);
+
         joystickDriver.setFilter(Ports.OIDriverLeftDrive, driveJoystickFilter);
         joystickDriver.setFilter(Ports.OIDriverRightDrive, driveJoystickFilter);
 
@@ -96,9 +101,6 @@ public class OI
         buttonSlowMode.whenPressed(new SlowModeCommand(true));
         buttonSlowMode.whenReleased(new SlowModeCommand(false));
 
-        // TODO: Revisit this if we end up having multiple cameras.
-        buttonCameraShifter = new JoystickButton(joystickDriver, Ports.OIDriverCameraSwitcher);
-
         // Instantiate the operator joystick devices.
         joystickOperator = new FilteredJoystick(Ports.OIOperatorJoystick);
 
@@ -106,72 +108,61 @@ public class OI
         buttonOperatorB           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonB);
         buttonOperatorX           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonX);
         buttonOperatorY           = new JoystickButton(joystickOperator, Ports.OIOperatorButtonY);
-        buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
-        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
         buttonOperatorLeftBumper  = new JoystickButton(joystickOperator, Ports.OIOperatorLeftBumper);
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
-        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
 
-        //*************************************
-        // Button mappings common to all modes.
-        //*************************************
-        buttonOperatorBack.whenPressed(new ModeSelect());
-        
+        buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
-        //************************************
-        // Test mode operator button mappings.
-        //************************************
+        // Currently unused.
+        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
+        //buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        //buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
+
+        // Test mode command bindings.
+        /*
+        buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
+        buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
+        buttonOperatorX.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.TEST));
+        buttonOperatorB.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
+        buttonOperatorB.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, false, false));
         buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.TEST, false));
         buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
+        buttonOperatorLeftBumper.whenPressed(new TestGrabHatchToggle(OI.Mode.TEST));
+        buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
+        */
 
-        buttonOperatorB.whenActive(new TestIntakeMoveArm(OI.Mode.TEST, false, true));
-        buttonOperatorB.whenInactive(new TestIntakeMoveArm(OI.Mode.TEST, false, false));
-        buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
-        buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
+        // Manual mode command bindings.
+        buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, false));
+        buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, true));
 
-        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.TEST, false, true));
+        // buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
+        // buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
 
-        buttonOperatorLeftBumper.whenPressed(new TestToggleGrabHatch(OI.Mode.TEST));
-        buttonOperatorStart.whenPressed(new TestToggleDeployHatch(OI.Mode.TEST));
+        // buttonOperatorRightStick.whenPressed(new CargoTransferPullIn(OI.Mode.MANUAL));
 
-        buttonOperatorLeftStick.whenPressed(new TestClimbStart(OI.Mode.TEST));
-        buttonOperatorRightStick.whenPressed(new TestToggleTransportRoller(OI.Mode.TEST));
+        // buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
 
-        buttonOperatorBack.whenPressed(new TestToggleClimbTilt(OI.Mode.TEST));
+        buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
+        buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
-        //**************************************
-        // Manual mode operator button mappings.
-        //**************************************
-        buttonOperatorA.whenPressed(new TestElevatorMove(OI.Mode.MANUAL, false));
-        buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.MANUAL, true));
+        buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorB.whenActive(new TestIntakeMoveArm(OI.Mode.MANUAL, false, true));
-        buttonOperatorB.whenInactive(new TestIntakeMoveArm(OI.Mode.MANUAL, false, false));
-        buttonOperatorRightBumper.whenActive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, true));
-        buttonOperatorRightBumper.whenInactive(new TestIntakeMoveArm(OI.Mode.MANUAL, true, false));
+        // buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        // buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
 
-        buttonOperatorX.whenPressed(new IntakeRollersCommand(OI.Mode.MANUAL, false, true));
+        //buttonOperatorStart.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, true));
+        //buttonOperatorBack.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, false));
 
-        buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.MANUAL));
-        buttonOperatorStart.whenPressed(new ReleaseHatch(OI.Mode.MANUAL));
-
-        buttonOperatorLeftStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorRightStick));
-        buttonOperatorRightStick.whenPressed(new ClimbStartWithCheck(OI.Mode.MANUAL, buttonOperatorLeftStick));
-
-        //**************************************
-        // Normal mode operator button mappings.
-        //**************************************
-        // TODO: Set up control actions for normal mode.
-        if(Robot.Lift.HatchSensor.getIsTriggered() || buttonOperatorLeftBumper.get())
-            buttonOperatorLeftBumper.whenPressed(new GrabHatch(OI.Mode.NORMAL));
 
     }
 
     /**
      * Set the transfer function coefficient used by the driver (speed) joystick.
-     * 
-     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0. 
+     *
+     * @param coeff - The coefficient to use. Valid values are -1.0 to 1.0.
      */
     public void setDriverJoystickCoefficient(double coeff)
     {
@@ -188,15 +179,9 @@ public class OI
      * @return returnType The value of the joystick axis. Note that this may be a filtered value if we subclass the joystick to allow
      *         control of deadbands or response curves.
      */
-    public double getDriverJoystickValue(int port, boolean invert)
+    public double getDriverJoystickValue(int port)
     {
-        double multiplier = 1.0;
-
-        if (invert)
-        {
-            multiplier = -1.0;
-        }
-        return multiplier * joystickDriver.getRawAxis(port);
+        return joystickDriver.getFilteredAxis(port);
     }
 
     /**
@@ -212,19 +197,19 @@ public class OI
      */
     public double getOperatorJoystickValue(int port, boolean invert)
     {
-        double multiplier = 1.0;
-
+        double multiplier = 1;
         if (invert)
         {
             multiplier = -1.0;
         }
+        //System.out.println(buttonOperatorLeftBumper.get() + " Left Bumper " + buttonOperatorRightBumper.get() + " Right Bumper ");
         return (multiplier * joystickOperator.getRawAxis(port));
     }
 
     /**
-     * This method wires up the operator interface controls depending upon the mode that the 
+     * This method wires up the operator interface controls depending upon the mode that the
      * robot is operating in. Valid combinations of the two parameters are:
-     * 
+     *
      *                           ----------------------------------
      *                     bTest |    false         |     true    |
      * bManualOverride           |------------------|--------------
@@ -234,7 +219,7 @@ public class OI
      *                    false  |     Normal       |     Test    |
      *                           | game operation   |     Mode    |
      *                           ----------------------------------
-     * 
+     *
      * @param bTest Sets operator controls for test mode.
      * @param bManualOverride Sets normal or manual override mode. Ignored if bTest is true.
      */
@@ -261,9 +246,9 @@ public class OI
     }
 
     /**
-     * This method wires up the operator interface controls depending upon the mode that the 
+     * This method wires up the operator interface controls depending upon the mode that the
      * robot is to operate in.
-     * 
+     *
      * @param mode The desired operator mode - TEST, NORMAL or MANUAL. See the Robot User Manual for
      *             details of the control mappings in each mode.
      */
@@ -274,37 +259,31 @@ public class OI
         switch(mode)
         {
             case NONE:
-            {
                 SmartDashboard.putString("Operator Mode", "NONE");
                 SmartDashboard.putBoolean("Operator Override", false);
-            }
-            break;
+                break;
 
             case TEST:
-            {
                 SmartDashboard.putString("Operator Mode", "TEST");
                 SmartDashboard.putBoolean("Operator Override", false);
-            }
-            break;
+                break;
 
             case NORMAL:
-            {
                 SmartDashboard.putString("Operator Mode", "NORMAL");
                 SmartDashboard.putBoolean("Operator Override", false);
-            }
-            break;
+                break;
 
             case MANUAL:
-            {
                 SmartDashboard.putString("Operator Mode", "MANUAL");
                 SmartDashboard.putBoolean("Operator Override", true);
-            }
-            break;
+                break;
+
         }
     }
+
     /**
      * Query the current operating mode of the robot.
-     * 
+     *
      * @return The current mode, Mode.NONE, Mode.NORMAL, Mode.MANUAL or Mode.TEST
      */
     public Mode getMode()

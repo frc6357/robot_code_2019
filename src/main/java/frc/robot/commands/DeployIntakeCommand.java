@@ -5,32 +5,41 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the command sequence used to toggle the hatch grab piston
- * in test mode.
+ * A class supporting the command sequence used to grab a hatch.
  */
-public class TestToggleGrabHatch extends Command
+public class DeployIntakeCommand extends Command
 {
-    OI.Mode mode;
+    private OI.Mode mode;
+    private boolean deploy;
 
-    public TestToggleGrabHatch(OI.Mode mode)
+    public DeployIntakeCommand(OI.Mode mode, boolean deploy)
     {
-        this.mode = mode;
+        requires(Robot.Intake);
+
+        this.mode   = mode;
+        this.deploy = deploy;
     }
-  
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        // Only execute this if we're in the correct mode.
-        if(mode != Robot.oi.getMode())
-            return;
-        Robot.Lift.HatchGripper(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        if(deploy)
+        {
+            Robot.Intake.deployCargoIntake();
+        }
+        else
+        {
+            Robot.Intake.stowCargoIntake();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

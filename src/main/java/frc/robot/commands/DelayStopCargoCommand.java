@@ -1,30 +1,27 @@
 package frc.robot.commands;
+
 import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Drive the intake arm to a given angle.
+ * A command which executes until cargo either detected in or removed from the intake area.
  */
-public class IntakeArmPositionCommand extends Command
+public class DelayStopCargoCommand extends Command
 {
     private OI.Mode mode;
-    private double  setAngle;
-    private boolean rollerMove;
 
     /**
      *
      * @param mode - the operating mode in which this command must run.
-     * @param angleDegrees - the angle that the arm will be moved to when this command runs.
-     **/
-    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees, boolean rollerMove)
+     */
+    public DelayStopCargoCommand(OI.Mode mode)
     {
-        requires(Robot.Intake);
+        requires(Robot.Lift);
 
-        this.mode     = mode;
-        this.setAngle = angleDegrees;
-        this.rollerMove = rollerMove;
+        this.mode       = mode;
     }
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -37,10 +34,7 @@ public class IntakeArmPositionCommand extends Command
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
-
-        Robot.Intake.setArmAngle(setAngle);
-        double rollerSpeed = rollerMove ? 1.0: 0.0;
-        Robot.Intake.TestSetRollerSpeed(rollerSpeed);
+        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
 
     }
 

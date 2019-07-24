@@ -1,7 +1,7 @@
 package frc.robot.subsystems.base;
 
-import frc.robot.utils.ScaledEncoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import com.revrobotics.CANEncoder;
 
 //import frc.robot.subsystems.base.SPIEncoderAMT203V;
 
@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  *
  * THE PERIODIC FUNCTION MUST BE IMPLEMENTED
  */
-public class BaseAngleControlledArm extends PIDSubsystem {
+public class BaseAngleCANControlledArm extends PIDSubsystem {
 
-    public ScaledEncoder armEncoder;
+    public CANEncoder armEncoder;
     private BaseMotorizedArm arm;
     private boolean invertMotor;
 
@@ -34,7 +34,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
      *                                        tolerable for use with OnTarget.
      *
      */
-    public BaseAngleControlledArm(BaseMotorizedArm arm, ScaledEncoder armEncoder, double kP,
+    public BaseAngleCANControlledArm(BaseMotorizedArm arm, CANEncoder armEncoder, double kP,
                                     double kI, double kD, double tolerance, boolean invertMotor) {
 
         super(kP, kI, kD);
@@ -46,7 +46,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
         this.arm = arm;
         this.invertMotor = invertMotor;
 
-        armEncoder.reset();
+        armEncoder.setPosition(0.0);
     }
 
     public void periodic()
@@ -55,7 +55,7 @@ public class BaseAngleControlledArm extends PIDSubsystem {
 
         if (arm.getBottomLimitTriggered())
         {
-            armEncoder.reset();
+            armEncoder.setPosition(0.0);
         }
     }
 
@@ -66,23 +66,34 @@ public class BaseAngleControlledArm extends PIDSubsystem {
      */
     public void moveToAngleDegrees(double angle)
     {
-        setSetpoint(angle);
+        if(angle >= 70)
+        {
+            setSetpoint(70);
+        }
+        else
+        {
+            setSetpoint(angle);
+        }
     }
 
     public double getArmPosition()
     {
+        // TODO: Maybe this should be read directly from the arm encoder, the interface is there to read directly
         return getPosition();
     }
 
     public double getArmSetpoint()
     {
+        // TODO: May need to directly call returnPIDInput to be able to fully test and get the get method working
         return getSetpoint();
     }
 
     @Override
     protected double returnPIDInput()
     {
-        double encoderAngle = armEncoder.getAngleDegrees();
+        double encoderAngle = armEncoder.getPosition();
+
+        encoderAngle *= (1.0/54.0) * 90.0;
         return Math.max(encoderAngle, 0.0);
     }
 

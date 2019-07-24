@@ -1,36 +1,33 @@
-package frc.robot.commands;
+package frc.robot.commands.util;
 
-import frc.robot.Robot;
-import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the command sequence used to toggle the hatch deploy piston
- * in test mode.
+ * A class which implements a command that does absolutely nothing. This
+ * may sound silly but it's useful when switching modes and making some
+ * buttons inactive.
  */
-public class TestToggleDeployHatch extends Command
+public class NullCommand extends Command
 {
-    OI.Mode mode;
 
-    public TestToggleDeployHatch(OI.Mode mode)
+    /**
+     *
+     * @param
+     */
+    public NullCommand()
     {
-        this.mode = mode;
     }
-  
+
+
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        // Only execute this if we're in the correct mode.
-        if(mode != Robot.oi.getMode())
-            return;
-
-        // TODO: Code the TestToggleDeployHatch command!
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

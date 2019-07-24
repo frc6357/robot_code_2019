@@ -5,38 +5,36 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class sets the normal or override operator control mode
+ * A class supporting the command sequence used to grab a hatch.
  */
-public class ModeSelect extends Command
+public class GrabHatchCommand extends Command
 {
-    /**
-     * 
-     * @param Override sets manual override mode if true, else sets normal control mode.
-     */
-    public ModeSelect()
-    {   
+    private OI.Mode mode;
+    private boolean lock;
+
+    public GrabHatchCommand(OI.Mode mode, boolean lock)
+    {
+        requires(Robot.Lift);
+        this.mode = mode;
+        this.lock = lock;
     }
-  
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        if (mode != Robot.oi.getMode())
+            return;
+        Robot.Lift.HatchGripper(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        // NB: We don't change the mode unless it is originally MANUAL or NORMAL!
-        // This ensures that we stay in TEST mode if we start there.
-        OI.Mode RobotState = Robot.oi.getMode();
-        if (RobotState == OI.Mode.NORMAL)
-        {
-            Robot.oi.setMode(OI.Mode.MANUAL);
-        }
-        else if(RobotState == OI.Mode.MANUAL)
-        {
-            Robot.oi.setMode(OI.Mode.NORMAL);
-        }
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        Robot.Lift.HatchGripper(lock);
     }
 
     // Make this return true when this Command no longer needs to run execute()

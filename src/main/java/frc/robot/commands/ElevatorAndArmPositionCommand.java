@@ -3,30 +3,27 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
- * A class supporting the climb command. For safety, this class requires 2 buttons to
- * be pressed before the command will actually activate climb. The constructor takes a
- * button object which must be checked in the constructor. If this second button is
- * pressed then the climb command is activated. If not, we ignore the command and 
- * report finished immediately.
+ * A class supporting the setting of the Elevators position
  */
-public class ClimbStartWithCheck extends Command
+public class ElevatorAndArmPositionCommand extends Command
 {
-    OI.Mode mode;
-    Button  check;
+    private OI.Mode mode;
+    private String targetPosition;
 
     /**
-     * 
-     * @param Override sets manual override mode if true, else sets normal control mode.
+     *
+     * @param on If true, this command turns the roller motor on, if
+     *           false, it turns the motor off.
      */
-    public ClimbStartWithCheck(OI.Mode Mode, Button CheckBtn)
+    public ElevatorAndArmPositionCommand(OI.Mode mode, String targetPosition)
     {
-        mode = Mode;
-        check = CheckBtn;
+        requires(Robot.Lift);
+        this.mode = mode;
+        this.targetPosition = targetPosition;
     }
-  
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -41,7 +38,11 @@ public class ClimbStartWithCheck extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        Robot.Lift.setPositionTarget(targetPosition);
     }
 
     // Make this return true when this Command no longer needs to run execute()

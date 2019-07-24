@@ -1,30 +1,23 @@
 package frc.robot.commands;
+
 import frc.robot.Robot;
 import frc.robot.OI;
+import frc.robot.TuningParams;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Drive the intake arm to a given angle.
+ * A class supporting toggling the intake roller motor on and off.
  */
-public class IntakeArmPositionCommand extends Command
+public class ToggleIntakeRollerCommand extends Command
 {
-    private OI.Mode mode;
-    private double  setAngle;
-    private boolean rollerMove;
+    OI.Mode mode;
 
-    /**
-     *
-     * @param mode - the operating mode in which this command must run.
-     * @param angleDegrees - the angle that the arm will be moved to when this command runs.
-     **/
-    public IntakeArmPositionCommand(OI.Mode mode, double angleDegrees, boolean rollerMove)
+    public ToggleIntakeRollerCommand(OI.Mode mode)
     {
         requires(Robot.Intake);
-
-        this.mode     = mode;
-        this.setAngle = angleDegrees;
-        this.rollerMove = rollerMove;
+        this.mode = mode;
     }
+
 
     // Called just before this Command runs the first time
     protected void initialize()
@@ -38,10 +31,14 @@ public class IntakeArmPositionCommand extends Command
         if(mode != Robot.oi.getMode())
             return;
 
-        Robot.Intake.setArmAngle(setAngle);
-        double rollerSpeed = rollerMove ? 1.0: 0.0;
-        Robot.Intake.TestSetRollerSpeed(rollerSpeed);
-
+        if(Robot.Intake.getRollerSpeed() == 0)
+        {
+            Robot.Intake.setRollerSpeed(TuningParams.intakeIngestMotorSpeed);
+        }
+        else
+        {
+            Robot.Intake.setRollerSpeed(0.0);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -6,8 +6,8 @@ import frc.robot.subsystems.base.BaseLimitSensor;
 /**
  *  Base class that deploys the hatch and extends the hatch mechanism
  */
- public class BaseHatchMechanism
- {
+public class BaseHatchMechanism
+{
     // Solenoids
     private final DoubleSolenoid hatchDeploySolenoid;
     private final DoubleSolenoid hatchLatchSolenoid;
@@ -19,8 +19,8 @@ import frc.robot.subsystems.base.BaseLimitSensor;
      *  Intializes the required solenoids and sensors
      *  @param hatchDeploySolenoid
      *     - Type: Solenoid
-     *     - Controls the slider mechanism that moves the hatch to the rocket when retracted. 
-     *       This object must be created such that energizing the forward channel pushes the 
+     *     - Controls the slider mechanism that moves the hatch to the rocket when retracted.
+     *       This object must be created such that energizing the forward channel pushes the
      *       hatch off the gripper and energizing the reverse channel retracts the piston.
      *  @param hatchLatchSolenoid
      *     - Type: Solenoid
@@ -56,6 +56,14 @@ import frc.robot.subsystems.base.BaseLimitSensor;
     }
 
     /**
+     * Query the current state of the hatch deploy piston. Returns True if extended, false otherwise.
+     */
+    public boolean isHatchPistonExtended()
+    {
+        return ((hatchDeploySolenoid.get() == DoubleSolenoid.Value.kForward) ? true : false);
+    }
+
+    /**
      *  Opens the latch gripper to lock the hatch onto the mechanism.
      */
     public void latchHatch()
@@ -69,6 +77,14 @@ import frc.robot.subsystems.base.BaseLimitSensor;
     public void unlatchHatch()
     {
         hatchLatchSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    /**
+     * Query the current state of the hatch latch. Returns True if locked, false otherwise.
+     */
+    public boolean isHatchLatched()
+    {
+        return ((hatchLatchSolenoid.get() == DoubleSolenoid.Value.kForward) ? true : false);
     }
 
     /**
@@ -90,4 +106,4 @@ import frc.robot.subsystems.base.BaseLimitSensor;
         hatchLatchSolenoid.set(DoubleSolenoid.Value.kOff);
         hatchDeploySolenoid.set(DoubleSolenoid.Value.kOff);
     }
- }
+}

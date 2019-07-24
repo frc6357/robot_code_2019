@@ -5,45 +5,38 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A command which executes until cargo either detected in or removed from the intake area.
+ * A dummy command which can be excuted merely to cause any existing command on the intake to cancel.
  */
-public class IntakeWaitForCargoCommand extends Command
+public class IntakeDummyCommand extends Command
 {
     private OI.Mode mode;
 
-    /**
-     *
-     * @param mode - the operating mode in which this command must run.
-     */
-    public IntakeWaitForCargoCommand(OI.Mode mode)
+    public IntakeDummyCommand(OI.Mode mode)
     {
+        requires(Robot.Intake);
         requires(Robot.Lift);
-
-        this.mode       = mode;
+        this.mode   = mode;
     }
 
-
-    // Called just before this Command runs the first time
     protected void initialize()
-    {
-
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute()
     {
         // Only execute this if we're in the correct mode.
         if(mode != Robot.oi.getMode())
             return;
+            
+        // TODO: Code the TestToggleClimbTilt command!
+    }
 
-        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
+    protected void execute()
+    {
+        if(mode != Robot.oi.getMode())
+            return;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
         return true;
-
     }
 
     // Called once after isFinished returns true

@@ -5,33 +5,34 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A class supporting the command sequence used to toggle the climb
- * tilt solenoid in test mode.
+ * A class supporting hatch deploy piston.
  */
-public class TestToggleClimbTilt extends Command
+public class DeployHatchCommand extends Command
 {
-    OI.Mode mode;
+    private OI.Mode mode;
+    private boolean deploy;
 
-    public TestToggleClimbTilt(OI.Mode mode)
+    public DeployHatchCommand(OI.Mode mode, boolean deploy)
     {
-        this.mode = mode;
+        requires(Robot.Lift);
+        this.mode   = mode;
+        this.deploy = deploy;
     }
-  
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        // Only execute this if we're in the correct mode.
-        if(mode != Robot.oi.getMode())
-            return;
-            
-        // TODO: Code the TestToggleClimbTilt command!
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-    
+        // Only execute this if we're in the correct mode.
+        if(mode != Robot.oi.getMode())
+            return;
+
+        Robot.Lift.HatchPusher(deploy);
+        System.out.println("We should be pushing");
     }
 
     // Make this return true when this Command no longer needs to run execute()
