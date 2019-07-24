@@ -1,4 +1,11 @@
 # frc6357/robot_code
+Master branch CI status:
+
+[![Build Status](https://travis-ci.org/frc6357/robot_code_2019.svg?branch=master)](https://travis-ci.org/frc6357/robot_code_2019)
+
+Develop branch CI status:
+
+[![Build Status](https://travis-ci.org/frc6357/robot_code_2019.svg?branch=develop)](https://travis-ci.org/frc6357/robot_code_2019)
 
 The Spring Konstant 6357 Git Repo
 -------------------------------
