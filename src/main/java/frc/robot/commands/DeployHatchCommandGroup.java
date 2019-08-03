@@ -4,7 +4,6 @@ import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-
 /**
  * A class supporting the command sequence used to grab a hatch.
  */

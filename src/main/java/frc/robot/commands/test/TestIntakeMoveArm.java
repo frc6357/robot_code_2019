@@ -11,12 +11,11 @@ import frc.robot.OI;
 
 public class TestIntakeMoveArm extends Command
 {
-
     private double newSpeed;
     private boolean moveOut;
     private boolean startMotor;
     private OI.Mode setMode;
-
+    
     /**
      *
      * @param moveOut   Sets the direction in which the intake arm motor should move if startMotor is true.

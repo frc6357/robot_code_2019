@@ -1,4 +1,5 @@
 package frc.robot.commands;
+
 import frc.robot.Robot;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
@@ -41,7 +42,6 @@ public class IntakeArmPositionCommand extends Command
         Robot.Intake.setArmAngle(setAngle);
         double rollerSpeed = rollerMove ? 1.0: 0.0;
         Robot.Intake.TestSetRollerSpeed(rollerSpeed);
-
     }
 
     // Make this return true when this Command no longer needs to run execute()

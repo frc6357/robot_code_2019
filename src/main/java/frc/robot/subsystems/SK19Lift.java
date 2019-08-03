@@ -46,7 +46,6 @@ public class SK19Lift extends Subsystem
     public BaseProximitySensor                  BallSensor;
     public BaseAngleCANControlledArm            RobotArmAngled;
     public boolean                             ballOveride;
-    public BaseRoller                           transferRoller;
 
     /*  This is the lookup table for the required values for the elevator and arm. The first row is the double values that need to be converted to booleans for the elevator.
     *   The next row is the doubles required for the hatch placement. The third row is the doubles required for cargo placement.
@@ -67,7 +66,6 @@ public class SK19Lift extends Subsystem
     public SK19Lift()
     {
         // This is the declarations for the motor controllers, solenoids as well as the arm speed
-
 
         this.ArmMotor                    = new CANSparkMax(Ports.armRotateMotor, MotorType.kBrushless);
         this.octopusMotor                = new WPI_TalonSRX(Ports.octopusMotor);
@@ -264,7 +262,6 @@ public class SK19Lift extends Subsystem
             RobotHatch.retractHatchPiston();
         }
     }
-
 
     public boolean isHatchPusherExtended()
     {

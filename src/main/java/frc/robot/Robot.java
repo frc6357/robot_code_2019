@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 // import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -208,7 +207,7 @@ public class Robot extends TimedRobot
     public void testInit()
     {
         Intake.RollerArm.enable();
-
+        // TODO: Add this when we want to enable the PID controller on the arm motor.
         //Lift.RobotArmAngled.enable();
 
         oi.setMode(OI.Mode.TEST);
@@ -307,7 +306,6 @@ public class Robot extends TimedRobot
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
-
                 SmartDashboard.putData("Compresor Shutoff", new CompressorToggle());
                 break;
             }
