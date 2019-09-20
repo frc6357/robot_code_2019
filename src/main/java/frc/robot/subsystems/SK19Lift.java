@@ -37,6 +37,7 @@ public class SK19Lift extends Subsystem
     private DoubleSolenoid                      HatchDeploySolenoid;
     private BaseMotorizedArm                    robotArmMotorized;
     public CANEncoder                           armEncoder;
+    public BaseRoller                           transferRoller;
 
     private int                                 lastPosition;
     private int                                 cargoIndexSearch = 0;
