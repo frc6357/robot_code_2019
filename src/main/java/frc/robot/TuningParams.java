@@ -51,19 +51,16 @@ public class TuningParams
     public static final String liftPositionMiddle        = "MIDDLE";
     public static final String liftPositionUpper         = "UPPER";
 
-    // TODO: Tune lift arm PID coefficients. These are deliberately tiny to ensure we don't trash the arm
-    // during bringup!
-    public static final double LiftArmPValue             = 0.02;
+    // PID values for the arm
+    public static final double LiftArmPValue             = 0.01;
     public static final double LiftArmIValue             = 0.0;
     public static final double LiftArmDValue             = 0;
     public static final double LiftArmToleranceValue     = 0;
 
-    // TODO: Check this when we wire up the motor. If the PID controller diverges,
-    // set this to true and continue debug.
     public static final boolean LiftArmInvertMotor       = false;
 
     // In manual override mode, these are the angle setpoint limits for the arm.
-    public static final double LiftArmAngleMax           = 135.0;
+    public static final double LiftArmAngleMax           = 120.0;
     public static final double LiftArmAngleMin           = 0.0;
 
     // In test mode, when we set the arm motor speed directly from the joystick, this
@@ -81,25 +78,38 @@ public class TuningParams
     public static final boolean intakeArmInvertMotor     = true;
 
     // The speed of the intake and transfer roller motors when enabled.
-    public static final double intakeTransferMotorSpeed  = 0.25;
-    public static final double intakeIngestMotorSpeed    = 0.5;
+    public static final double intakeTransferMotorSpeed  = 1.0;
+    public static final double intakeIngestMotorSpeed    = 1.0;
     public static final double intakeArmMotorSpeed       = 0.25;
+
+    public static final double cargoIntakeDownLimit      = 1.0;
+    public static final double armCargoDeadband          = 5.0;
 
     // The angle (in degrees from the stowed position) to move the intake arm to
     // when deployed.
-    //  TODO: Tune intake arm angle to the correct value.
-    public static final double intakeArmDeployedAngle    = 120.0;
+    // TODO: Set deployed back to 120 when working again, set to 90 for now as a safety measure
+    public static final double intakeArmDeployedAngle    = 90.0;
     public static final double intakeArmStowedAngle      = 0.0;
+
+    public static final double intakeRollerFullSpeed     = 1.0;
+    public static final double intakeRollerStop          = 0.0;
 
     // **************************************
     // Cargo Deploy Subsystem (The "Octopus")
     // **************************************
 
     // The triggered state of the cargo detect sensor.
-    // TODO: Set this state according to the way the sensor is wired.
     public static final boolean octopusCargoDetectState  = true;
 
     // The fixed speed at which the octopus motor will run when turned on.
-    // TODO: Set this speed appropriately.
-    public static final double octopusMotorSpeed         = 0.25;
+    public static final double cargoPullInWaitTime       = 1.1;
+    public static final double octopusMotorSpeed         = -1.0;
+
+    // ***************************************
+    // Climb System
+    // ***************************************
+
+    public static final double climbWedgeServoLockPosition = 0.0;
+
+    public static final double climbWedgeServoUnlockPosition = 1.0;
 }

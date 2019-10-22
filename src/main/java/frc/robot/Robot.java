@@ -10,13 +10,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import edu.wpi.cscore.MjpegServer;
+// import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import frc.robot.commands.util.CompressorToggle;
 import frc.robot.subsystems.SK19CargoIntake;
+import frc.robot.subsystems.SK19Climb;
 import frc.robot.subsystems.SK19Drive;
 import frc.robot.subsystems.SK19Lift;
+// import frc.robot.subsystems.base.BaseRoller.Direction;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,18 +27,20 @@ import frc.robot.subsystems.SK19Lift;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
     private double driveLeft;
     private double driveRight;
     public static OI oi;
     public static UsbCamera camera;
     public static boolean cameraPrev = false;
-    public static MjpegServer Server;
+    //public static MjpegServer Server;
     private int m_DisplayUpdateCounter = 0;
 
     public static SK19Drive Drive = new SK19Drive();
     public static SK19CargoIntake Intake = new SK19CargoIntake();
     public static SK19Lift Lift = new SK19Lift();
+    public static SK19Climb Climb = new SK19Climb();
 
     // This is the number of periodic callbacks to skip between each update
     // of the smart dashboard data. With a value of 10, we update the smart
@@ -75,7 +79,7 @@ public class Robot extends TimedRobot {
         Drive.baseDrive.setLeftSpeed(0);
         Drive.baseDrive.setRightSpeed(0);
         Intake.RollerArm.disable();
-        Lift.RobotArmAngled.disable();
+        // Lift.RobotArmAngled.disable();
         PIDSEnabled = false;
     }
 
@@ -109,13 +113,12 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         oi.setMode(OI.Mode.MANUAL);
 
-        if (!PIDSEnabled) 
+        if (!PIDSEnabled)
         {
-            //Intake.RollerArm.enable();
-            Lift.RobotArmAngled.enable();
+            Intake.RollerArm.enable();
+            //Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
-            Lift.setZero();
-   
+            // Lift.setZero();
         }
     }
 
@@ -135,7 +138,7 @@ public class Robot extends TimedRobot {
         // must NOT do anything to change the state of the robot!
 
         if (!PIDSEnabled) {
-            //Intake.RollerArm.enable();
+            Intake.RollerArm.enable();
             Lift.RobotArmAngled.enable();
             PIDSEnabled = true;
             Lift.setZero();
@@ -164,45 +167,37 @@ public class Robot extends TimedRobot {
         // Operator updates. Left Y joystick controls the arm angle in MANUAL mode.
         if(mode == OI.Mode.MANUAL)
         {
-            double armPosAngle;
-            double operatorLeftY, operatorRBumper, operatorLBumper, operatorRY, operatorRX;
-            
+            // double armPosAngle;
+            double operatorLeftY, operatorLeftTrigger, operatorRTrigger;
+            double intakeSpeed;
+
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-            operatorRBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, true);
-            operatorLBumper = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
-            operatorRY = 90 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
-            operatorRX = 0.25 * oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
-            armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
+            double armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
             if(operatorLeftY > 0.9)
-                armPosAngle += 1.0;
+                armPosAngle += 2.0;
             if(operatorLeftY < -0.9)
-                armPosAngle -= 1.0;
+                armPosAngle -= 2.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
-            if (armPosAngle >= 69)
-            {
-                Lift.RobotArmAngled.setSetpoint(65);
-            }
-            else
-            {
-                Lift.RobotArmAngled.setSetpoint(armPosAngle);
-            }
+            
+            operatorLeftTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
+            operatorRTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, false);
 
-            Intake.ArmMotor.set(operatorRX);
-            Lift.setCargoRollerSpeed(operatorRBumper);
-            Intake.TestSetRollerSpeed(operatorLBumper);
-            // if (intakePosAngle >= 90)
-            //     Intake.RollerArm.setSetpoint(90);
-            // else
-            //     Intake.RollerArm.setSetpoint(intakePosAngle);
-            SmartDashboard.putNumber("Roller Speed", operatorLBumper);
-            SmartDashboard.putNumber("Intake Arm Position", operatorRY);
-            // Lift.testSetArmPositionMotorSpeed(operatorLeftY / TuningParams.LiftArmTestSpeedDivider);
+            intakeSpeed = (operatorLeftTrigger - operatorRTrigger);
+            System.out.println("Intake Speed" + intakeSpeed);
 
+            //Lift.testSetArmPositionMotorSpeed(operatorLeftY / 4);
+
+            /*if(intakeSpeed != 0 && Lift.OctopusRoller.getDirection() == Direction.STOPPED)
+            {
+                Lift.OctopusRoller.setSpeed(intakeSpeed);
+            }*/
+
+            Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 
         // Housekeeping
-        Lift.periodic();
+        // Lift.periodic();
     }
 
     /**
@@ -212,7 +207,6 @@ public class Robot extends TimedRobot {
     public void testInit()
     {
         Intake.RollerArm.enable();
-
         // TODO: Add this when we want to enable the PID controller on the arm motor.
         //Lift.RobotArmAngled.enable();
 
@@ -227,7 +221,7 @@ public class Robot extends TimedRobot {
     @Override
     public void testPeriodic() {
         double driveLeft, driveRight;
-        double operatorLeftY, operatorRightY, operatorLeftX;
+        double operatorLeftY, operatorRightY;
 
         Scheduler.getInstance().run();
 
@@ -236,7 +230,8 @@ public class Robot extends TimedRobot {
 
         operatorRightY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRY, true);
         operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-        operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
+        // operatorLeftX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLX, true);
+        // operatorRightX = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickRX, true);
 
         Drive.baseDrive.setLeftSpeed(driveLeft); // Listens to input and drives the robot
         Drive.baseDrive.setRightSpeed(driveRight);
@@ -288,9 +283,9 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
                 SmartDashboard.putBoolean("Hatch Locked", Lift.isHatchGripperLocked());
                 SmartDashboard.putBoolean("Hatch Pusher", Lift.isHatchPusherExtended());
-                SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
-                SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
-                SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
+                //SmartDashboard.putBoolean("Elevator Solenoid", Lift.getElevatorCommandedPosition());
+                //SmartDashboard.putBoolean("Elevator Top", Lift.isElevatorUp());
+                //SmartDashboard.putBoolean("Elevator Bottom", Lift.isElevatorDown());
                 break;
             }
 
@@ -311,6 +306,7 @@ public class Robot extends TimedRobot {
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
+                //SmartDashboard.putData("Compresor Shutoff", new CompressorToggle());
                 break;
             }
         }

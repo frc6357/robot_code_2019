@@ -12,7 +12,7 @@ public class BaseRoller
     private double speed = 1.0;
     private double currentSpeed = 0.0;
     public static enum Direction { BACKWARD, STOPPED, FORWARD };
-    private Direction directionReader;
+    public Direction directionReader;
 
     /**
      *  Constructor:
@@ -35,7 +35,7 @@ public class BaseRoller
      * 
      *  Creates the base class for any rollers
      * 
-     *  @param motorController
+    //  *  @param motorController
      *      - Type: Motor Controller
      *      - Used to control the speed of the motor
      * 
@@ -47,7 +47,6 @@ public class BaseRoller
     {
         this.motorController = motorController;
         this.speed = speed;
-        setSpeed(0);
     }
 
     /**

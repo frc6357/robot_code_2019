@@ -5,42 +5,37 @@ import frc.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * A command which executes until cargo either detected in or removed from the intake area.
+ * A class supporting timed delays. This is intended for use in
+ * command groups where a delay is required between adjacent commands.
  */
-public class IntakeWaitForCargoCommand extends Command
+public class DelayCommand extends Command
 {
-    private OI.Mode mode;
-    
-    /**
-     *
-     * @param mode - the operating mode in which this command must run.
-     */
-    public IntakeWaitForCargoCommand(OI.Mode mode)
+    private int msDelay;
+    private int msToGo;
+    private final int msPerPeriodic = 20;
+
+    public DelayCommand(int msDelay)
     {
-        requires(Robot.Lift);
-
-        this.mode       = mode;
+        this.msDelay = msDelay;
     }
-
+  
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        msToGo = msDelay;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        // Only execute this if we're in the correct mode.
-        if(mode != Robot.oi.getMode())
-            return;
-        Robot.Lift.setBallOveride(!Robot.Lift.ballOveride);
+        msToGo -= msPerPeriodic;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return true;
+        return (msToGo <= 0);
     }
 
     // Called once after isFinished returns true

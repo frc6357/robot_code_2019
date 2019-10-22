@@ -31,8 +31,8 @@ public class SK19CargoIntake extends Subsystem
     //public SpeedController        TransferMotorRight;
     public ScaledEncoder          ArmEncoder;
 
-    double                 TransferMotorSpeed = 0.0;
-    double                 RollerSpeed        = 0.0;
+    double                        TransferMotorSpeed = 0.0;
+    double                        RollerSpeed        = 0.0;
 
     /**
      * Constructor for the cargo intake mechanism.
@@ -106,7 +106,7 @@ public class SK19CargoIntake extends Subsystem
      */
     public void stowCargoIntake()
     {
-        RollerArm.moveToAngleDegrees(0.0);
+        RollerArm.moveToAngleDegrees(TuningParams.intakeArmStowedAngle);
         RollerSpeed = 0.0;
         RollerMotor.set(RollerSpeed);
     }

@@ -5,12 +5,11 @@
 
 package frc.robot;
 
+import frc.robot.OI;
 import frc.robot.commands.*;
-import frc.robot.commands.test.*;
+// import frc.robot.commands.test.*;
 import frc.robot.utils.FilteredJoystick;
 import frc.robot.utils.filters.*;
-
-
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,6 +62,9 @@ public class OI
     private static Button buttonOperatorLeftBumper;
     public static Button buttonOperatorRightBumper;
     private static Button buttonOperatorStart;
+    private static Button buttonOperatorLeftStick;
+    private static Button buttonOperatorRightStick;
+    private static Button buttonOperatorBack;
 
     // Currently unused...
     //private static Button buttonOperatorLeftStick;
@@ -73,13 +75,8 @@ public class OI
 
 
     private static Mode oiMode = Mode.NONE;
-
-    //private static ModeSelect modeToggle = new ModeSelect();
-
     private static GearShiftCommand shiftLow = new GearShiftCommand(false);
     private static GearShiftCommand shiftHigh = new GearShiftCommand(true);
-
-    //private static IntakeCancelCommand intakeCancel = new IntakeCancelCommand(OI.Mode.NORMAL);
 
     public OI()
     {
@@ -111,13 +108,16 @@ public class OI
         buttonOperatorLeftBumper  = new JoystickButton(joystickOperator, Ports.OIOperatorLeftBumper);
         buttonOperatorRightBumper = new JoystickButton(joystickOperator, Ports.OIOperatorRightBumper);
         buttonOperatorStart       = new JoystickButton(joystickOperator, Ports.OIOperatorStart);
+        buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
+        buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
         // Currently unused.
-        //buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
+        buttonOperatorBack        = new JoystickButton(joystickOperator, Ports.OIOperatorBack);
         //buttonOperatorLeftStick   = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickL);
         //buttonOperatorRightStick  = new JoystickButton(joystickOperator, Ports.OIOperatorJoystickR);
 
         // Test mode command bindings.
+        /*
         buttonOperatorRightBumper.whenPressed(new TestIntakeMoveArm(OI.Mode.TEST, true, true));
         buttonOperatorRightBumper.whenReleased(new TestIntakeMoveArm(OI.Mode.TEST, true, false));
         buttonOperatorX.whenPressed(new ToggleIntakeRollerCommand(OI.Mode.TEST));
@@ -127,39 +127,30 @@ public class OI
         buttonOperatorY.whenPressed(new TestElevatorMove(OI.Mode.TEST, true));
         buttonOperatorLeftBumper.whenPressed(new TestGrabHatchToggle(OI.Mode.TEST));
         buttonOperatorStart.whenPressed(new TestToggleHatchDeploy(OI.Mode.TEST));
+        */
 
         // Manual mode command bindings.
-        //buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
-        //\buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
-
-        //buttonOperatorB.whenPressed(new RunOctopusRollerCommand(OI.Mode.MANUAL, true));
-        //buttonOperatorB.whenReleased(new RunOctopusRollerCommand(OI.Mode.MANUAL, false));
-
         buttonOperatorX.whenPressed(new GrabHatchCommand(OI.Mode.MANUAL, false));
         buttonOperatorX.whenReleased(new GrabHatchCommand(OI.Mode.MANUAL, true));
 
-        // buttonOperatorRightBumper.whenPressed(new DeployIntakeCommand(OI.Mode.MANUAL, true));
-        // buttonOperatorRightBumper.whenReleased(new DeployIntakeCommand(OI.Mode.MANUAL, false));
+        // buttonOperatorB.whenPressed(new CargoIntakeSystem(OI.Mode.MANUAL));
+        // buttonOperatorLeftStick.whenPressed(new IntakeDummyCommand(OI.Mode.MANUAL));
 
-        buttonOperatorB.whenPressed(new DelayStopCargoCommand(OI.Mode.MANUAL));
+        // buttonOperatorRightStick.whenPressed(new CargoTransferPullIn(OI.Mode.MANUAL));
+
+        // buttonOperatorLeftBumper.whenPressed(new CargoOutput(OI.Mode.MANUAL));
 
         buttonOperatorRightBumper.whenPressed(new DeployHatchCommand(OI.Mode.MANUAL, true));
         buttonOperatorRightBumper.whenReleased(new DeployHatchCommand(OI.Mode.MANUAL, false));
 
-        //buttonOperatorA.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 80, true));
+        buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
 
-        //buttonOperatorY.whenPressed(new IntakeArmPositionCommand(OI.Mode.MANUAL, 0, false));
+        // buttonOperatorA.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, true));
+        // buttonOperatorY.whenPressed(new ElevatorPositionCommand(OI.Mode.MANUAL, false));
 
-        // Nornmal mode command bindings
-        /*buttonOperatorA.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionLower));
-
-        buttonOperatorB.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionMiddle));
-
-        buttonOperatorY.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionUpper));
-
-        buttonOperatorRightBumper.whenPressed(new ElevatorAndArmPositionCommand(OI.Mode.NORMAL, TuningParams.liftPositionStow));
-
-        buttonOperatorX.whenPressed(new IntakeCommandGroup(OI.Mode.NORMAL));*/
+        //buttonOperatorStart.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, true));
+        //buttonOperatorBack.whenPressed(new IntakePullThrough(OI.Mode.MANUAL, false));
     }
 
     /**

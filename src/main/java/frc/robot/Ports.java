@@ -28,8 +28,6 @@ public class Ports
     // All standard DIOs (on RoboRIO and MXP) are pulled up to 3.3V.
     //
 
-    private static final int _5 = 5;
-
     // ***************************
     // Pneumatic Control Module(s)
     // ***************************
@@ -83,7 +81,7 @@ public class Ports
     public static final int elevatorUp                   = 1;    // PCM 1 output 1
 
     public static final int elevatorProximityUp          = 47;
-    public static final int elevatorProximityDown        = 6;    // DIO input 6
+    public static final int elevatorProximityDown        = 5;    // DIO input 5
 
     //
     // Arm components
@@ -114,14 +112,13 @@ public class Ports
 
     // The resolution of the encoder attached to the intake arm.
     public static final int intakeArmEncoderPulsesPerRev = 1024;
-
     // IR proximity detector to detect presence of ball immediately after ingest.
 
     // TODO: The mechanism to move the cargo from the initial intake to the
     // "octopus" must be finalized! The following definitions are likely
     // incorrect.
-    public static final int intakeTransferMotorLeft      = 22;   // CAN ID 22
-    public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
+    public static final int intakeTransferMotor          = 22;   // CAN ID 22
+    //public static final int intakeTransferMotorRight     = 23;   // CAN ID 23
 
     // This is an IR proximity sensor detecting the presence of cargo between the transfer
     // rollers.
@@ -137,7 +134,7 @@ public class Ports
     // **************************************
     public static final int octopusMotor                 = 30; // CAN ID 30
 
-    public static final int octopusCargoDetect           = 5;   // DIO input 13
+    public static final int octopusCargoDetect           = 6;   // DIO input 6
     public static final boolean octopusCargoDetectPresent     = true; // State when present
 
     // ***************
@@ -145,9 +142,15 @@ public class Ports
     // ***************
     public static final int climbPCM                     = pcm1;
 
-    public static final int climbTiltDeploy              = 7;    // PCM 1 channel 7
 
-    public static final int climbMotor                   = 40;   // CAN ID 40
+    public static final int climbLiftFront               = 7;    // PCM 1 channel 7
+    public static final int climbLiftBack                = 6;    // PCM 1 channel 6
+
+    public static final int climbWedgeLockServo          = 7;    // DIO 7
+
+    // Front wedge motors
+    public static final int climbWedgeWheelMotorRight     = 40;   // CAN ID 40
+    public static final int climbWedgeWheelMotorLeft      = 41;   // CAN ID 41
 
     //
     // Driver's and operator's OI channel assignments
