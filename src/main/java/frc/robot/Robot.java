@@ -172,28 +172,28 @@ public class Robot extends TimedRobot
             double intakeSpeed;
 
             operatorLeftY = oi.getOperatorJoystickValue(Ports.OIOperatorJoystickLY, true);
-            // armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
-            /*/if(operatorLeftY > 0.9)
+            double armPosAngle = Lift.RobotArmAngled.getArmSetpoint();
+            if(operatorLeftY > 0.9)
                 armPosAngle += 2.0;
             if(operatorLeftY < -0.9)
                 armPosAngle -= 2.0;
             armPosAngle = Math.min(TuningParams.LiftArmAngleMax, armPosAngle);
             armPosAngle = Math.max(TuningParams.LiftArmAngleMin, armPosAngle);
-            */
+            
             operatorLeftTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerLJoystick, false);
             operatorRTrigger = oi.getOperatorJoystickValue(Ports.OIOperatorTriggerRJoystick, false);
 
             intakeSpeed = (operatorLeftTrigger - operatorRTrigger);
             System.out.println("Intake Speed" + intakeSpeed);
 
-            Lift.testSetArmPositionMotorSpeed(operatorLeftY / 4);
+            //Lift.testSetArmPositionMotorSpeed(operatorLeftY / 4);
 
             /*if(intakeSpeed != 0 && Lift.OctopusRoller.getDirection() == Direction.STOPPED)
             {
                 Lift.OctopusRoller.setSpeed(intakeSpeed);
             }*/
 
-            // Lift.RobotArmAngled.setSetpoint(armPosAngle);
+            Lift.RobotArmAngled.setSetpoint(armPosAngle);
         }
 
         // Housekeeping
@@ -306,7 +306,7 @@ public class Robot extends TimedRobot
                 SmartDashboard.putBoolean("Cargo Ready", Lift.isCargoPresent());
 
                 SmartDashboard.putBoolean("Hatch Set", Lift.isHatchPresent());
-                SmartDashboard.putData("Compresor Shutoff", new CompressorToggle());
+                //SmartDashboard.putData("Compresor Shutoff", new CompressorToggle());
                 break;
             }
         }
